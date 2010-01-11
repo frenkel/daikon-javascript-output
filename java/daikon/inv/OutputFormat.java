@@ -22,6 +22,8 @@ public enum OutputFormat {
   JAVA("Java"),
   /** Java Modeling Language */
   JML("JML"),
+  /** JavaScript boolean expressions */
+  JAVASCRIPT("JavaScript"),
   /** Simplify theorem prover */
   SIMPLIFY("Simplify");
 
@@ -50,6 +52,7 @@ public enum OutputFormat {
     if (name.compareToIgnoreCase("ESC") == 0) { return ESCJAVA; }
     if (name.compareToIgnoreCase(JAVA.name) == 0) { return JAVA; }
     if (name.compareToIgnoreCase(JML.name) == 0) { return JML; }
+    if (name.compareToIgnoreCase(JAVASCRIPT.name) == 0) { return JAVASCRIPT; }
     if (name.compareToIgnoreCase(SIMPLIFY.name) == 0) { return SIMPLIFY; }
     // return null;
     throw new Error("Unknown OutputFormat " + name);
