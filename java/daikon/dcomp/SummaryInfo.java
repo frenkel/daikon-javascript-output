@@ -20,8 +20,6 @@ import org.apache.bcel.verifier.*;
 import org.apache.bcel.verifier.structurals.*;
 import daikon.util.BCELUtil;
 
-import org.apache.commons.io.*;
-
 
 /**
  * Information about DF summary routines.  These routines are called in

@@ -1,3 +1,5 @@
+package gnu.getopt;
+
 import gnu.getopt.LongOpt;
 import gnu.getopt.Getopt;
 
