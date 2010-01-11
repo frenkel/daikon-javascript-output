@@ -1,0 +1,1200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on December, 19 2009 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>The Daikon Invariant Detector User Manual: 8. Tools for use with Daikon</title>
+
+<meta name="description" content="The Daikon Invariant Detector User Manual: 8. Tools for use with Daikon">
+<meta name="keywords" content="The Daikon Invariant Detector User Manual: 8. Tools for use with Daikon">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Tools"></a>
+<a name="SEC111"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="daikon_7.html#SEC110" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC112" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 8. Tools for use with Daikon </h1>
+
+<p>This chapter describes various tools that are included with the Daikon
+distribution.
+</p><table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC112">8.1 Tools for manipulating invariants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC122">8.2 DtraceDiff utility</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Tools-for-manipulating-invariants"></a>
+<a name="SEC112"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC111" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC113" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 8.1 Tools for manipulating invariants </h2>
+
+
+<p>This section gives information about tools that manipulate invariants
+(in the form of <tt>`.inv'</tt> files).
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC113">8.1.1 Printing invariants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC114">8.1.2 MergeInvariants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC115">8.1.3 Invariant Diff</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC116">8.1.4 Annotate</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                    
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC117">8.1.5 AnnotateNullable</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC118">8.1.6 Runtime-check instrumenter (runtimechecker)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC120">8.1.7 InvariantChecker</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC121">8.1.8 LogicalCompare</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="Printing-invariants"></a>
+<a name="SEC113"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC112" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC114" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC112" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 8.1.1 Printing invariants </h3>
+
+
+<p>Daikon provides many options for controlling how invariants are printed.
+Often, you may want to print the same set of invariants several
+different ways.  However, you only want to run Daikon once, since it may
+be very time consuming.  The PrintInvariants utility prints a set of
+invariants from a <tt>`.inv'</tt> file.
+</p>
+<p>PrintInvariants is invoked as follows:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.PrintInvariants <i>[<var>flags</var>]</i> <var>inv-file</var>
+</pre></td></tr></table>
+<p>PrintInvariants shares many flags with Daikon.
+These flags are only briefly summarized here.
+For more information about these flags, see <a href="daikon_4.html#SEC32">Daikon configuration options</a>.
+</p>
+<dl compact="compact">
+<dt> <samp>`--help'</samp></dt>
+<dd><p>Print usage message.
+</p>
+</dd>
+<dt> <samp>`--format <var>name</var>'</samp></dt>
+<dd><p>Produce output in the given format.  See <a href="daikon_5.html#SEC35">Invariant syntax</a>.
+</p>
+</dd>
+<dt> <samp>`--output_num_samples'</samp></dt>
+<dd><p>Output numbers of values and samples for invariants and program points;
+for debugging.
+</p>
+</dd>
+<dt> <samp>`--ppt-select-pattern'</samp></dt>
+<dd><p>Only outputs program points that match the specified regular expression
+</p>
+</dd>
+<dt> <samp>`--config <var>filename</var>'</samp></dt>
+<dd><p>Load the configuration settings specified in the given file.
+See section <a href="daikon_6.html#SEC46">Configuration options</a>, for details.
+</p>
+</dd>
+<dt> <samp>`--config_option <var>name</var>=<var>value</var>'</samp></dt>
+<dd><p>Specify a single configuration setting.
+See section <a href="daikon_6.html#SEC46">Configuration options</a>, for details.
+</p>
+</dd>
+<dt> <samp>`--dbg <var>category</var>'</samp></dt>
+<dt> <samp>`--debug'</samp></dt>
+<dd><p>Enable debug loggers.
+</p>
+</dd>
+<dt> <samp>`--track <var>class</var>&lt;<var>var1</var>,<var>var2</var>,<var>var3</var>&gt;@<var>ppt</var>'</samp></dt>
+<dd><p>Track information on specified invariant class, variables and program point.
+For more information, also see <a href="..//Track-logging.html#Track-logging">(./developer)Track logging</a> section `Track logging' in <cite>Daikon Developer Manual</cite>.
+</p>
+</dd>
+</dl>
+
+
+<hr size="6">
+<a name="MergeInvariants"></a>
+<a name="SEC114"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC113" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC115" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC112" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 8.1.2 MergeInvariants </h3>
+
+
+<p>The MergeInvariants utility merges multiple serialized invariant files
+to create a single serialized invariant file that contains the
+invariants that are true across each of the input files.  The results
+of merging N serialized invariant files should be the same as running
+Daikon on the N original dtrace files.
+</p>
+<p>MergeInvariants is invoked as follows:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.MergeInvariants <i>[<var>flags</var>]...</i> <var>file1</var> <var>file2</var>...
+</pre></td></tr></table>
+<p><var>file1</var> and <var>file2</var> are files containing serialized invariants
+produced by running Daikon.  At least two invariant files must be specified.
+</p>
+<p>MergeInvariants shares many flags with Daikon.
+These flags are only briefly summarized here.
+For more information about these flags, see <a href="daikon_4.html#SEC32">Daikon configuration options</a>.
+</p>
+<dl compact="compact">
+<dt> <samp>`-h --help'</samp></dt>
+<dd><p>Print usage message.
+</p>
+</dd>
+<dt> <samp>`-o <var>inv_file</var>'</samp></dt>
+<dd><p>Output serialized invariants to the specified file; they can later be
+postprocessed, compared, etc.  If not specified, the results are written
+to standard out.
+</p>
+</dd>
+<dt> <samp>`--config_option <var>name</var>=<var>value</var>'</samp></dt>
+<dd><p>Specify a single configuration setting.
+See section <a href="daikon_6.html#SEC46">Configuration options</a>, for details.
+</p>
+</dd>
+<dt> <samp>`--dbg <var>category</var>'</samp></dt>
+<dd><p>Enable debug loggers.
+</p>
+</dd>
+<dt> <samp>`--track <var>class</var>&lt;<var>var1</var>,<var>var2</var>,<var>var3</var>&gt;@<var>ppt</var>'</samp></dt>
+<dd><p>Track information on specified invariant class, variables and program point.
+For more information, also see <a href="..//Track-logging.html#Track-logging">(./developer)Track logging</a> section `Track logging' in <cite>Daikon Developer Manual</cite>.
+</p></dd>
+</dl>
+
+
+<hr size="6">
+<a name="Invariant-Diff"></a>
+<a name="SEC115"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC114" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC116" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC112" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 8.1.3 Invariant Diff </h3>
+
+
+<p>The invariant diff utility is designed to output the differences between
+two sets of invariants.  This is useful, for example, if you want to
+compare the invariants generated by two versions of the same program.
+</p>
+<p>Invariant diff is invoked as follows:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.diff.Diff <i>[<var>flags</var>]...</i> <var>file1</var> [<var>file2</var>]
+</pre></td></tr></table>
+<p><var>file1</var> and <var>file2</var> are files containing serialized invariants
+produced by running Daikon or Diff
+with the <samp>`-o'</samp> flag.  If <var>file2</var> is not specified,
+<var>file1</var> is compared with the empty set of invariants.
+</p>
+<p>This section describes the optional flags.
+</p>
+<dl compact="compact">
+<dt> <samp>`--help'</samp></dt>
+<dd><p>Print usage message.
+</p>
+</dd>
+<dt> <samp>`-d'</samp></dt>
+<dd><p>Display the tree of differing invariants (default).  Invariants that are
+the same in <var>file1</var> and <var>file2</var> are not printed.  At least one of the
+invariants must be justified.  Does not print &quot;uninteresting&quot; invariants
+(currently some OneOf and Bound invariants).
+</p>
+</dd>
+<dt> <samp>`-u'</samp></dt>
+<dd><p>Include &quot;uninteresting&quot; invariants in the tree of differing invariants.
+</p>
+</dd>
+<dt> <samp>`-y'</samp></dt>
+<dt> <samp>`--ignore_unjustified'</samp></dt>
+<dd><p>Include (statistically) unjustified invariants.
+</p>
+</dd>
+<dt> <samp>`-a'</samp></dt>
+<dd><p>Display the tree of all invariants.  Includes invariants that are the
+same in file1 and file2, and unjustified invariants.
+</p>
+</dd>
+<dt> <samp>`-s'</samp></dt>
+<dd><p>For internal use only.  Display the statistics between two sets of
+invariants.  The pairs of invariants are placed in bins according to the
+type of the invariant and the type of the difference.
+</p>
+</dd>
+<dt> <samp>`-t'</samp></dt>
+<dd><p>For internal use only.  Display the same statistics as <samp>`-s'</samp>, but as a
+tab-separated list.
+</p>
+</dd>
+<dt> <samp>`-m'</samp></dt>
+<dd><p>Compute (<var>file1</var> - <var>file2</var>).  This is all the invariants that appear in
+<var>file1</var> but not <var>file2</var>.  Unjustified invariants are treated as if they
+don't exist.  Output is written as a serialized InvMap to the file
+specified with the <samp>`-o'</samp> option.  To view the contents of the serialized
+InvMap, run <code>java daikon.diff.Diff <var>file</var></code>.
+</p>
+</dd>
+<dt> <samp>`-x'</samp></dt>
+<dd><p>Compute (<var>file1</var> XOR <var>file2</var>).
+This is all the invariants that appear in
+one file but not the other.  Unjustified invariants are treated as if
+they don't exist.  Output is written as a serialized InvMap to the file
+specified with the <samp>`-o'</samp> option.  To view the contents of the serialized
+InvMap, run <code>java daikon.diff.Diff <var>file</var></code>.
+</p>
+</dd>
+<dt> <samp>`-n'</samp></dt>
+<dd><p>Compute (<var>file1</var> UNION <var>file2</var>).
+This is all the invariants that appear in
+either file.  If the same invariant appears in both files, the one with
+the better justification is chosen.  Output is written as a serialized
+InvMap to the file specified with the <samp>`-o'</samp> option.  To view the contents
+of the serialized InvMap, run <code>java daikon.diff.Diff <var>file</var></code>.
+</p>
+</dd>
+<dt> <samp>`-o <var>inv_file</var>'</samp></dt>
+<dd><p>Used in combination with the <samp>`-m'</samp> or <samp>`-x'</samp> option.  Writes
+the output as a serialized InvMap to the specified file.
+</p>
+</dd>
+<dt> <samp>`-j'</samp></dt>
+<dd><p>For internal use only.  Treat justification as a continuous value when
+gathering statistics.  By default, justification is treated as
+a binary value -- an invariant is either justified or it is not.  For
+example, assume invariant I1 has a probability of .01, and I2 has a
+probability of .5.  By default, this will be a difference of 1,
+since I1 is justified but I2 is not.  With this option, this will be a
+difference of .49, the difference in the probabilities.  This only
+applies when one invariant is justified, and the other is unjustified.
+</p>
+</dd>
+<dt> <samp>`-p'</samp></dt>
+<dd><p>Examine all program points.  By default, only procedure entries and
+combined procedure exits are examined.  This option also causes
+conditional program points to be examined.
+</p>
+</dd>
+<dt> <samp>`-e'</samp></dt>
+<dd><p>Print empty program points.  By default, program points are not printed
+if they contain no differences.
+</p>
+</dd>
+<dt> <samp>`-v'</samp></dt>
+<dd><p>Verbose output.  Invariants are printed using the <code>repr()</code> method, instead
+of the <code>format()</code> method.
+</p>
+</dd>
+<dt> <samp>`-l'</samp></dt>
+<dd><p>For debugging use only.  Prints logging information describing the state
+of the program as it runs.
+</p>
+</dd>
+<dt> <samp>`--invSortComparator1 <var>classname</var>'</samp></dt>
+<dt> <samp>`--invSortComparator2 <var>classname</var>'</samp></dt>
+<dt> <samp>`--invPairComparator <var>classname</var>'</samp></dt>
+<dd><p>Use the specified class as a custom comparator.  A custom comparator can
+be used for any of 3 operations: sorting the first set of invariants,
+sorting the second set of invariants, and combining the two sets into
+the pair tree.  The specified class must implement the Comparator
+interface, and accept objects of type Invariant.
+</p>
+</dd>
+</dl>
+
+
+<hr size="6">
+<a name="Annotate"></a>
+<a name="SEC116"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC115" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC117" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC112" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 8.1.4 Annotate </h3>
+
+
+<p>The Annotate program inserts Daikon-generated invariants into Java
+source code as annotations in  DBC, ESC, Java or JML format.
+These annotations are comments that can be automatically verified or
+otherwise manipulated by other tools.
+The Daikon website has an example of code after invariant
+insertion:  <a href="http://pag.csail.mit.edu/daikon/StackAr.html">http://pag.csail.mit.edu/daikon/StackAr.html</a>.
+</p>
+<p>Invoke Annotate like this:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.tools.jtb.Annotate Myprog.inv Myprog.java Myprog2.java ...
+</pre></td></tr></table>
+<p>The first argument is a Daikon <tt>`.inv'</tt> or <tt>`.inv.gz'</tt> file
+produced by running
+Daikon with the <samp>`-o'</samp> command-line argument.  All subsequent
+arguments are <tt>`.java'</tt> files.  The original <tt>`.java'</tt> files are left
+unmodified, but Annotate produces new versions of the <tt>`.java'</tt> files
+(with names suffixed as <tt>`-escannotated'</tt>, <tt>`-jmlannotated'</tt>, or
+<tt>`-dbcannotated'</tt>) that include the Daikon invariants as comments.
+</p>
+<p>The options are:
+</p><dl compact="compact">
+<dt> <samp>`--format <var>name</var>'</samp></dt>
+<dd><p>Produce output in the given format.  See <a href="daikon_5.html#SEC35">Invariant syntax</a>.
+</p>
+</dd>
+<dt> <samp>`--no_reflection'</samp></dt>
+<dd><p>Do not use reflection to find information about the classes being
+instrumented.  This allows Annnotate to run without having access
+to the class files.  Since the class files are necessary to generate &quot;also&quot;
+tags, those tags will be left out when this option is chosen.
+</p>
+</dd>
+<dt> <samp>`--max_invariants_pp <var>count</var>'</samp></dt>
+<dd><p>Output at most <var>count</var> invariants per program point (which ones are chosen
+is not specified).
+</p>
+</dd>
+<dt> <samp>`--wrap_xml'</samp></dt>
+<dd><p>Each invariant is printed using the given format (ESC, JML or DBC),
+but the invariant expression is wrapped inside XML tags, along with other
+information about the invariant.
+</p>
+<p>For example, if this switch is set, the output format is ESC,
+and an invariant for method <code>foo(int x)</code> normally prints as
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">/*&nbsp;requires x != 0; */
+</pre></td></tr></table>
+<p>Then the resulting output will look something like this (all
+in one line; we break it up here for clarity):
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">/*&nbsp;requires &lt;INVINFO&gt;
+&lt;INV&gt; x != 0 &lt;/INV&gt;
+&lt;SAMPLES&gt; 100 &lt;/SAMPLES&gt;
+&lt;DAIKON&gt; x != 0 &lt;/DAIKON&gt;
+&lt;DAIKONCLASS&gt; daikon.inv.unary.scalar.NonZero &lt;/DAIKONCLASS&gt;
+&lt;METHOD&gt; foo() &lt;/METHOD&gt;
+&lt;/INVINFO&gt; ; */
+</pre></td></tr></table>
+<p>Note that the comment will no longer be a legal ESC/JML/DBC
+comment.  To make it legal again, you must replace the XML tags with
+the string between the &lt;INV&gt; tag.
+</p>
+<p>Also note the extra information printed with the invariant: the number
+of samples from which the invariant was inferred, the Daikon
+representation (i.e., the Daikon output format), the Java class that
+the invariant corresponds to, and the method that the invariant
+belongs to (<code>null</code> for object invariants).
+</p>
+</dd>
+</dl>
+
+<a name="IDX116"></a>
+<a name="IDX117"></a>
+<p>If Annotate issues a warning message of the form
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  Warning: Annotate: Daikon knows nothing about field ...
+</pre></td></tr></table>
+<p>then the Annotate tool found a variable in the source code that is was
+computed by Daikon.  This can happen if Daikon was run omitting the
+variable, for instance due to -std-visibility.  It can also happen due
+to a bug in Annotate or Daikon; if that is the case, please report it to
+the Daikon developers.
+</p>
+<p><strong>Known bug (logical shift in Java).</strong>
+Daikon's Java parser (adopted from javacc and JTB) accepts Java 1.5 syntax.
+An error in the new parser
+may produce illegal Java in the annotated file, if the source file to be
+annotated includes logical shift operators. See section <a href="daikon_9.html#SEC144">Known bugs</a>.
+</p>
+
+<hr size="6">
+<a name="AnnotateNullable"></a>
+<a name="SEC117"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC116" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC118" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC112" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 8.1.5 AnnotateNullable </h3>
+
+
+<p>AnnotateNullable determines which variables in a Java program were ever
+null during execution.  Its primary use is for performing inference for
+a type system that detects null dereference errors.  An example is the
+Nullness checker that is part of the
+<a href="http://types.cs.washington.edu/checker-framework/">Checker Framework</a>.
+</p>
+<p>The Nullness checker requires a programmer to annotate some references
+with <code>@Nullable</code>, meaning the variable might be null; references
+that are left unannotated are never null at run time.  (Alternately, the
+checker can use <code>@NonNull</code> for references that are never
+null, and leave unannotated for references that might be null.  The
+Nullness checker supports either choice of default.)  The checker
+then warns the programmer about possible null dereference errors.
+</p>
+<p>The Nullness checker is useful, but writing all the annotations is tedious.
+The AnnotateNullable tool automatically and soundly determines a subset of the
+proper <code>@Nullable</code> annotations.  Each annotation that it infers is
+correct.  The programmer may need to write some additional
+<code>@Nullable</code> annotations, but that is much easier than writing them all.
+</p>
+<p>To insert <code>@Nullable</code> annotations in your program,
+follow these steps:
+</p>
+<ol>
+<li>
+Run your application one or more times to create a trace file.  As
+always, the runs should exercise the application as thoroughly as
+possible.  No incorrect <code>@Nullable</code> annotations are ever produced,
+but more thorough runs produce a larger number of <code>@Nullable</code>
+annotations.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Chicory --dtrace-file=an.dtrace.gz <em>your-command-and-options</em>
+</pre></td></tr></table>
+</li><li> Run Daikon on the resulting .dtrace file:
+
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Daikon an.dtrace.gz --no_text_output --config <var>daikondir</var>/java/daikon/annotate_nullable.config
+</pre></td></tr></table>
+<p>The example uses the <tt>`annotate_nullable.config'</tt> configuration file
+that is included in the Daikon distribution.
+You may use any configuration file, or none, as long as the NonZero
+invariant is enabled.  The <tt>`annotate_nullable.config'</tt> enables
+<em>only</em> the NonZero invariant.  This makes Daikon run much faster,
+but the resulting <tt>`.inv'</tt> file is useful only for the
+AnnotateNullable tool.
+</p>
+
+</li><li>
+Run the AnnotateNullable tool to create an annotation index file.
+AnnotateNullable writes its output to standard out, so you should
+redirect its output to a <tt>`.jaif'</tt> file.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.AnnotateNullable an.inv.gz &gt; nullable-annotations.jaif
+</pre></td></tr></table>
+</li><li>
+Use the
+<a href="http://types.cs.washington.edu/annotation-file-utilities/">Annotation File Utilities</a> to insert the annotations in your .class or .java
+file.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">insert-annotations <var>mypackage.MyClass</var> nullable-annotations.jaif
+insert-annotations-to-source nullable-annotations.jaif mypackage/MyClass.java annotated/mypackage/MyClass.java
+</pre></td></tr></table>
+</li></ol>
+
+
+<p>AnnotateNullable is invoked as follows:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.AnnotateNullable <i>[<var>flags</var>]</i> <var>inv-file</var>
+</pre></td></tr></table>
+<p>The flags are:
+</p>
+<dl compact="compact">
+<dt> <samp>`-n --nonnull-annotations'</samp></dt>
+<dd><p>Adds NonNull annotations as well as Nullable annotations.  Unlike Nullable
+annotations, NonNull annotations are not guaranteed to be correct.
+</p>
+</dd>
+</dl>
+
+
+<hr size="6">
+<a name="Runtime_002dcheck-instrumenter"></a>
+<a name="SEC118"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC117" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC119" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC112" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 8.1.6 Runtime-check instrumenter (runtimechecker) </h3>
+
+
+<p>The runtimechecker instrumenter inserts, into a Java file,
+instrumentation code that checks invariants as the program executes.
+For a full list of options, run:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.tools.runtimechecker.Main help
+</pre></td></tr></table>
+<p>The <code>instrument</code> command to runtimechecker creates a new directory
+<tt>`instrumented-classes'</tt> containing a new version of the
+user-specified Java files, instrumented to check invariants at runtime
+and to record a list of invariant violations in a Java data structure.
+</p>
+<p>Note that the instrumented program does not do anything with the list of
+violations; it merely creates the list.  You will need to write your own
+code to process that list; see <a href="#SEC119">Accessing violations</a>.
+</p>
+
+<p>Here is an example of use of the runtime-check instrumenter.
+To create a version of file
+<tt>`ubs/BoundedStack.java'</tt> that checks the invariants in
+invariant file <tt>`BoundedStack.inv.gz'</tt>, do:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.tools.runtimechecker.Main instrument BoundedStack.inv.gz \
+    ubs/BoundedStack.java
+</pre></td></tr></table>
+<p>The instrumented Java code references classes in the
+<code>daikon.tools.runtimechecker</code> package, so those classes must be
+present in the classpath when the instrumented classes are compiled and
+executed.
+</p>
+<p>Invariants are evaluated at the program points at which they should
+hold.  Three things can happen when evaluating an
+invariant:
+</p>
+<ul>
+<li>
+It evaluates to true, which means that the invariant holds.
+Program execution continues normally.
+
+</li><li>
+It evaluates to false, which means that the invariant doesn't
+hold.  In this case the corresponding
+<code>daikon.tools.runtimechecker.Property</code> is added to a list in the
+class <code>daikon.tools.runtimechecker.Runtime</code>.  A programmer can
+obtain the growing list of violated invariants through the method
+<code>daikon.tools.runtimechecker.Runtime.getViolations()</code>. (See
+that class for other useful methods.)
+
+</li><li>
+A <code>Throwable</code> (exception) is thrown when evaluating the
+invariant.  In this case, the throwable is added to the list
+<code>daikon.tools.runtimechecker.Runtime.internalInvariantEvaluationErrors</code>.
+The throwable is not rethrown.
+
+</li></ul>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC119">8.1.6.1 Accessing violations</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Accessing-violations"></a>
+<a name="SEC119"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC118" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC120" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC118" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 8.1.6.1 Accessing violations </h4>
+
+<p>The instrumented class handles violations silently:
+it simply adds them to a list in the class
+<code>daikon.tools.runtimechecker.Runtime.</code>
+No &quot;invariant violation&quot; exceptions are thrown, and the violated
+invariants can only be obtained dynamically from class
+<code>daikon.tools.runtimechecker.Runtime</code>.
+</p>
+<p>A future release of Daikon will provide tools that process the list in
+the following ways:
+</p><ol>
+<li><a name="IDX118"></a>
+</li><li> To write a file of all the violations for a program execution.
+A prototype of such a tool is provided in the Daikon distribution, as
+program <code>daikon.tools.runtimechecker.WriteViolationFile</code>.  If you
+would ordinarily run your program as <samp>`java MyProg arg1 arg2'</samp>,
+then running <samp>`java daikon.tools.runtimechecker.WriteViolationFile
+MyProg arg1 arg2'</samp> creates a file called <tt>`violations.txt'</tt> in the
+current directory.  If the program under test calls
+<code>System.exit</code>, then no <tt>`violations.txt'</tt> file is created.
+</li><li> Throw an exception when any violation occurs.
+</li></ol>
+
+
+<p>The following code snippet contains a method <code>callMethod()</code> which
+presumably calls one of the methods in the instrumented class.
+The code detects if any violations occurred, and if so, prints
+a message.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">daikon.tools.runtimechecker.Runtime.resetViolations();
+daikon.tools.runtimechecker.Runtime.resetErrors();
+
+callMethod();
+
+List&lt;Violation&gt; vs = daikon.tools.runtimechecker.Runtime.getViolations();
+
+if (!vs.isEmpty())
+  System.out.println(&quot;Violations occurred.&quot;);
+</pre></td></tr></table>
+<p>In addition, the instrumenter adds the following two methods to the
+instrumented class:
+</p>
+<ul>
+<li>
+<code>isDaikonInstrumented()</code>.  Returns true (you could calling
+this method to see if the class has been instrumented).
+
+</li><li>
+<code>getDaikonInvariants()</code>.  Returns the array of properties being checked.
+</li></ul>
+
+<p><strong>Known bug (logical shift in Java).</strong>
+Daikon's Java parser (adopted from javacc and JTB) accepts Java 1.5 syntax.
+An error in the new parser
+may produce illegal Java in the instrumented file, if the source file to
+be instrumented includes logical shift operators. See section <a href="daikon_9.html#SEC144">Known bugs</a>.
+</p>
+
+<hr size="6">
+<a name="InvariantChecker"></a>
+<a name="SEC120"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC119" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC121" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC112" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 8.1.7 InvariantChecker </h3>
+
+
+<p>The InvariantChecker program takes a set of invariants found by Daikon
+and a set of data trace files.  It checks each sample in the data trace
+files against each of the invariants.  Any sample that violates an invariant
+is noted, via a message printed to standard output or to a specified
+output file.
+</p>
+<p>InvariantChecker is invoked as follows:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.tools.InvariantChecker [<var>options</var>] <var>invariant-file</var> <var>dtrace-files</var>
+</pre></td></tr></table>
+<p>The <var>invariant-files</var> are invariant files (<tt>`.inv'</tt>) created by
+running Daikon.  The <var>dtrace-files</var> are data trace (<tt>`.dtrace'</tt>)
+files created by running the instrumented program.  The files may appear
+in any order; the file type is determined by whether the file name
+contains <tt>`.dtrace'</tt>, or <tt>`.inv'</tt>.
+</p>
+<p>The options are:
+</p><dl compact="compact">
+<dt> <samp>`--help'</samp></dt>
+<dd><p>Print usage message.
+</p>
+</dd>
+<dt> <samp>`--output <var>output-file</var>'</samp></dt>
+<dd><p>Write any violations to the specified file.
+</p>
+</dd>
+<dt> <samp>`--conf'</samp></dt>
+<dd><p>Checks only invariants that are above the default confidence level.
+</p>
+</dd>
+<dt> <samp>`--filter'</samp></dt>
+<dd><p>Checks only invariants that are not filtered by the default filters.
+</p>
+</dd>
+<dt> <samp>`--dir <var>directory-name</var>'</samp></dt>
+<dd><p>Processes all invariant files in the given directory and reports the
+number of invariants that failed on any of the dtrace files in that
+directory.  We only process invariants above the default confidence
+level and invariants that have not been filtered out by the default
+filters.
+</p>
+</dd>
+<dt> <samp>`--config_option <var>name</var>=<var>value</var>'</samp></dt>
+<dt> <samp>`--dbg <var>category</var>'</samp></dt>
+<dt> <samp>`--track <var>class</var>&lt;<var>var1</var>,<var>var2</var>,<var>var3</var>&gt;@<var>ppt</var>'</samp></dt>
+<dd><p>These switches are the same as for Daikon.  They are described in
+<a href="daikon_4.html#SEC28">Running Daikon</a>.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="LogicalCompare"></a>
+<a name="SEC121"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC120" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC122" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC112" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 8.1.8 LogicalCompare </h3>
+
+
+<p>Given two sets of invariants describing the operation of a software
+module, or describing two implementations of a module with the same
+interface, we can define one set of invariants to be &quot;stronger&quot; than
+another roughly if in any situation where the &quot;stronger&quot; invariants
+hold, the &quot;weaker&quot; invariants also hold.  The LogicalCompare tool
+examines two sets of invariants, and checks using the Simplify
+automatic theorem prover whether they satisfy a precise version of
+this relationship.
+</p>
+<p>Simplify must be separately obtained (from
+<a href="http://www.hpl.hp.com/downloads/crl/jtk/">http://www.hpl.hp.com/downloads/crl/jtk/</a>) and installed in
+order to use this program.
+</p>
+<p>The LogicalCompare program takes two mandatory arguments, which are
+<tt>`.inv'</tt> files containing invariants; the invariants will be
+checked to verify if the invariants in the first file are weaker
+(implied by) the invariants in the second file, and exceptions to this
+implication are printed.  If no other regular arguments are supplied,
+all the method or function program points that exist in both files
+will be compared, with a exception message reported for each method
+that exists in the &quot;weaker&quot; set but not the &quot;stronger&quot;.
+Alternatively, one or two additional arguments may be supplied, which name an
+<code>:::ENTER</code> program point and an <code>:::EXIT</code> program point to examine
+(if only an <code>:::ENTER</code> program point is supplied,
+the corresponding combined <code>:::EXIT</code> point
+is selected automatically).  To be precise, for each
+pair of program points representing a single method or function,
+LogicalCompare will check that each precondition (<code>:::ENTER</code> point
+invariant) in the &quot;stronger&quot; invariant set is implied by some
+combination of invariants in the &quot;weaker&quot; invariant set, and that
+each postcondition (<code>:::EXIT</code> point invariant) in the &quot;weaker&quot; invariant
+set is implied by some combination of postconditions in the
+&quot;stronger&quot; set and preconditions in the &quot;weaker&quot; set.  In summary,
+the syntax of an invocation of LogicalCompare will have the following
+form:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.tools.compare.LogicalCompare [<var>options</var>] \
+      <var>weak-invs</var> <var>strong-invs</var> [<var>enter-ppt</var> [<var>exit-ppt</var>]]
+</pre></td></tr></table>
+<p>LogicalCompare accepts the following options:
+</p>
+<dl compact="compact">
+<dt> <samp>`--assume <var>file</var>'</samp></dt>
+<dd><p>Read additional assumptions about the behavior of compared routines
+from the file <var>file</var>.  The assumptions file should consist of lines
+starting with <samp>`PPT_NAME'</samp>, followed by the complete name of an
+<code>:::ENTER</code> program point, followed by lines each consisting of a Simplify
+formula, optionally followed by a <code>#</code> and a human-readable
+annotation.  Blank lines and lines beginning with a <code>#</code> are
+ignored.  The assumption properties will be used as if they were
+invariants true at the strong <code>:::EXIT</code> point when checking
+weak <code>:::EXIT</code> point invariants.
+</p>
+</dd>
+<dt> <samp>`--cfg <var>option</var>=<var>value</var>'</samp></dt>
+<dd><p>Specify a single configuration setting.  The available settings are the
+same as can be passed to Daikon's <samp>`--config_option'</samp> option,
+though because the invariants have already been generated, some will
+have no effect.  For a list of
+available options, see <a href="daikon_6.html#SEC46">Configuration options</a>.
+</p>
+</dd>
+<dt> <samp>`--config-file=<var>file</var>'</samp></dt>
+<dd><p>Read configuration options from the file <var>file</var>.  This file should
+have the same format as one passed to Daikon's <samp>`--config'</samp>
+option, though because the invariants have already been generated,
+some will have no effect.
+</p>
+</dd>
+<dt> <samp>`--debug-all'</samp></dt>
+<dt> <samp>`--dbg <var>category</var>'</samp></dt>
+<dd><p>These options have the same effect as the <samp>`--debug'</samp> and
+<samp>`--dbg'</samp> options to Daikon, causing debugging logs to be
+printed.
+</p>
+</dd>
+<dt> <samp>`--filters=[bBoOmjpi]'</samp></dt>
+<dd><p>Control which invariants are removed from consideration before
+implications are checked.  Note that except as controlled by this
+option, LogicalCompare does not perform any of the filters that
+normally control whether invariants are printed by Daikon.  Also,
+invariants that cannot be formatted for the Simplify automatic theorem
+prover will be discarded in any case, as there would be no other way
+to process them.  Each letter controls a filter: an invariant is rejected
+if it is rejected by any filter (or, equivalently, kept only if it
+passes through every filter).
+</p>
+<dl compact="compact">
+<dt> <samp>`b'</samp></dt>
+<dd><p>Discard upper-bound and lower-bound invariants
+(such as &quot;x &lt;= c&quot; and &quot;x &gt;= c&quot; for a
+constant c), when Daikon considers the constant to be uninteresting.
+Currently, Daikon has a configurable range of interesting constant: by
+default, -1, 0, 1, and 2 are interesting, and no other numbers are.
+</p>
+</dd>
+<dt> <samp>`B'</samp></dt>
+<dd><p>Discard all bound invariants, whether or not the constants in them are
+considered interesting.
+</p>
+</dd>
+<dt> <samp>`o'</samp></dt>
+<dd><p>Discard &quot;one-of&quot; invariants (which signify that a variable always
+had one of a small set of values at runtime), when the values that the
+variable took are considered uninteresting by Daikon.
+</p>
+</dd>
+<dt> <samp>`O'</samp></dt>
+<dd><p>Discard all &quot;one-of&quot; invariants, whether or not the values involved
+are interesting.
+</p>
+</dd>
+<dt> <samp>`m'</samp></dt>
+<dd><p>Discard invariants for which it was never the case that all the
+variables involved in the invariant were present at the same time.
+</p>
+</dd>
+<dt> <samp>`j'</samp></dt>
+<dd><p>Discard invariants that Daikon determines to be statistically
+unjustified, according to its tests.
+</p>
+</dd>
+<dt> <samp>`p'</samp></dt>
+<dd><p>Discard invariants that refer to the values of pass-by-value
+parameters in the postcondition, or to the values of objects pointed
+to by parameters in postconditions, when the pointer is not
+necessarily the same as at the entrance to the method or function.
+Usually such invariants reflect implementation details that would not
+be visible to the caller of a method.
+</p>
+</dd>
+<dt> <samp>`i'</samp></dt>
+<dd><p>Discard implication invariants when they appear in <code>:::ENTER</code> program
+points.
+</p></dd>
+</dl>
+
+<p>The default set of filters corresponds to the letters <samp>`ijmp'</samp>.
+</p>
+</dd>
+<dt> <samp>`--help'</samp></dt>
+<dd><p>Print a brief summary of available command-line options.
+</p>
+</dd>
+<dt> <samp>`--no-post-after-pre-failure'</samp></dt>
+<dd><p>If implication is not verified between two invariant sets after
+examining the preconditions, do not continue to check the implication
+involving postconditions.  Because the postconditions aren't formally
+meaningful outside the domain specified by the preconditions, this is
+the safest behavior, but in practice trivial precondition mismatches
+may prevent an otherwise meaningful postcondition comparison.  See also
+<samp>`--post-after-pre-failure'</samp>.
+</p>
+</dd>
+<dt> <samp>`--proofs'</samp></dt>
+<dd><p>For each implication among invariants that is verified, print a
+minimal set of conditions that establish the truth of the conclusion.
+The set is minimal, in the sense that if any condition were removed,
+the conclusion would no longer logically follow according to Simplify,
+but it is not the least such set: there may exist a smaller set of
+conditions that establish the conclusion, if that set is not a subset
+of the set printed.  Beware that because this option uses a naive
+search technique, it may significantly slow down output.
+</p>
+</dd>
+<dt> <samp>`--post-after-pre-failure'</samp></dt>
+<dd><p>Even if implication is not verified between two invariant sets after
+examining the preconditions, continue to check the implication
+involving postconditions.  This is somewhat dangerous, in that if the
+implication does not hold between the preconditions, the invariant
+sets may be inconsistent, in which case reasoning about the
+postconditions is formally nonsensical, but the tool will attempt to
+ignore the contradiction and carry on in this case.  This is now the
+default behavior, so the option has no effect, but it is retained for
+backward compatibility.  See also <samp>`--no-post-after-pre-failure'</samp>.
+</p>
+</dd>
+<dt> <samp>`--show-count'</samp></dt>
+<dd><p>Print a count of the number of invariants checked for implication.
+</p>
+</dd>
+<dt> <samp>`--show-formulas'</samp></dt>
+<dd><p>For each invariant, show how it is represented as a logical formula
+passed to Simplify.
+</p>
+</dd>
+<dt> <samp>`--show-sets'</samp></dt>
+<dd><p>Rather than testing implications among invariants, simply print the
+sets of weak and strong <code>:::ENTER</code> and <code>:::EXIT</code> point invariants that would
+normally be compared.  The invariants are selected and filtered as
+implied by other options.
+</p>
+</dd>
+<dt> <samp>`--show-valid'</samp></dt>
+<dd><p>Print invariants that are verified to be implied (&quot;valid&quot;), as well
+as those for which the implication could not be verified (&quot;invalid&quot;
+invariants, which are always printed).
+</p>
+</dd>
+<dt> <samp>`--timing'</samp></dt>
+<dd><p>For each set of invariants checked, print the total time required for
+the check.  This time includes both processing done by LogicalCompare
+directly, and time spent waiting for processing done by Simplify, but
+does not include time spent de-serializing the <tt>`.inv'</tt> input
+files.
+</p>
+</dd>
+</dl>
+
+
+<hr size="6">
+<a name="DtraceDiff-utility"></a>
+<a name="SEC122"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC121" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC111" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 8.2 DtraceDiff utility </h2>
+
+<p>DtraceDiff is a utility for comparing data trace (<tt>`.dtrace'</tt>) files.
+It checks that the same program points are visited in the same order in
+both files, and that the number, names, types, and values of variables
+at each program point are the same.  The differences are found using a
+content-based, rather than text-based, comparison of the two files.
+</p>
+<p>DtraceDiff stops by signalling an error when it finds a difference
+between the two data trace files.  (Once execution paths have
+diverged, continuing to emit record-by-record differences is likely to
+produce output that is far too voluminous to be useful.)  It also
+signals an error when it detects incompatible program point
+declarations or when one file is shorter than the other.
+</p>
+<p>DtraceDiff is invoked as follows:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.tools.DtraceDiff [<var>flags</var>] \
+   [<var>declsfiles1</var>] <var>dtracefile1</var>  [<var>declsfiles2</var>] <var>dtracefile2</var>
+</pre></td></tr></table>
+<p>Corresponding declarations (<tt>`.decls'</tt>) files can optionally be
+specified on the command line before each of the two <tt>`.dtrace'</tt>
+files.  Multiple <tt>`.decls'</tt> files can be specified.  If no
+<tt>`.decls'</tt> file is specified, DtraceDiff assumes that the
+declarations are included in the <tt>`.dtrace'</tt> file instead.
+</p>
+<p>DtraceDiff supports the following Daikon command-line flags:
+</p>
+<dl compact="compact">
+<dt> <samp>`--help'</samp></dt>
+<dd><p>Print usage message.
+</p>
+</dd>
+<dt> <samp>`--config <var>filename</var>'</samp></dt>
+<dd><p>Load the configuration settings specified in the given file.
+See section <a href="daikon_6.html#SEC46">Configuration options</a>, for details.
+</p>
+</dd>
+<dt> <samp>`--config_option <var>name</var>=<var>value</var>'</samp></dt>
+<dd><p>Specify a single configuration setting.
+See section <a href="daikon_6.html#SEC46">Configuration options</a>, for details.
+</p>
+</dd>
+<dt> <samp>`--ppt-select-pattern=<var>ppt_regexp</var>'</samp></dt>
+<dd><p>Only process program points whose names match the regular expression.
+</p>
+</dd>
+<dt> <samp>`--ppt-omit-pattern=<var>ppt_regexp</var>'</samp></dt>
+<dd><p>Do not process program points whose names match the regular expression.
+This takes priority over the <samp>`--ppt-select-pattern'</samp> argument.
+</p>
+</dd>
+<dt> <samp>`--var-select-pattern=<var>ppt_regexp</var>'</samp></dt>
+<dd><p>Only process variables (whether in the trace file or derived) whose
+names match the regular expression.
+</p>
+</dd>
+<dt> <samp>`--var-omit-pattern=<var>var_regexp</var>'</samp></dt>
+<dd><p>Ignore variables (whether in the trace file or derived) whose names
+match the regular expression, which uses Perl syntax.  This takes
+priority over the <samp>`--var-select-pattern'</samp> argument.
+</p>
+</dd>
+</dl>
+
+<p>DtraceDiff uses appropriate comparisons for the type of the variables in
+each program point being compared.  In particular:
+</p>
+<ul>
+<li> Hashcode (pointer or address) values may differ from one run of
+the same program to the next, and there may not be a one-to-one mapping
+of hashcode values between different program executions, so the
+comparison function only looks for null versus non-null pointer values.
+
+</li><li> Floating-point values are subject to roundoff error from printing and
+reading, so they are compared with a &quot;fuzzy&quot; rather than exact equality test.
+</li></ul>
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daikon User</em> on <em>December, 19 2009</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

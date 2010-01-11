@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on December, 19 2009 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>The Daikon Invariant Detector User Manual: 4. Running Daikon</title>
+
+<meta name="description" content="The Daikon Invariant Detector User Manual: 4. Running Daikon">
+<meta name="keywords" content="The Daikon Invariant Detector User Manual: 4. Running Daikon">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Running-Daikon"></a>
+<a name="SEC28"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="daikon_3.html#SEC27" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC29" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_5.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 4. Running Daikon </h1>
+
+<p>This section describes how to run Daikon on a data trace
+(<tt>`.dtrace'</tt>) file, and describes Daikon's command-line options.
+This section assumes you have already run a front end (e.g., an
+instrumenter) to produce a <tt>`.dtrace'</tt> file (and optionally
+<tt>`.decl'</tt> and <tt>`.spinfo'</tt> files); to learn more about that
+process, see section <a href="daikon_3.html#SEC13">Example usage for Java, C/C++, Perl, and Eiffel</a>, and see section <a href="daikon_7.html#SEC68">Front ends (instrumentation)</a>.
+</p>
+
+<p>Run the Daikon invariant detector via the command
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Daikon <i>[<var>flags</var>]</i> <var>dtrace-files...</var> <i>[<var>decl-files...</var>]</i> <i>[<var>spinfo-files...</var>]</i>
+</pre></td></tr></table>
+<ul class="toc">
+<li>
+The <var>dtrace-files</var> are data trace (<tt>`.dtrace'</tt>) files containing
+variable values from an execution of the target program.
+
+</li><li>
+The <var>decl-files</var> are declaration (<tt>`.decl'</tt>) files containing
+program point declarations.  Be sure to include all declaration files
+that are needed for the particular data trace file; the simplest way
+is to include every declaration file created when instrumenting the
+program.
+
+<p>Not all Daikon front ends produce <tt>`.decl'</tt> files, since program point
+declarations may also appear in <tt>`.dtrace'</tt> files.  For instance, the
+Chicory front end for Java (see section <a href="daikon_7.html#SEC69">Java front end Chicory</a>) produces only <tt>`.dtrace'</tt>
+files.  If there are no <tt>`.decl'</tt> files, then it is not necessary to
+include them on the command line to Daikon.
+</p>
+</li><li>
+The <var>spinfo-files</var> are splitter info (<tt>`.spinfo'</tt>) files that
+enable detection of conditional invariants (see section <a href="daikon_6.html#SEC54">Conditional invariants and implications</a>); these are optional and may be created automatically or by hand.
+
+</li></ul>
+
+<p>The files may appear in any order;
+the file type is determined by whether the file name contains
+<tt>`.decls'</tt>, <tt>`.dtrace'</tt>, or <tt>`.spinfo'</tt>.
+As a special case, a file name of <tt>`-'</tt> means to read data trace
+information from standard input.
+</p>
+
+<a name="IDX1"></a>
+<a name="IDX2"></a>
+<p>The optional flags are described in the sections that follow.  For
+further ways to control Daikon's behavior via configuration options, see
+<a href="daikon_6.html#SEC46">Configuration options</a>, and see the list of options to the front
+end such as Chicory (see section <a href="daikon_7.html#SEC70">Chicory options</a>) or Kvasir (see section <a href="daikon_7.html#SEC82">Kvasir options</a>).
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC29">4.1 Options to control Daikon output</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC30">4.2 Options to control invariant detection</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC31">4.3 Processing only part of the trace file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC32">4.4 Daikon configuration options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC33">4.5 Daikon debugging options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">    
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="Options-to-control-Daikon-output"></a>
+<a name="SEC29"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC28" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC30" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_5.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 4.1 Options to control Daikon output </h2>
+
+<dl compact="compact">
+<dt> <samp>`--help'</samp></dt>
+<dd><p>Print usage message.
+</p>
+</dd>
+<dt> <samp>`-o <var>inv_file</var>'</samp></dt>
+<dd><p>Output serialized invariants to the specified file; they can later be
+postprocessed, compared, etc.  Default: <tt>`<var>basename</var>.inv.gz'</tt> in
+the current directory, where the first data trace file's basename starts
+with <tt>`<var>basename</var>.dtrace'</tt>.  Default is no serialized output, if
+no such data trace file was supplied.  If a data trace file was
+supplied, there is currently no way to avoid creating a serialized
+invariant file.
+</p>
+</dd>
+<dt> <samp>`--no_text_output'</samp></dt>
+<dd><p>Don't print invariants as text output.  This option may be used in
+conjunction with the <samp>`-o'</samp> option.
+</p>
+</dd>
+<dt> <samp>`--format <var>name</var>'</samp></dt>
+<dd><p>Produce output in the given format.  For a list of the output formats
+supported by Daikon, see <a href="daikon_5.html#SEC35">Invariant syntax</a>.
+</p>
+</dd>
+<dt> <samp>`--show_progress'</samp></dt>
+<dt> <samp>`--no_show_progress'</samp></dt>
+<dd><p>Prints (respectively, suppresses) timing information as major portions of Daikon are executed.
+</p>
+</dd>
+<dt> <samp>`--noversion'</samp></dt>
+<dd><p>Suppress the printing of version information
+</p>
+</dd>
+<dt> <samp>`--output_num_samples'</samp></dt>
+<dd><a name="IDX3"></a>
+<a name="IDX4"></a>
+<p>Output numbers of values and samples for invariants and program points;
+this is a debugging flag.  (That is, it helps you understand why Daikon
+produced the output that it did.)
+</p>
+<p>The &quot;Samples breakdown&quot; output indicates how many samples in the
+<tt>`.dtrace'</tt> file had a modified value (&quot;m&quot;), had an unmodified
+value (&quot;u&quot;), and had a missing value (&quot;x&quot;).  The summary uses a
+capital letter if the sample had any of the corresponding type of
+variable, and a lower-case letter if it had none.  These types affect
+statistical tests that determine whether a particular invariant (that
+was true over all the test runs) is printed.
+</p>
+<p>Only variables that appear in both the pre-state and the post-state
+(variables that are in scope at both procedure exit and entry) are
+eligible to be listed as modified or unmodified.  This is why the list
+of all variables is not the union of the modified and unmodified
+variables.
+</p>
+</dd>
+<dt> <samp>`--files_from <var>filename</var>'</samp></dt>
+<dd><p>Read a list of <tt>`.decl'</tt>, <tt>`.dtrace'</tt>, or <tt>`.spinfo'</tt> files from the
+given text file, one filename per line, as an alternative to providing
+them on the command line.
+</p>
+
+</dd>
+<dt> <samp>`--server <var>dirname</var>'</samp></dt>
+<dd><p>Server mode for Daikon in which it reads files from <var>dirname</var> as they appear (sorted lexicographically) until it finds a file ending in &quot;.end&quot;, at which point it calculates and outputs the invariants.
+</p>
+
+
+</dd>
+<dt> <samp>`--omit_from_output [0rs]'</samp></dt>
+<dd><p>Omit some potentially redundant information from the serialized output
+file produced with <samp>`-o'</samp>.
+By default, the serialized output contains all of the data structures
+produced by Daikon while inferring invariants.
+Depending on the use to which the serialized output will later be put,
+the file can sometimes be significantly shortened by omitting
+information that is no longer needed.
+The flag should be followed by one or more characters each representing
+a kind of structures the can be omitted.
+The following characters are recognized:
+</p>
+<dl compact="compact">
+<dt> <samp>`0 (zero)'</samp></dt>
+<dd><p>Omit information about program points that were declared, but for which
+no samples were found in any <tt>`.dtrace'</tt> file.
+</p>
+</dd>
+<dt> <samp>`r'</samp></dt>
+<dd><p>Omit &quot;reflexive&quot; invariants, those in which a variable appears more
+than once.
+Usually, such invariants are not interesting, because their meaning is
+duplicated by invariants with fewer variables: for instance, <code>x =
+x - x</code> and <code>y = z + z</code> can be expressed as <code>x = 0</code> and
+<code>y = 2 * z</code> instead.
+However, Daikon generates and uses such invariants internally to
+decide what invariants to create when two previously equal variables
+turn out to be different.
+</p>
+</dd>
+<dt> <samp>`s'</samp></dt>
+<dd><p>Omit invariants that are suppressed by other invariants.
+&quot;Suppression&quot; refers to a particular optimization
+in which the processing of an invariant is
+postponed as long as certain other invariants that logically imply it
+hold.
+</p></dd>
+</dl>
+
+<p>For most uses of serialized output in the current version, it is safe
+to use the <samp>`0'</samp> and <samp>`r'</samp> omissions, but the <samp>`s'</samp> omission
+will cause subtle output changes.
+In many cases, the amount of space saved is modest (typically around
+10%), but the savings can be more substantial for programs with many
+unused program points, or program points with many variables.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Options-to-control-invariant-detection"></a>
+<a name="SEC30"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC29" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC31" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_5.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 4.2 Options to control invariant detection </h2>
+
+<dl compact="compact">
+<dd><a name="IDX5"></a>
+</dd>
+<dt> <samp>`--conf_limit <var>val</var>'</samp></dt>
+<dd><p>Set the confidence limit for justifying invariants.
+If the confidence level for a given invariant is larger than the limit, then
+Daikon outputs the invariant.  This mechanism filters out
+invariants that are satisfied purely by chance.
+This is only relevant to invariants that were true in all observed
+samples; Daikon never outputs invariants that were ever false.
+</p>
+<p><var>val</var> must be between 0 and 1; the default is .99.  Larger values
+yield stronger filtering.
+</p>
+<p>Each type of invariant has its own rules for determining confidence.
+See the <code>computeConfidence</code> method in the Java source code for the
+invariant.
+</p>
+<p>For example, consider the invariant <var>a</var>&lt;<var>b</var> whose confidence computation
+is <code>1 - 1/2^<var>numsamples</var></code>, which indicates the likelihood that the
+observations of <var>a</var> and <var>b</var> did not occur by chance.  If there were 3
+samples, and <var>a</var>&lt;<var>b</var> on all of them, then the confidence would be 7/8 =
+.875.  If there were 6 samples, and <var>a</var>&lt;<var>b</var> on only 5 on them, the
+confidence would be 0.  If there were 9 samples, and <var>a</var>&lt;<var>b</var> on all of
+them, then the confidence would be 1-1/2^9 = .998.
+</p>
+</dd>
+<dt> <samp>`--list_type <var>classname</var>'</samp></dt>
+<dd><p>Indicate that the given class implements the <code>java.util.List</code>
+interface.  The preferred mechanism for indicating such information is
+the <code>ListImplementors</code> section of the <tt>`.decls'</tt> file.
+See <a href="..//V1-ListImplementors-declaration.html#V1-ListImplementors-declaration">(./developer)V1 ListImplementors declaration</a> section `V1 ListImplementors declaration' in <cite>Daikon Developer Manual</cite>.
+</p>
+</dd>
+<dt> <samp>`--nohierarchy'</samp></dt>
+<dd><a name="IDX6"></a>
+<a name="IDX7"></a>
+<p>Avoid connecting program points in a dataflow hierarchy.  For example,
+Daikon normally connects the <code>:::ENTER</code> program points of class methods
+with the class's <code>:::CLASS</code> program point, so that any invariant
+that holds on the <code>:::CLASS</code> program point is considered to hold
+true on the <code>:::ENTER</code>
+program point.  With no hierarchy, each program point is treated
+independently.  This is for using Daikon on applications that do not
+have a concept of hierarchy.  It can also be useful when you wish to
+process unmatched enter point samples from a trace file that is missing
+some exit point samples.
+</p>
+</dd>
+<dt> <samp>`--suppress_redundant'</samp></dt>
+<dd><p>Suppress display of logically redundant invariants, using the Simplify
+automatic theorem prover.  Daikon already suppresses most logically
+redundant output.  For example, if &quot;x &gt;= 0&quot; and &quot;x &gt; 0&quot; are both
+true, then Daikon outputs only &quot;x &gt; 0&quot;.  Use of the
+<samp>`--suppress_redundant'</samp> option tells Daikon to use Simplify to 
+eliminate even more redundant output, and should be used if it is
+important that absolutely no redundancies appear in the output.
+</p>
+<p>Simplify must be separately obtained (from
+<a href="http://www.hpl.hp.com/downloads/crl/jtk/">http://www.hpl.hp.com/downloads/crl/jtk/</a>) and installed in
+order to take advantage of this option.  Beware that Simplify can run slowly;
+the amount of effort Simplify exerts for each invariant can be controlled
+using the <samp>`daikon.simplify.Session.simplify_max_iterations'</samp> and
+<samp>`daikon.simplify.Session.simplify_timeout'</samp> configuration
+options.
+</p>
+</dd>
+</dl>
+
+
+<hr size="6">
+<a name="Processing-only-part-of-the-trace-file"></a>
+<a name="SEC31"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC30" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC32" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_5.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 4.3 Processing only part of the trace file </h2>
+
+<p>Using <samp>`--ppt-select-pattern'</samp> and <samp>`--ppt-omit-pattern'</samp> can
+save time even if there are no samples for the excluded program points,
+as Daikon can skip the declarations and need not initialize data
+structures that would be used if samples were encountered.
+</p>
+<dl compact="compact">
+<dt> <samp>`--ppt-select-pattern=<var>ppt_regexp</var>'</samp></dt>
+<dd><p>Only process program points whose names match the regular expression.
+The <samp>`--ppt-omit-pattern'</samp> argument takes precedence over this argument.
+</p>
+</dd>
+<dt> <samp>`--ppt-omit-pattern=<var>ppt_regexp</var>'</samp></dt>
+<dd><p>Do not process program points whose names match the regular expression.
+This takes precedence over the <samp>`--ppt-select-pattern'</samp> argument.
+</p>
+</dd>
+<dt> <samp>`--var-select-pattern=<var>var_regexp</var>'</samp></dt>
+<dd><p>Only process variables (whether in the trace file or derived) whose
+names match the regular expression.
+The <samp>`--var-omit-pattern'</samp> argument takes precedence over this argument.
+</p>
+</dd>
+<dt> <samp>`--var-omit-pattern=<var>var_regexp</var>'</samp></dt>
+<dd><p>Ignore variables (whether in the trace file or derived) whose names
+match the regular expression.
+This takes priority over the <samp>`--var-select-pattern'</samp> argument.
+</p>
+</dd>
+</dl>
+
+<p>The <var>...-omit-pattern</var> arguments take precedence:  if a name matches
+an omit pattern, it is excluded.  If a name does not match an omit
+pattern, it is tested against the select pattern (if any).  If any
+select patterns are specified, the name must match one of the patterns
+in order to be included.  If no select patterns are specified, then any
+ppt name that does not match the omit patterns is included.
+</p>
+
+<p>All of the regular expressions used by Daikon use Java's
+regular expression syntax, which is similar to Perl's but not
+exactly the same.  Details are available at
+<a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/Pattern.html#sum">http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/Pattern.html#sum</a>.
+Multiple items can be matched by using the logical or operator (|), 
+for example <var>var1|var2|var3</var>.
+</p>
+
+<hr size="6">
+<a name="Daikon-configuration-options"></a>
+<a name="SEC32"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC31" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC33" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_5.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 4.4 Daikon configuration options </h2>
+
+<dl compact="compact">
+<dt> <samp>`--config <var>filename</var>'</samp></dt>
+<dd><p>Load the configuration settings specified in the given file.
+See section <a href="daikon_6.html#SEC46">Configuration options</a>, for details.
+</p>
+</dd>
+<dt> <samp>`--config_option <var>name</var>=<var>value</var>'</samp></dt>
+<dd><p>Specify a single configuration setting.
+See section <a href="daikon_6.html#SEC46">Configuration options</a>, for details.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Daikon-debugging-options"></a>
+<a name="SEC33"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC32" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_5.html#SEC34" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC28" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_5.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 4.5 Daikon debugging options </h2>
+
+<dl compact="compact">
+<dt> <samp>`--dbg <var>category</var>'</samp></dt>
+<dt> <samp>`--debug'</samp></dt>
+<dd><a name="IDX8"></a>
+<a name="IDX9"></a>
+<a name="IDX10"></a>
+<a name="IDX11"></a>
+<p>These debugging options cause output to be written to a log file (by
+default, to the terminal); in other words, they enable a Logger.
+The <samp>`--dbg <var>category</var>'</samp> option
+enables debugging output for a specific part of Daikon; it may be
+specified multiple times, permitting find-grained control over debugging
+output.  The <samp>`--debug'</samp> option turns on all debugging flags.
+(This produces a lot of output!)  Most categories are class or
+package names in the Daikon implementation, such as <code>daikon.split</code>
+or <code>daikon.derive.binary.SequencesJoin</code>.  Only classes that check
+the appropriate categories are affected by the debug flags; you can
+determine this by looking for a call to <samp>`Logger.getLogger'</samp> in
+the specific class.
+</p>
+</dd>
+<dt> <samp>`--track <var>class</var>&lt;<var>var1</var>,<var>var2</var>,<var>var3</var>&gt;@<var>ppt</var>'</samp></dt>
+<dd><a name="IDX12"></a>
+<a name="IDX13"></a>
+<a name="IDX14"></a>
+<a name="IDX15"></a>
+<p>Turns on debugging information on the specified class, variables, and
+program point.  In contrast to the <samp>`--dbg'</samp> option, track logging follows
+a particular invariant through Daikon.  Multiple <samp>`--track'</samp> options
+can be specified.  Each item (class, variables, and program point) is optional.
+Multiple classes can be specified separated by vertical bars (|).  Matching
+is a simple substring (not a regular expression) comparison.  Each item
+must match in order for a printout to occur.  For more information, see
+<a href="..//Track-logging.html#Track-logging">(./developer)Track logging</a> section `Track logging' in <cite>Daikon Developer Manual</cite>.
+</p>
+</dd>
+<dt> <samp>`--disc_reason <var>inv_class</var>&lt;<var>var1</var>,<var>var2</var>,...&gt;@<var>ppt</var>'</samp></dt>
+<dd><p>Prints all discarded invariants of class <var>inv_class</var> at the program point
+specified that involve exactly the variables given, as well as a short reason
+and discard code explaining why they were not worthy of print.  Any of
+the three parts of the argument may be made a wildcard by excluding it.
+For example, <samp>`<var>inv_class</var>'</samp> and
+<samp>`&lt;<var>var1</var>,<var>var2</var>,...&gt;@<var>ppt</var>'</samp> are valid arguments.
+Concrete examples are <samp>`Implication&lt;x,y&gt;@foo():::EXIT'</samp>,
+<samp>`Implication&lt;x,y&gt;'</samp>, and <samp>`&lt;x,y&gt;@foo():::EXIT'</samp>.
+To print all discarded invariants, use the argument <samp>`all'</samp>.
+</p>
+</dd>
+<dt> <samp>`--mem_stat'</samp></dt>
+<dd><p>Prints memory usage statistics into a file named <tt>`stat.out'</tt> in the
+current directory.
+</p>
+</dd>
+</dl>
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC28" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_5.html#SEC34" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daikon User</em> on <em>December, 19 2009</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

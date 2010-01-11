@@ -1,0 +1,3091 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on December, 19 2009 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>The Daikon Invariant Detector User Manual: 6. Enhancing Daikon output</title>
+
+<meta name="description" content="The Daikon Invariant Detector User Manual: 6. Enhancing Daikon output">
+<meta name="keywords" content="The Daikon Invariant Detector User Manual: 6. Enhancing Daikon output">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Enhancing-Daikon-output"></a>
+<a name="SEC45"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="daikon_5.html#SEC44" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC46" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon_5.html#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 6. Enhancing Daikon output </h1>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC46">6.1 Configuration options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC54">6.2 Conditional invariants and implications</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC62">6.3 Enhancing conditional invariant detection</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC66">6.4 Dynamic abstract type inference (DynComp)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC67">6.5 Loop invariants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Configuration-options"></a>
+<a name="SEC46"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC45" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.1 Configuration options </h2>
+
+
+<p>Many aspects of Daikon's behavior can be controlled by setting various
+configuration parameters.  These configuration parameters control which
+invariants are checked and reported, the statistical tests for
+invariants, which derived variables are created, and more.
+</p>
+<p>The configuration options are set by creating a configuration file and
+supplying it to Daikon on the command line using the <samp>`--config
+<var>filename</var>'</samp> option.  Daikon reads all supplied configuration files
+in order, overriding the defaults.  You may wish to use the supplied
+example configuration file
+<tt>`daikon/java/daikon/config/example-settings.txt'</tt> as an example when
+creating your own configuration files.  (If you did not download
+Daikon's sources, you must extract the example from
+<tt>`daikon.jar'</tt> to read it.)
+</p>
+<p>You can also control Daikon's output via its command-line options
+(see section <a href="daikon_4.html#SEC28">Running Daikon</a>) and via the command-line options to its front
+ends such as Chicory (see section <a href="daikon_7.html#SEC70">Chicory options</a>) or Kvasir (see section <a href="daikon_7.html#SEC82">Kvasir options</a>).
+</p>
+<p>You may also specify a configuration setting directly on the command line,
+using the <samp>`--config_option <var>name</var>=<var>value</var>'</samp> option.
+</p>
+<p>The configuration options are different from the debugging flags
+<samp>`--debug'</samp> and <samp>`--dbg <var>category</var>'</samp>
+(see section <a href="daikon_4.html#SEC33">Daikon debugging options</a>).
+The debugging flags permit Daikon to produce debugging
+output, but they do not affect the invariants that Daikon computes.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC47">6.1.1 List of configuration options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="List-of-configuration-options"></a>
+<a name="SEC47"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC46" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC48" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC46" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 6.1.1 List of configuration options </h3>
+
+<p>This is a list of all Daikon configuration options.
+The configuration option name contains the
+Java class in which it is defined.  (In the Daikon source code, the
+configuration value is stored in a variable whose name contains a
+<code>dkconfig_</code> prefix, but that should be irrelevant to users.)
+To learn more about a specific invariant or derived variable than
+appears in this manual, see its source code.
+</p>
+
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC48">6.1.1.1 Options to enable/disable filters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC49">6.1.1.2 Options to enable/disable specific invariants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC50">6.1.1.3 Other invariant configuration parameters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC51">6.1.1.4 Options to enable/disable derived variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC52">6.1.1.5 Simplify interface configuration options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC53">6.1.1.6 General configuration options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Options-to-enable_002fdisable-filters"></a>
+<a name="SEC48"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC47" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC49" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.1.1.1 Options to enable/disable filters </h4>
+
+<p>These configuration options enable or disable filters that suppress printing of certain invariants.  Invariants are filtered if they are found to be true but are considered uninteresting or redundant.  See <a href="daikon_5.html#SEC44">Invariant filters</a>, for more information.
+</p>
+<dl compact="compact">
+<dt> <samp>`daikon.inv.filter.DerivedParameterFilter.enabled'</samp></dt>
+<dd><p>Boolean. If true, DerivedParameterFilter is initially turned on.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.filter.ObviousFilter.enabled'</samp></dt>
+<dd><p>Boolean. If true, ObviousFilter is initially turned on.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.filter.OnlyConstantVariablesFilter.enabled'</samp></dt>
+<dd><p>Boolean. If true, OnlyConstantVariablesFilter is initially turned on.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.filter.ParentFilter.enabled'</samp></dt>
+<dd><p>Boolean. If true, ParentFilter is initially turned on.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.filter.SimplifyFilter.enabled'</samp></dt>
+<dd><p>Boolean. If true, SimplifyFilter is initially turned on.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.filter.UnjustifiedFilter.enabled'</samp></dt>
+<dd><p>Boolean. If true, UnjustifiedFilter is initially turned on.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.filter.UnmodifiedVariableEqualityFilter.enabled'</samp></dt>
+<dd><p>Boolean. If true, UnmodifiedVariableEqualityFilter is initially turned on.
+The default value is `true'.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Options-to-enable_002fdisable-specific-invariants"></a>
+<a name="SEC49"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC48" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC50" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.1.1.2 Options to enable/disable specific invariants </h4>
+
+<p>These options control whether Daikon looks for specific kinds of invariants.  See <a href="daikon_5.html#SEC43">Invariant list</a>, for more information about the corresponding invariants.
+</p>
+<dl compact="compact">
+<dt> <samp>`daikon.inv.binary.sequenceScalar.Member.enabled'</samp></dt>
+<dd><p>Boolean.  True iff Member invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.MemberFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff Member invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqFloatEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqFloatEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqFloatGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqFloatGreaterEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqFloatGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqFloatGreaterThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqFloatLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqFloatLessEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqFloatLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqFloatLessThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqIntEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIntEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqIntGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIntGreaterEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqIntGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIntGreaterThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqIntLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIntLessEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceScalar.SeqIntLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIntLessThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.sequenceString.MemberString.enabled'</samp></dt>
+<dd><p>Boolean.  True iff Member invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.FloatEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff FloatEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.FloatGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff FloatGreaterEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.FloatGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff FloatGreaterThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.FloatLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff FloatLessEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.FloatLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff FloatLessThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.FloatNonEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff FloatNonEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.IntEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff IntEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.IntGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff IntGreaterEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.IntGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff IntGreaterThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.IntLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff IntLessEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.IntLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff IntLessThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.IntNonEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff IntNonEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.LinearBinary.enabled'</samp></dt>
+<dd><p>Boolean.  True iff LinearBinary invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.LinearBinaryFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff LinearBinary invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericFloat.Divides.enabled'</samp></dt>
+<dd><p>Boolean.  True iff divides invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericFloat.Square.enabled'</samp></dt>
+<dd><p>Boolean.  True iff square invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericFloat.ZeroTrack.enabled'</samp></dt>
+<dd><p>Boolean.  True iff zero-track invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericInt.BitwiseAndZero.enabled'</samp></dt>
+<dd><p>Boolean.  True iff BitwiseAndZero invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericInt.BitwiseComplement.enabled'</samp></dt>
+<dd><p>Boolean.  True iff bitwise complement invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericInt.BitwiseSubset.enabled'</samp></dt>
+<dd><p>Boolean.  True iff bitwise subset invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericInt.Divides.enabled'</samp></dt>
+<dd><p>Boolean.  True iff divides invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericInt.ShiftZero.enabled'</samp></dt>
+<dd><p>Boolean.  True iff ShiftZero invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericInt.Square.enabled'</samp></dt>
+<dd><p>Boolean.  True iff square invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.NumericInt.ZeroTrack.enabled'</samp></dt>
+<dd><p>Boolean.  True iff zero-track invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseFloatEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseFloatGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseFloatGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseFloatLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseFloatLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseIntEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseIntGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseIntGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseIntLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseIntLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseLinearBinary.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseLinearBinary invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseLinearBinaryFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseLinearBinary invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericFloat.Divides.enabled'</samp></dt>
+<dd><p>Boolean.  True iff divides invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericFloat.Square.enabled'</samp></dt>
+<dd><p>Boolean.  True iff square invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericFloat.ZeroTrack.enabled'</samp></dt>
+<dd><p>Boolean.  True iff zero-track invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.BitwiseAndZero.enabled'</samp></dt>
+<dd><p>Boolean.  True iff BitwiseAndZero invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.BitwiseComplement.enabled'</samp></dt>
+<dd><p>Boolean.  True iff bitwise complement invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.BitwiseSubset.enabled'</samp></dt>
+<dd><p>Boolean.  True iff bitwise subset invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.Divides.enabled'</samp></dt>
+<dd><p>Boolean.  True iff divides invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.ShiftZero.enabled'</samp></dt>
+<dd><p>Boolean.  True iff ShiftZero invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.Square.enabled'</samp></dt>
+<dd><p>Boolean.  True iff square invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.ZeroTrack.enabled'</samp></dt>
+<dd><p>Boolean.  True iff zero-track invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseString.SubString.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubString invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseStringEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseStringGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseStringGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseStringLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.PairwiseStringLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PairwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.Reverse.enabled'</samp></dt>
+<dd><p>Boolean.  True iff Reverse invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.ReverseFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff Reverse invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqFloatEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqFloatEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqFloatGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqFloatGreaterEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqFloatGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqFloatGreaterThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqFloatLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqFloatLessEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqFloatLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqFloatLessThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqIntEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqIntEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqIntGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqIntGreaterEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqIntGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqIntGreaterThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqIntLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqIntLessEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqIntLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqIntLessThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqStringEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqStringEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqStringGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqStringGreaterEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqStringGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqStringGreaterThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqStringLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqStringLessEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SeqSeqStringLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqSeqStringLessThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SubSequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubSequence invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SubSequenceFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubSequence invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SubSet.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubSet invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SubSetFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubSet invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SuperSequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubSequence invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SuperSequenceFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubSequence invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SuperSet.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubSet invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoSequence.SuperSetFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubSet invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoString.StdString.SubString.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SubString invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoString.StringEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff StringEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoString.StringGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff StringGreaterEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoString.StringGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff StringGreaterThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoString.StringLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff StringLessEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoString.StringLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff StringLessThan invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoString.StringNonEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff StringNonEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.ternary.threeScalar.FunctionBinary.enabled'</samp></dt>
+<dd><p>Boolean. True if FunctionBinary invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.ternary.threeScalar.FunctionBinaryFloat.enabled'</samp></dt>
+<dd><p>Boolean. True if FunctionBinaryFloat invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.ternary.threeScalar.LinearTernary.enabled'</samp></dt>
+<dd><p>Boolean.  True iff LinearTernary invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.ternary.threeScalar.LinearTernaryFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff LinearTernary invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.IsPointer.enabled'</samp></dt>
+<dd><p>Boolean. True iff IsPointer invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.LowerBound.enabled'</samp></dt>
+<dd><p>Boolean.  True iff LowerBound invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.LowerBoundFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff LowerBoundFloat invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.Modulus.enabled'</samp></dt>
+<dd><p>Boolean.  True iff Modulus invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.NonModulus.enabled'</samp></dt>
+<dd><p>Boolean.  True iff NonModulus invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.NonZero.enabled'</samp></dt>
+<dd><p>Boolean.  True iff NonZero invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.NonZeroFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff NonZeroFloat invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.OneOfFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff OneOf invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.OneOfScalar.enabled'</samp></dt>
+<dd><p>Boolean.  True iff OneOf invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.Positive.enabled'</samp></dt>
+<dd><p>Boolean.  True iff Positive invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.RangeInt.Even.enabled'</samp></dt>
+<dd><p>Boolean.  True if Even invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.RangeInt.PowerOfTwo.enabled'</samp></dt>
+<dd><p>Boolean.  True if PowerOfTwo invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.UpperBound.enabled'</samp></dt>
+<dd><p>Boolean.  True iff UpperBound invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.UpperBoundFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff UpperBoundFloat invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.CommonFloatSequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff CommonSequence invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.CommonSequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff CommonSequence invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltLowerBound.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltLowerBound invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltLowerBoundFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltLowerBoundFloat invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltNonZero.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltNonZero invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltNonZeroFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltNonZero invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltOneOf.enabled'</samp></dt>
+<dd><p>Boolean.  True iff OneOf invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltOneOfFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff OneOf invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltRangeInt.Even.enabled'</samp></dt>
+<dd><p>Boolean.  True if Even invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltRangeInt.PowerOfTwo.enabled'</samp></dt>
+<dd><p>Boolean.  True if PowerOfTwo invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltUpperBound.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltUpperBound invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltUpperBoundFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltUpperBoundFloat invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseFloatEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseFloatGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseFloatGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseFloatLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseFloatLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseIntEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseIntGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseIntGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseIntLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltwiseIntLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff EltwiseIntComparison invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.NoDuplicates.enabled'</samp></dt>
+<dd><p>Boolean.  True iff NoDuplicates invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.NoDuplicatesFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff NoDuplicates invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.OneOfFloatSequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff OneOf invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.OneOfSequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff OneOf invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexFloatEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexFloatEqual invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexFloatGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexFloatGreaterEqual invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexFloatGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexFloatGreaterThan invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexFloatLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexFloatLessEqual invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexFloatLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexFloatLessThan invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexFloatNonEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexFloatNonEqual invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexIntEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexIntEqual invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexIntGreaterEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexIntGreaterEqual invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexIntGreaterThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexIntGreaterThan invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexIntLessEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexIntLessEqual invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexIntLessThan.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexIntLessThan invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SeqIndexIntNonEqual.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SeqIndexIntNonEqual invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.string.OneOfString.enabled'</samp></dt>
+<dd><p>Boolean.  True iff OneOf invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.string.PrintableString.enabled'</samp></dt>
+<dd><p>Boolean.  True iff PrintableString invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.stringsequence.CommonStringSequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff CommonStringSequence invariants should be considered.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.stringsequence.EltOneOfString.enabled'</samp></dt>
+<dd><p>Boolean.  True iff OneOf invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.stringsequence.OneOfStringSequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff OneOf invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Other-invariant-configuration-parameters"></a>
+<a name="SEC50"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC49" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC51" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.1.1.3 Other invariant configuration parameters </h4>
+
+<p>The configuration options listed in this section parameterize the behavior of certain invariants.  See <a href="daikon_5.html#SEC43">Invariant list</a>, for more information about the invariants.
+</p>
+<dl compact="compact">
+<dt> <samp>`daikon.inv.Invariant.confidence_limit'</samp></dt>
+<dd><p>Floating-point number between 0 and 1.  Invariants are displayed only if
+the confidence that the invariant did not occur by chance is
+greater than this.  (May also be set
+via <samp>`--conf_limit'</samp> switch to Daikon; refer to manual.)
+The default value is `0.99'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.Invariant.fuzzy_ratio'</samp></dt>
+<dd><p>Floating-point number between 0 and 0.1, representing the maximum
+relative difference
+between two floats for fuzzy comparisons.  Larger values will
+result in floats that are relatively farther apart being treated
+as equal.  A value of 0 essentially disables fuzzy comparisons.
+Specifically, if <code>abs (1 - f1/f2)</code> is less than or equal
+to this value, then the two doubles (<code>f1</code> and <code>f2</code>)
+will be treated as equal by
+Daikon.
+The default value is `1.0E-4'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.Invariant.simplify_define_predicates'</samp></dt>
+<dd><p>A boolean value.  If true, Daikon's Simplify output (printed when
+the <samp>`--format simplify'</samp> flag is enabled, and used internally by
+<samp>`--suppress_redundant'</samp>)
+will include new predicates representing
+some complex relationships in invariants, such as lexical
+ordering among sequences.  If false, some complex relationships
+will appear in the output as complex quantified formulas, while
+others will not appear at all.  When enabled, Simplify may be able
+to make more inferences, allowing <samp>`--suppress_redundant'</samp> to
+suppress more redundant invariants, but Simplify may also run
+more slowly.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.binary.twoScalar.IntNonEqual.integral_only'</samp></dt>
+<dd><p>Boolean.  True iff IntNonEqual invariants should be considered.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.filter.DerivedVariableFilter.class_re'</samp></dt>
+<dd><p>Regular expression to match against the class name of derived
+variables.  Invariants that contain derived variables that match will
+be filtered out.  If null, nothing will be filtered out.
+The default value is `null'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.LowerBound.maximal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>minimal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+LowerBound invariants whose cutoff was one of (-1,0,1,2).
+The default value is `2'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.LowerBound.minimal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>maximal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+LowerBound invariants whose cutoff was one of (-1,0,1,2).
+The default value is `-1'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.LowerBoundFloat.maximal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>minimal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+LowerBoundFloat invariants whose cutoff was one of (-1,0,1,2).
+The default value is `2'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.LowerBoundFloat.minimal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>maximal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+LowerBoundFloat invariants whose cutoff was one of (-1,0,1,2).
+The default value is `-1'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.OneOfFloat.size'</samp></dt>
+<dd><p>Positive integer.  Specifies the maximum set size for this type
+of invariant (x is one of <code>size</code> items).
+The default value is `3'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.OneOfScalar.omit_hashcode_values_Simplify'</samp></dt>
+<dd><p>Boolean.  If true, invariants describing hashcode-typed variables
+as having any particular value will have an artificial value
+substituted for the exact hashhode values.  The artificial values
+will stay the same from run to run even if the actual hashcode
+values change (as long as the OneOf invariants remain the same).
+If false, hashcodes will be formatted as the application of a
+hashcode uninterpreted function to an integer representing the
+bit pattern of the hashcode.  One might wish to omit the exact
+values of the hashcodes because they are usually uninteresting;
+this is the same reason they print in the native Daikon format,
+for instance, as <samp>`var has only one value'</samp> rather than
+<samp>`var == 150924732'</samp>.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.OneOfScalar.size'</samp></dt>
+<dd><p>Positive integer.  Specifies the maximum set size for this type
+of invariant (x is one of <code>size</code> items).
+The default value is `3'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.UpperBound.maximal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>minimal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+UpperBound invariants whose cutoff was one of (-1,0,1,2).
+The default value is `2'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.UpperBound.minimal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>maximal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+UpperBound invariants whose cutoff was one of (-1,0,1,2).
+The default value is `-1'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.UpperBoundFloat.maximal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>minimal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+UpperBoundFloat invariants whose cutoff was one of (-1,0,1,2).
+The default value is `2'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.scalar.UpperBoundFloat.minimal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>maximal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+UpperBoundFloat invariants whose cutoff was one of (-1,0,1,2).
+The default value is `-1'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.CommonFloatSequence.hashcode_seqs'</samp></dt>
+<dd><p>Boolean.  Set to true to consider common sequences over hashcodes (pointers).
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.CommonSequence.hashcode_seqs'</samp></dt>
+<dd><p>Boolean.  Set to true to consider common sequences over hashcodes (pointers).
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltLowerBound.maximal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>minimal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+EltLowerBound invariants whose cutoff was one of (-1,0,1,2).
+The default value is `2'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltLowerBound.minimal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>maximal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+EltLowerBound invariants whose cutoff was one of (-1,0,1,2).
+The default value is `-1'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltLowerBoundFloat.maximal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>minimal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+EltLowerBoundFloat invariants whose cutoff was one of (-1,0,1,2).
+The default value is `2'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltLowerBoundFloat.minimal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>maximal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+EltLowerBoundFloat invariants whose cutoff was one of (-1,0,1,2).
+The default value is `-1'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltOneOf.omit_hashcode_values_Simplify'</samp></dt>
+<dd><p>Boolean.  If true, invariants describing hashcode-typed variables
+as having any particular value will have an artificial value
+substituted for the exact hashhode values.  The artificial values
+will stay the same from run to run even if the actual hashcode
+values change (as long as the OneOf invariants remain the same).
+If false, hashcodes will be formatted as the application of a
+hashcode uninterpreted function to an integer representing the
+bit pattern of the hashcode.  One might wish to omit the exact
+values of the hashcodes because they are usually uninteresting;
+this is the same reason they print in the native Daikon format,
+for instance, as <samp>`var has only one value'</samp> rather than
+<samp>`var == 150924732'</samp>.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltOneOf.size'</samp></dt>
+<dd><p>Positive integer.  Specifies the maximum set size for this type
+of invariant (x is one of <code>size</code> items).
+The default value is `3'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltOneOfFloat.size'</samp></dt>
+<dd><p>Positive integer.  Specifies the maximum set size for this type
+of invariant (x is one of <code>size</code> items).
+The default value is `3'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltUpperBound.maximal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>minimal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+EltUpperBound invariants whose cutoff was one of (-1,0,1,2).
+The default value is `2'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltUpperBound.minimal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>maximal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+EltUpperBound invariants whose cutoff was one of (-1,0,1,2).
+The default value is `-1'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltUpperBoundFloat.maximal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>minimal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+EltUpperBoundFloat invariants whose cutoff was one of (-1,0,1,2).
+The default value is `2'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.EltUpperBoundFloat.minimal_interesting'</samp></dt>
+<dd><p>Long integer.  Together with the corresponding
+<code>maximal_interesting</code> parameter, specifies the
+range of the computed constant that is &quot;interesting&quot; -- the range
+that should be reported.  For instance, setting
+<code>minimal_interesting</code>
+to -1 and <code>maximal_interesting</code>
+to 2 would only permit output of
+EltUpperBoundFloat invariants whose cutoff was one of (-1,0,1,2).
+The default value is `-1'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.OneOfFloatSequence.size'</samp></dt>
+<dd><p>Positive integer.  Specifies the maximum set size for this type
+of invariant (x is one of <code>size</code> items).
+The default value is `3'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.OneOfSequence.omit_hashcode_values_Simplify'</samp></dt>
+<dd><p>Boolean.  If true, invariants describing hashcode-typed variables
+as having any particular value will have an artificial value
+substituted for the exact hashhode values.  The artificial values
+will stay the same from run to run even if the actual hashcode
+values change (as long as the OneOf invariants remain the same).
+If false, hashcodes will be formatted as the application of a
+hashcode uninterpreted function to an integer representing the
+bit pattern of the hashcode.  One might wish to omit the exact
+values of the hashcodes because they are usually uninteresting;
+this is the same reason they print in the native Daikon format,
+for instance, as <samp>`var has only one value'</samp> rather than
+<samp>`var == 150924732'</samp>.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.OneOfSequence.size'</samp></dt>
+<dd><p>Positive integer.  Specifies the maximum set size for this type
+of invariant (x is one of <code>size</code> items).
+The default value is `3'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.sequence.SingleSequence.SeqIndexDisableAll'</samp></dt>
+<dd><p>Boolean.  Set to true to disable all SeqIndex invariants
+(SeqIndexIntEqual, SeqIndexFloatLessThan, etc).  This overrides the
+settings of the individual SeqIndex enable configuration options.
+To disable only some options, the options must be disabled
+individually.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.string.OneOfString.size'</samp></dt>
+<dd><p>Positive integer.  Specifies the maximum set size for this type
+of invariant (x is one of <code>size</code> items).
+The default value is `3'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.stringsequence.EltOneOfString.size'</samp></dt>
+<dd><p>Positive integer.  Specifies the maximum set size for this type
+of invariant (x is one of <code>size</code> items).
+The default value is `3'.
+</p>
+</dd>
+<dt> <samp>`daikon.inv.unary.stringsequence.OneOfStringSequence.size'</samp></dt>
+<dd><p>Positive integer.  Specifies the maximum set size for this type
+of invariant (x is one of <code>size</code> items).
+The default value is `2'.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Options-to-enable_002fdisable-derived-variables"></a>
+<a name="SEC51"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC50" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC52" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.1.1.4 Options to enable/disable derived variables </h4>
+
+<p>These options control whether Daikon looks for invariants involving certain forms of derived variables.  Also see <a href="daikon_5.html#SEC37">Variable names</a>.
+</p>
+<dl compact="compact">
+<dt> <samp>`daikon.derive.Derivation.disable_derived_variables'</samp></dt>
+<dd><p>Boolean.  If true, Daikon will not create any derived variables.
+Derived variables, which are combinations of variables that appeared in
+the program, like <code>array[index]</code> if <code>array</code> and
+<code>index</code> appeared, can
+increase the number of properties Daikon finds, especially over
+sequences. However, derived variables increase Daikon's time and
+memory usage, sometimes dramatically. If false, individual kinds of
+derived variables can be enabled or disabled individually using
+configuration options under <samp>`daikon.derive'</samp>.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceFloatIntersection.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceFloatIntersection derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceFloatSubscript.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceFloatSubscript derived variables should be
+generated.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceFloatSubsequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceFloatSubsequence derived variables
+should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceFloatUnion.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceFloatUnion derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceScalarIntersection.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceScalarIntersection derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceScalarSubscript.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceScalarSubscript derived variables should be
+generated.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceScalarSubsequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceScalarSubsequence derived variables
+should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceScalarUnion.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceScalarUnion derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceStringIntersection.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceStringIntersection derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceStringSubscript.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceStringSubscript derived variables should be
+generated.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceStringSubsequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceStringSubsequence derived variables
+should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequenceStringUnion.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceStringUnion derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequencesConcat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequencesConcat derived variables should be created.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequencesJoin.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequencesJoin derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequencesJoinFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequencesJoin derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequencesPredicate.boolOnly'</samp></dt>
+<dd><p>Boolean.  True if Daikon should only generate derivations on boolean
+predicates.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequencesPredicate.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequencesPredicate derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequencesPredicate.fieldOnly'</samp></dt>
+<dd><p>Boolean.  True if Daikon should only generate derivations on fields
+of the same data structure.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequencesPredicateFloat.boolOnly'</samp></dt>
+<dd><p>Boolean.  True if Daikon should only generate derivations on boolean
+predicates.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequencesPredicateFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequencesPredicate derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.binary.SequencesPredicateFloat.fieldOnly'</samp></dt>
+<dd><p>Boolean.  True if Daikon should only generate derivations on fields
+of the same data structure.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.ternary.SequenceFloatArbitrarySubsequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceFloatArbitrarySubsequence derived variables
+should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.ternary.SequenceScalarArbitrarySubsequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceScalarArbitrarySubsequence derived variables
+should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.ternary.SequenceStringArbitrarySubsequence.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceStringArbitrarySubsequence derived variables
+should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.unary.SequenceInitial.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceInitial derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.unary.SequenceInitialFloat.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceInitial derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.unary.SequenceLength.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceLength derived variables should be generated.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.unary.SequenceMax.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequencesMax derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.unary.SequenceMin.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceMin derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.unary.SequenceSum.enabled'</samp></dt>
+<dd><p>Boolean.  True iff SequenceSum derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.derive.unary.StringLength.enabled'</samp></dt>
+<dd><p>Boolean.  True iff StringLength derived variables should be generated.
+The default value is `false'.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Simplify-interface-configuration-options"></a>
+<a name="SEC52"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC51" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC53" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.1.1.5 Simplify interface configuration options </h4>
+
+<p>The configuration options in this section are used to customize the interface to the Simplify theorem prover.  See the description of the <samp>`--suppress_redundant'</samp> command-line option in <a href="daikon_4.html#SEC30">Options to control invariant detection</a>.
+</p>
+<dl compact="compact">
+<dt> <samp>`daikon.simplify.LemmaStack.print_contradictions'</samp></dt>
+<dd><p>Boolean. Controls Daikon's response when inconsistent invariants
+are discovered while running Simplify. If true, Daikon will print
+an error message to the standard error stream listing the
+contradictory invariants. This is mainly intended for debugging
+Daikon itself, but can sometimes be helpful in tracing down other
+problems. For more information, see the section on
+troubleshooting contradictory invariants in the Daikon manual.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.simplify.LemmaStack.remove_contradictions'</samp></dt>
+<dd><p>Boolean. Controls Daikon's response when inconsistent invariants
+are discovered while running Simplify. If false, Daikon will give
+up on using Simplify for that program point. If true, Daikon will
+try to find a small subset of the invariants that cause the
+contradiction and avoid them, to allow processing to
+continue. For more information, see the section on
+troubleshooting contradictory invariants in the Daikon manual.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.simplify.LemmaStack.synchronous_errors'</samp></dt>
+<dd><p>Boolean. If true, ask Simplify to check a simple proposition
+after each assumption is pushed, providing an opportunity to wait
+for output from Simplify and potentially receive error messages
+about the assumption. When false, long sequences of assumptions
+may be pushed in a row, so that by the time an error message
+arrives, it's not clear which input caused the error. Of course,
+Daikon's input to Simplify isn't supposed to cause errors, so
+this option should only be needed for debugging.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.simplify.Session.simplify_max_iterations'</samp></dt>
+<dd><p>A non-negative integer, representing the largest number of
+iterations for which Simplify should be allowed to run on any
+single conjecture before giving up.  Larger values may cause
+Simplify to run longer, but will increase the number
+of invariants that can be recognized as redundant. The default
+value is small enough to keep Simplify from running for more than
+a few seconds on any one conjecture, allowing it to verify most
+simple facts without getting bogged down in long searches. A
+value of 0 means not to bound the number of iterations at all,
+though see also the <code>simplify_timeout</code> parameter..
+The default value is `1000'.
+</p>
+</dd>
+<dt> <samp>`daikon.simplify.Session.simplify_timeout'</samp></dt>
+<dd><p>A non-negative integer, representing the longest time period (in
+seconds) Simplify should be allowed to run on any single
+conjecture before giving up.  Larger values may cause
+Simplify to run longer, but will increase the number
+of invariants that can be recognized as redundant.  Roughly
+speaking, the time spent in Simplify will be bounded
+by this value, times the number of invariants generated, though
+it can be much less. A value of 0 means to not bound Simplify at
+all by time, though also see the option
+<code>simplify_max_iterations</code>.
+Beware that using this option might make Daikon's output depend
+on the speed of the machine it's run on.
+The default value is `0'.
+</p>
+</dd>
+<dt> <samp>`daikon.simplify.Session.trace_input'</samp></dt>
+<dd><p>Boolean. If true, the input to the Simplify theorem prover will
+also be directed to a file named simplifyN.in (where N is a
+number starting from 0) in the current directory. Simplify's
+operation can then be reproduced with a command like
+<samp>`Simplify -nosc &lt;simplify0.in'</samp>.
+This is intended primarily for debugging
+when Simplify fails.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.simplify.Session.verbose_progress'</samp></dt>
+<dd><p>Positive values mean to print extra indications as each candidate
+invariant is passed to Simplify during the
+<code>--suppress_redundant</code>
+check.  If the value is 1 or higher, a hyphen will be printed when
+each invariant is passed to Simplify, and then replaced by a
+<samp>`T'</samp>
+if the invariant was redundant,
+<samp>`F'</samp> if it was not found to be,
+and <samp>`?'</samp> if Simplify gave up because of a time limit.
+If the value
+is 2 or higher, a <samp>`&lt;'</samp> or <samp>`&gt;'</samp>
+will also be printed for each
+invariant that is pushed onto or popped from from Simplify's
+assumption stack. This option is mainly intended for debugging
+purposes, but can also provide something to watch when Simplify
+takes a long time.
+The default value is `0'.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="General-configuration-options"></a>
+<a name="SEC53"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC52" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC47" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.1.1.6 General configuration options </h4>
+
+<p>This section lists miscellaneous configuration options for Daikon.
+</p>
+<dl compact="compact">
+<dt> <samp>`daikon.Daikon.calc_possible_invs'</samp></dt>
+<dd><p>Boolean.  Just print the total number of possible invariants
+and exit.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.disable_splitting'</samp></dt>
+<dd><p>Boolean.  Controls whether or not splitting based on the built-in
+splitting rules is disabled.  The built-in rules look for implications
+based on boolean return values and also when there are exactly two
+exit points from a method.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.enable_floats'</samp></dt>
+<dd><p>Boolean.  Controls whether invariants are reported over floating-point
+values.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.guardNulls'</samp></dt>
+<dd><p>If &quot;always&quot;, then invariants are always guarded.
+If &quot;never&quot;, then invariants are never guarded.
+If &quot;missing&quot;, then invariants are guarded only for variables that
+were missing (&quot;can be missing&quot;) in the dtrace (the observed executions).
+<br><br>
+</p>
+<p>Guarding means adding predicates that ensure that variables can be
+dereferenced.  For instance, if <code>a</code> can be null -- that is,
+if <code>a.b</code> can be nonsensical -- then the guarded version of
+<samp>`a.b == 5'</samp>
+is
+<samp>`(a != null) ==&gt; (a.b == 5)'</samp>.
+<br><br>
+</p>
+<p>(To do:  Some configuration option (maybe this one) should add guards for
+other reasons that lead to nonsensical values (see section <a href="daikon_5.html#SEC37">Variable names</a>).)
+<a name="IDX73"></a>
+The default value is `default'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.internal_check'</samp></dt>
+<dd><p>When true, perform detailed internal checking.
+These are essentially additional, possibly costly assert statements.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.output_conditionals'</samp></dt>
+<dd><p>Boolean.  Controls whether conditional program points
+are displayed.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.ppt_perc'</samp></dt>
+<dd><p>Integer. Percentage of program points to process.  All program points
+are sorted by name, and all samples for
+the first <code>ppt_perc</code> program points are processed.
+A percentage of 100 matches all program points.
+The default value is `100'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.print_sample_totals'</samp></dt>
+<dd><p>Boolean.  Controls whether or not the total samples read and processed
+are printed at the end of processing.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.progress_delay'</samp></dt>
+<dd><p>The amount of time to wait between updates of the progress
+display, measured in milliseconds. A value of -1 means do not
+print the progress display at all.
+The default value is `1000'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.progress_display_width'</samp></dt>
+<dd><p>The number of columns of progress information to display. In many
+Unix shells, this can be set to an appropriate value by
+<samp>`--config_option daikon.Daikon.progress_display_width=$COLUMNS'</samp>.
+The default value is `80'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.quiet'</samp></dt>
+<dd><p>Boolean.  Controls whether or not processing information is printed out.
+Setting this variable to true also automatically sets
+<code>progress_delay</code> to -1.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.show_stack_trace'</samp></dt>
+<dd><p>If true, show stack traces for errors such as file format errors.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.suppressSplitterErrors'</samp></dt>
+<dd><p>When true compilation errors during splitter file generation
+will not be reported to the user.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.undo_opts'</samp></dt>
+<dd><p>Boolean.  Controls whether the Daikon optimizations (equality
+sets, suppressions) are undone at the end to create a more
+complete set of invariants.  Output does not include
+conditional program points, implications, reflexive and
+partially reflexive invariants.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.Daikon.use_dynamic_constant_optimization'</samp></dt>
+<dd><p>Whether to use the dynamic constants optimization.  This
+optimization doesn't instantiate invariants over constant
+variables (i.e., that that have only seen one value).  When the
+variable receives a second value, invariants are instantiated and
+are given the sample representing the previous constant value.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.Debug.logDetail'</samp></dt>
+<dd><p>Determines whether or not detailed info (such as from
+<code>add_modified</code>) is printed.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.Debug.showTraceback'</samp></dt>
+<dd><p>Determines whether or not traceback information is printed for each
+call to log.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.DynamicConstants.OneOf_only'</samp></dt>
+<dd><p>Boolean. If true only create OneOf invariants for variables that
+are constant for the entire run.  If false, all possible invariants
+are created between constants.  Note that setting this to true only
+fails to create invariants between constants.  Invariants between
+constants and non-constants are created regardless.
+</p>
+<p>A problem occurs with merging when this is turned on.  If a var_info
+is constant at one child slice, but not constant at the other child
+slice, interesting invariants may not be merged because they won't
+exist on the slice with the constant.  This is thus currently
+defaulted to false.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.add_changed'</samp></dt>
+<dd><p>Boolean.  When false, set modbits to 1 iff the printed
+representation has changed.  When true, set modbits to 1 if the
+printed representation has changed; leave other modbits as is.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.check_bb_connections'</samp></dt>
+<dd><p>If true, check all of the basic blocks that make up a function
+to ensure that there is a path from function entry to the block.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.continue_after_file_exception'</samp></dt>
+<dd><p>Boolean.  When true, suppress exceptions related to file reading.
+This permits Daikon to continue even if there is a malformed trace
+file.  Use this with care:  in general, it is better to fix the
+problem that caused a bad trace file, rather than to suppress the
+exception.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.count_lines'</samp></dt>
+<dd><p>Boolean. When false, don't count the number of lines in the dtrace file
+before reading.  This will disable the percentage progress printout.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.dtrace_line_count'</samp></dt>
+<dd><p>Long integer. If non-zero, this value will be used as the number
+of lines in (each) dtrace file input for the purposes of the
+progress display, and the counting of the lines in the file will
+be suppressed.
+The default value is `0'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.ignore_missing_enter'</samp></dt>
+<dd><p>When true, just ignore exit ppts that don't have a matching enter
+ppt rather than exiting with an error.  Unmatched exits can occur
+if only a portion of a dtrace file is processed.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.max_line_number'</samp></dt>
+<dd><p>Integer.  Maximum number of lines to read from the dtrace file.  If
+0, reads the entire file.
+The default value is `0'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.merge_basic_blocks'</samp></dt>
+<dd><p>If true, variables from basic blocks which predominate a basic block X
+will be included when X is processed.  This allows Daikon to find
+invariants between variables in different program points (basic blocks
+in this case).
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.read_samples_only'</samp></dt>
+<dd><p>Boolean.  When true, only read the samples, but don't process them.
+Used to gather timing information.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.unmatched_procedure_entries_quiet'</samp></dt>
+<dd><p>Boolean.  When true, don't print a warning about unmatched procedure
+entries, which are ignored by Daikon (unless the -nohierarchy switch
+is provided).
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.FileIO.verbose_unmatched_procedure_entries'</samp></dt>
+<dd><p>Boolean.  If true, prints the unmatched procedure entries
+verbosely.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PptCombined.asm_path_name'</samp></dt>
+<dd><p>If non-null, we will compute redundant binary variables
+when creating a CombinedProgramPoint, using
+the assembly information in the file specified.
+The default value is `null'.
+</p>
+</dd>
+<dt> <samp>`daikon.PptCombined.rvars_file'</samp></dt>
+<dd><p>If redundant variables are being computed, the results
+of the redundancy analysis are printed to this stream.
+See dkconfig_asm_path_name above.
+The default value is `null'.
+</p>
+</dd>
+<dt> <samp>`daikon.PptRelation.enable_object_user'</samp></dt>
+<dd><p>Boolean.  Controls whether the object-user relation is created in the
+variable hierarchy.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PptSliceEquality.set_per_var'</samp></dt>
+<dd><p>If true, create one equality set for each variable.
+This has the effect of turning
+the equality optimization off, without actually removing the sets
+themselves (which are presumed to exist in many parts of the code).
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PptSplitter.dummy_invariant_level'</samp></dt>
+<dd><p>Integer. A value of zero indicates that DummyInvariant objects should
+not be created. A value of one indicates that dummy invariants
+should be created only when no suitable condition was found in
+the regular output. A value of two indicates that dummy
+invariants should be created for each splitting condition.
+The default value is `0'.
+</p>
+</dd>
+<dt> <samp>`daikon.PptSplitter.split_bi_implications'</samp></dt>
+<dd><p>Split bi-implications into two separate invariants.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PptTopLevel.pairwise_implications'</samp></dt>
+<dd><p>Boolean.  If true, create implications for all pairwise
+combinations of conditions, and all pairwise combinations of exit
+points.  If false, create implications for only the first
+two conditions, and create implications only if there are
+exactly two exit points.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PptTopLevel.remove_merged_invs'</samp></dt>
+<dd><p>Remove invariants at lower program points when a matching invariant is
+created at a higher program point. For experimental purposes only.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PrintInvariants.old_array_names'</samp></dt>
+<dd><p>In the new decl format, print array names without as 'a[]' as
+opposed to 'a[..]'  This creates names that are more compatible
+with the old output.  This option has no effect in the old decl
+format.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.PrintInvariants.print_all'</samp></dt>
+<dd><p>If true, print all invariants without any filtering.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PrintInvariants.print_inv_class'</samp></dt>
+<dd><p>Print invariant classname with invariants in output of
+<code>format()</code> method, normally used only for debugging output
+rather than ordinary printing of invariants.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PrintInvariants.remove_post_vars'</samp></dt>
+<dd><p>If true, remove as many variables as possible that need to be indicated
+as 'post'.  Post variables occur when the subscript for a derived
+variable with an orig sequence is not orig.  For example: orig(a[post(i)])
+An equivalent expression involving only orig variables is substitued
+for the post variable when one exists.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PrintInvariants.replace_prestate'</samp></dt>
+<dd><p>This option must be given with &quot;-format Java&quot; option.
+</p>
+<p>Instead of outputting prestate expressions as &quot;\old(E)&quot; within an
+invariant, output a variable names (e.g. `v1'). At the end of
+each program point, output the list of variable-to-expression
+mappings. For example: with this option set to false, a program
+point might print like this:
+</p>
+<p>&lt;pre&gt;
+foo.bar.Bar(int):::EXIT
+\old(capacity) == sizeof(this.theArray)
+&lt;/pre&gt;
+</p>
+<p>With the option set to true, it would print like this:
+</p>
+<p>&lt;pre&gt;
+foo.bar.Bar(int):::EXIT
+v0 == sizeof(this.theArray)
+prestate assignment: v0=capacity
+&lt;/pre&gt;
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.PrintInvariants.static_const_infer'</samp></dt>
+<dd><p>This enables a different way of treating static constant variables.
+They are not created into invariants into slices.  Instead, they are
+examined during print time.  If a unary invariant contains a value
+which matches the value of a static constant varible, the value
+will be replaced by the name of the variable, &quot;if it makes sense&quot;.
+For example, if there is a static constant variable a = 1.  And there
+exists an invariant x &lt;= 1, x &lt;= a would be the result printed.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.PrintInvariants.true_inv_cnt'</samp></dt>
+<dd><p>If true, print the total number of true invariants.  This includes
+invariants that are redundant and would normally not be printed
+or even created due to optimizations.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.ProglangType.convert_to_signed'</samp></dt>
+<dd><p>If true, treat 32 bit values whose high bit is on, as a negative
+number (rather than as a 32 bit unsigned).
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.VarInfo.constant_fields_simplify'</samp></dt>
+<dd><p>If true, the treat static constants (such as MapQuick.GeoPoint.FACTOR)
+as fields within an object rather than as a single name.  Not correct,
+but used to obtain compatibility with VarInfoName.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.VarInfo.declared_type_comparability'</samp></dt>
+<dd><p>If true, then variables are only considered comparable if they
+are declared with the same type.  For example, java.util.List
+is not comparable to java.util.ArrayList and float is not
+comparable to double.  This may miss valid invariants, but
+significant time can be saved and many variables with
+different declared types are not comparable (e.g., java.util.Date
+and java.util.ArrayList).
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.chicory.DaikonVariableInfo.constant_infer'</samp></dt>
+<dd><p>Enable experimental techniques on static constants.
+The default value is `false'.
+</p>
+</dd>
+<dt> <samp>`daikon.split.ContextSplitterFactory.granularity'</samp></dt>
+<dd><p>Enumeration (integer).  Specifies the granularity to use for
+callsite splitter processing.  0 is line-level granularity; 1 is
+method-level granularity; 2 is class-level granularity.
+The default value is `1'.
+</p>
+</dd>
+<dt> <samp>`daikon.split.SplitterFactory.compile_timeout'</samp></dt>
+<dd><p>Positive integer.  Specifies the Splitter compilation timeout, in
+seconds, after which the compilation process is terminated and
+retried, on the assumption that it has hung.
+The default value is `6'.
+</p>
+</dd>
+<dt> <samp>`daikon.split.SplitterFactory.compiler'</samp></dt>
+<dd><p>String.  Specifies which Java compiler is used to compile
+Splitters.  This can be the full path name or whatever is used on
+the commandline.
+The default value is `javac'.
+</p>
+</dd>
+<dt> <samp>`daikon.split.SplitterFactory.delete_splitters_on_exit'</samp></dt>
+<dd><p>Boolean. Specifies whether or not the temporary Splitter files
+should be deleted on exit.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.split.SplitterList.all_splitters'</samp></dt>
+<dd><p>Boolean.  Enables indiscriminate splitting
+(see Daikon manual, <a href="#SEC58">Indiscriminate splitting</a>,
+for an explanation of this technique).
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.suppress.NIS.enabled'</samp></dt>
+<dd><p>Boolean.  If true, enable non-instantiating suppressions.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.suppress.NIS.hybrid_threshhold'</samp></dt>
+<dd><p>Int.  Less and equal to this number means use the falsified method in
+the hybrid method of processing falsified invariants, while greater
+than this number means use the antecedent method.  Empirical data shows that
+number should not be more than 10000.
+The default value is `2500'.
+</p>
+</dd>
+<dt> <samp>`daikon.suppress.NIS.skip_hashcode_type'</samp></dt>
+<dd><p>Boolean.  If true, skip variables of file rep type hashcode when creating
+invariants over constants in the antecedent method.
+The default value is `true'.
+</p>
+</dd>
+<dt> <samp>`daikon.suppress.NIS.suppression_processor'</samp></dt>
+<dd><p>Specifies the algorithm that NIS uses to process suppressions.
+Possible selections are 'HYBRID', 'ANTECEDENT', and 'FALSIFIED'.
+The default is the hybrid algorithm which uses the falsified
+algorithm when only a small number of suppressions need to be processed
+and the antecedent algorithm when a large number of suppressions
+are processed.
+The default value is `HYBRID'.
+</p>
+</dd>
+<dt> <samp>`daikon.suppress.NIS.suppressor_list'</samp></dt>
+<dd><p>Boolean.  If true, use the specific list of suppressor related
+invariant prototypes when creating constant invariants in the
+antecedent method.
+The default value is `true'.
+</p>
+</dd>
+</dl>
+
+
+
+
+<hr size="6">
+<a name="Conditional-invariants"></a>
+<a name="SEC54"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC53" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC55" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.2 Conditional invariants and implications </h2>
+
+<p>Conditional invariants are invariants that are true only part of the time.
+For instance, the postcondition for the absolute value procedure is
+</p><table><tr><td>&nbsp;</td><td><pre class="example">if arg &lt; 0
+  then return == -arg
+  else return == arg
+</pre></td></tr></table>
+<p>The invariant <code>return == -arg</code> is a conditional invariant because
+it depends on the predicate <code>arg &lt; 0</code> being true.  An
+<em>implication</em> is a compound invariant that includes both the
+predicate and the conditional invariant (also called the consequent).
+</p>
+<a name="IDX74"></a>
+<a name="IDX75"></a>
+
+<p>Another type of implication is a <i>context-sensitive</i> invariant -- a
+fact about method A that is true only when A is called by method B, but
+not true in general about A.  Implications can be used to construct
+context-sensitive invariants:  set a variable that depends on the call
+site, then compute an implication whose predicate tests that variable.
+For an example, see the paper &quot;Selecting, refining, and evaluating
+predicates for program analysis&quot;
+(<a href="http://groups.csail.mit.edu/pag/daikon/pubs/predicates-tr914-abstract.html">http://groups.csail.mit.edu/pag/daikon/pubs/predicates-tr914-abstract.html</a>).
+</p>
+<p>Daikon must be supplied with the predicate for an implication.  Daikon has
+certain built-in predicates that it uses for finding conditional invariants;
+examples are which return statement was executed in a procedure and whether a
+boolean procedure returns true or false.  Additionally, Daikon can read
+predicates from a file called a splitter info (<tt>`.spinfo'</tt>) file and find
+implications based on those predicates.  The splitter info file can be produced
+automatically, such as by static analysis of the program using the CreateSpinfo
+and CreateSpinfoC programs or by cluster analysis of the
+traced values in the data trace file.  Details of these techniques and usage
+guides can be found in <a href="#SEC62">Enhancing conditional invariant detection</a>.  Users
+can also create splitter info files by hand or manually augment
+automatically-created ones.
+</p>
+<p>To detect conditional invariants and implications:
+</p><ol>
+<li>
+Create the splitter info file, either automatically or by hand.
+</li><li>
+Run Daikon with the <tt>`.spinfo'</tt> file as one of its arguments.
+(The order of arguments does not matter.)
+For example,
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Daikon Foo.decls Foo.spinfo Foo.dtrace
+</pre></td></tr></table></li></ol>
+
+<p>The term &quot;splitter&quot; comes from Daikon's technique for detecting
+implications and conditional invariants.  For each predicate, Daikon
+creates two conditional program points -- one for program executions
+that satisfy the condition and one for those that don't -- and splits
+the data trace into two parts.  Invariant detection is then performed
+on the conditional program points (that is, the parts of the data
+trace) separately and any invariants detected are reported as
+conditional invariants (as implications).
+</p>
+<p>To be precise, we say that an invariant holds exclusively if it is
+discovered on one side of a split, and its negation is discovered on
+the opposite side.  Daikon creates conditional invariants whose
+predicates are invariants that hold exclusively on one side of a
+split, and whose consequents are invariants that hold on that side of
+the split but not on the un-split program point.  If Daikon finds
+multiple exclusive conditions, it will create biconditional (&quot;if and
+only if&quot;) invariants between the equivalent conditions.  Within the
+context of the program, each of the exclusive conditions is equivalent
+to the splitting condition.  In particular, if both the splitting
+condition and its negation are within the grammar of invariants that
+Daikon detects, the splitting condition may appear as the predicate of
+the generated conditional invariants.  On the other hand, if other
+equivalent conditions are found, or if the splitting condition is not
+expressible in Daikon's grammar, it might not appear in the generated
+implications.
+</p>
+<a name="IDX76"></a>
+<a name="IDX77"></a>
+
+<p>In some cases, the default policy of selecting predicates from
+Daikon's output may be insufficient.  For instance, Daikon might not
+detect any invariant equivalent to the splitting condition, if it is
+sufficiently complex or application-specific.  In such situations,
+Daikon can also use the splitting condition itself as the predicate of
+an implication, as what is called a &quot;dummy invariant&quot;.  A &quot;dummy
+invariant&quot; is one whose meaning is not dealt with directly by Daikon;
+instead Daikon knows only how to print the invariant in its output.
+When a tool or a user writes a splitter info file, the file can
+specify a way to print the condition represented by the splitter in
+any of Daikon's output formats.  If the use of dummy invariants is
+enabled, invariants with the supplied output formats will be used as
+the predicates of conditional invariants.
+</p>
+<p>To use dummy invariants, a condition's formatting must be specified in
+the splitter info file, and the configuration option
+<samp>`daikon.PptTopLevel.dummy_invariant_level'</samp> must be set to a
+non-zero value (see <a href="#SEC47">List of configuration options</a>).
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC55">6.2.1 Splitter info file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC58">6.2.2 Indiscriminate splitting</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">    
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC59">6.2.3 Example splitter info file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Splitter-info-file"></a>
+<a name="SEC55"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC54" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC56" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 6.2.1 Splitter info file </h3>
+
+<p>A splitter info file contains the conditions that Daikon should use to
+create conditional invariants.  Each section in the <tt>`.spinfo'</tt>
+file consists of a sequence of non-blank lines; sections are separated
+by blank lines.  There are two types of sections:  program point
+sections and replacement sections.
+See section <a href="#SEC59">Example splitter info file</a>, for an example splitter info file.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC56">6.2.1.1 Program point sections</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC57">6.2.1.2 Replacement sections</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Program-point-sections"></a>
+<a name="SEC56"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC55" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC57" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC55" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.2.1.1 Program point sections </h4>
+
+<p>Program point sections have a line specifying a program point name
+followed by lines specifying the condition(s) associated with that
+program point, each condition on its own line.  Additional information
+about a condition may be specified on indented lines.  For example, a
+typical entry is
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">PPT_NAME <var>pptname</var>
+<var>condition1</var>
+<var>condition2</var>
+    DAIKON_FORMAT <var>output string</var>
+    ESC_FORMAT <var>output string</var>
+<var>condition3</var>
+...
+</pre></td></tr></table>
+<p><var>pptname</var> can be any string that matches a part of the desired
+program point name as printed in the decls file.  In finding matching
+program points, Daikon uses the first program point that matches
+<var>pptname</var>.  Caution is necessary when dealing with method names
+that are prefixes of other method names.  For instance, if the class
+<code>List</code> has methods <code>add</code> and <code>addAll</code>, specifying
+<samp>`PPT_NAME List.add'</samp> might select either method, depending on
+which was encountered first.  Instead writing <samp>`PPT_NAME
+List.add('</samp> will match only the <code>add</code> method.
+</p>
+<p>Each condition is a Java expression of boolean type.  All variables
+that appear in the condition must also appear in the declaration of
+the program point in the <tt>`.decls'</tt> file.  (In other words, all the
+variables must be in scope at the program point(s) where the Splitter
+is intended to operate.)  The automatically generated Splitter source
+code fails to compile (but Daikon proceeds without it) if a variable
+name in a condition is not found at the matching program point.
+</p>
+<p>Indented lines beginning with <samp>`DAIKON_FORMAT'</samp>,
+<samp>`JAVA_FORMAT'</samp>, <samp>`ESC_FORMAT'</samp>, or <samp>`SIMPLIFY_FORMAT'</samp>
+may be used to specify how to represent the
+condition specified by the splitter in each of Daikon's output
+formats, to allow the splitting condition to be used as a dummy
+invariant.
+</p>
+<hr size="6">
+<a name="Replacement-sections"></a>
+<a name="SEC57"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC56" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC58" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC55" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.2.1.2 Replacement sections </h4>
+
+<p>Ordinarily, a splitting condition may not invoke user-defined methods,
+because when Daikon reads data trace files, it does not have access to the
+program source.  A replace section of the splitter info file can specify
+the bodies of methods, permitting conditions to invoke those methods.  The
+format is as follows:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">REPLACE
+<var>procedure1</var>
+<var>replacement1</var>
+<var>procedure2</var>
+<var>replacement2</var>
+...
+</pre></td></tr></table>
+<p>where <var>replacementi</var> is a Java expression for the body
+of <var>procedurei</var>.  In each condition, Daikon replaces procedure
+calls by their replacements.  A replace section may appear anywhere in
+the splitter info file.
+</p>
+<hr size="6">
+<a name="Indiscriminate-splitting"></a>
+<a name="SEC58"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC57" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC59" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 6.2.2 Indiscriminate splitting </h3>
+
+<p>Ordinarily, each condition in an <tt>`.spinfo'</tt> file gives rise to
+conditional invariants only at the program point in whose section the
+condition appears.  Alternately, every condition can be used at every
+program point, regardless of where in the <tt>`.spinfo'</tt> file the
+condition appeared; this latter approach is called &quot;indiscriminate
+splitting&quot;.
+</p>
+<p>The advantage of indiscriminate splitting is that a condition that is
+useful at one program point may also be useful at another -- if the
+same variables are in scope or other variables of the same name are in
+scope.  The disadvantage of indiscriminate splitting is that often the
+condition is not applicable everywhere, and when it is, it may not be
+useful at all such locations, so checking for many conditional
+invariants may slow down Daikon without a corresponding benefit.
+Indiscriminate splitting can result in Daikon attempting
+to use many conditions that are inappropriate at certain program
+points, for instance because the program point does not have (in
+scope) all the variables that are used in the condition.  For example,
+the condition <code>myArray.length == x</code> is inapplicable at a program
+point if either of <code>myArray</code> and <code>x</code> is not in scope at that
+program point.  In this case, Daikon prints a warning message and
+proceeds, using conditions wherever they are valid.
+</p>
+<p>By default, Daikon uses indiscriminate splitting.  To use
+non-indiscriminate splitting, place the following line in a file that is
+passed to Daikon via the <samp>`--config'</samp> flag
+(see section <a href="daikon_4.html#SEC32">Daikon configuration options</a>):
+</p><table><tr><td>&nbsp;</td><td><pre class="example">daikon.split.SplitterList.all_splitters = false
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="Example-splitter-info-file"></a>
+<a name="SEC59"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC58" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC60" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC54" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 6.2.3 Example splitter info file </h3>
+
+<p>Below is an implementation of a simple Queue for positive integers and
+a corresponding <tt>`.spinfo'</tt> file.  The splitter info file is like
+the one that <code>CreateSpinfo</code> would create for that class, but
+also demonstrates some other features.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC60">6.2.3.1 Example class</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC61">6.2.3.2 Resulting .spinfo file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Example-class"></a>
+<a name="SEC60"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC59" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC61" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC59" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.2.3.1 Example class </h4>
+
+<table><tr><td>&nbsp;</td><td><pre class="smallexample">class simpleStack {
+
+  private int[] myArray;
+  private int currentSize;
+
+  public simpleStack(int capacity) {
+    myArray = new int[capacity];
+    currentSize = 0;
+  }
+
+  /** Adds an element to the back of the stack, if the stack is
+    * not full.
+    * Returns true if this succeeds, false otherwise.  **/
+  public String push(int x) {
+    if ( !isFull() &amp;&amp; x &gt;= 0) {
+      myArray[currentSize] = x;
+      currentSize++;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /** Returns the most recently inserted stack element.
+    * Returns -1 if the stack is empty. **/
+  public int pop() {
+    if ( !isEmpty() ) {
+      currentSize--;
+      return myArray[currentSize];
+    } else {
+      return -1;
+    }
+  }
+
+ /** Returns true if the stack is empty, false otherwise. **/
+  private boolean isEmpty() {
+    return (currentSize == 0);
+  }
+
+  /** Returns true if the stack is full, false otherwise. **/
+  private boolean isFull() {
+    return (currentSize == myArray.length);
+  }
+}
+</pre></td></tr></table>
+<hr size="6">
+<a name="Resulting-_002espinfo-file"></a>
+<a name="SEC61"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC60" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC62" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC59" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 6.2.3.2 Resulting .spinfo file </h4>
+
+<table><tr><td>&nbsp;</td><td><pre class="smallexample">REPLACE
+isFull()
+currentSize == myArray.length
+isEmpty()
+currentSize == 0
+
+PPT_NAME  simpleStack.push
+!isFull() &amp;&amp; x &gt;= 0
+    DAIKON_FORMAT !isFull() and x &gt;= 0
+    SIMPLIFY_FORMAT (AND (NOT (isFull this)) (&gt;= x 0))
+
+PPT_NAME  simpleStack.pop
+!isEmpty()
+
+PPT_NAME  simpleStack.isFull
+currentSize == myArray.length - 1
+
+PPT_NAME  simpleStack.isEmpty
+currentSize == 0
+</pre></td></tr></table>
+<hr size="6">
+<a name="Enhancing-conditional-invariant-detection"></a>
+<a name="SEC62"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC61" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC63" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.3 Enhancing conditional invariant detection </h2>
+
+<p>The built-in mechanisms (see section <a href="#SEC54">Conditional invariants and implications</a>) have
+limitations in the invariants they can find.  By supplying splitting
+conditions to Daikon via a splitter info file, the user can infer more
+conditional invariants.  To ease this task, there are two methods to
+automatically create splitter info files for use by Daikon.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC63">6.3.1 Static analysis for splitters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC64">6.3.2 Cluster analysis for splitters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC65">6.3.3 Random selection for splitters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Static-analysis-for-splitters"></a>
+<a name="SEC63"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC62" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC64" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC62" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 6.3.1 Static analysis for splitters </h3>
+
+
+<p>In static analysis, all explicitly stated boolean statements in the program
+source are extracted and used as splitting conditions.  The assumption is that
+conditions that are explicitly tested in the program are likely to affect the
+program's behavior and could lead to useful conditional invariants.
+</p>
+<p>The CreateSpinfo program takes Java source code as input and creates a
+splitter info file for each input file; for instance,
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.tools.jtb.CreateSpinfo Foo.java Bar.java
+</pre></td></tr></table>
+<p>creates the splitter info files <tt>`Foo.spinfo'</tt> and
+<tt>`Bar.spinfo'</tt>.
+Given an <samp>`-o <var>filename</var>'</samp> argument, CreateSpinfo puts all the
+splitters in the specified file instead.
+The resulting splitter info file(s) contains each
+boolean expression that appears in the source code.  The conditional
+statements that the programmer used in the source code are likely to
+have important semantic properties.  This simple heuristic of using
+these conditional statements as predicates for conditional invariant
+detection is often quite effective.
+</p>
+<p>If you get an error such as
+</p><table><tr><td>&nbsp;</td><td><pre class="example">jtb.ParseException: Encountered &quot;;&quot; at line 253, column 8.
+Was expecting one of: &quot;abstract&quot; ...
+</pre></td></tr></table>
+<p>then you may have encountered a bug in the JTB library on which
+CreateSpinfo is built.  It does not permit empty declarations in a
+class body.  Remove the extra semicolon in your Java file (at the
+indicated position) and re-rerun CreateSpinfo.
+</p>
+<p>The <code>CreateSpinfoC</code> program performs the same function, for
+C source code.  It can only be run on postprocessed source
+files--that is, source files contain no CPP commands.  CPP commands
+are lines starting with <samp>`#'</samp>, such as <samp>`#include'</samp>.  To
+expand CPP commands into legal C, run either <code>cpp -P</code> or
+<code>gcc -P -E</code>.  For instance, here is how you could use it.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">cpp -P foo.c foo.c-expanded
+cpp -P bar.c bar.c-expanded
+java daikon.tools.jtb.CreateSpinfoC \
+     foo.c-expanded bar.c-expanded
+</pre></td></tr></table>
+
+<p>If you get an error such as
+</p><table><tr><td>&nbsp;</td><td><pre class="example">... Lexical error at line 5, column 1.
+Encountered: &quot;#&quot; (35), after : &quot;&quot;
+</pre></td></tr></table>
+<p>then you forgot to run CPP before running CreateSpinfoC.
+</p>
+<hr size="6">
+<a name="Cluster-analysis-for-splitters"></a>
+<a name="SEC64"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC63" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC65" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC62" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 6.3.2 Cluster analysis for splitters </h3>
+
+
+<p>Cluster analysis is a statistical method that finds groups or clusters
+in data.  The clusters may indicate conditional properties in the
+program.  A conditional property at a program point separates the data
+into those that satisfy it and those that do not, and conditional
+invariants can be induced by clustering.  Any invariant that is
+discovered over one cluster but not over another is a conditional
+invariant--the predicate for the conditional invariant being
+membership in the cluster in which the invariant was found.  The
+cluster analysis mechanism finds clusters in the data trace file,
+infers invariants over any clusters that it finds, and writes these
+invariants into a splitter info file for conditional invariant
+detection.
+</p>
+<p>To find splitting conditions using cluster analysis, run the
+<code>runcluster.pl</code> program (found in the <tt>`$DAIKONDIR/bin'</tt>
+directory) in the following way:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">runcluster.pl [<var>options</var>] <var>dtrace_file ...</var> <var>decls_files ...</var>
+</pre></td></tr></table>
+<p>The <var>options</var> are:
+</p><dl compact="compact">
+<dd>
+<a name="IDX78"></a>
+<a name="IDX79"></a>
+<a name="IDX80"></a>
+</dd>
+<dt> <samp>`-a <var>ALG</var>'</samp></dt>
+<dt> <samp>`--algorithm <var>ALG</var>'</samp></dt>
+<dd><p><var>ALG</var> specifies a clustering algorithm.
+Current options are <samp>`km'</samp> (for kmeans), <samp>`hierarchical'</samp>,
+and <samp>`xm'</samp> (for xmeans).  The default is <samp>`xm'</samp>.
+</p>
+</dd>
+<dt> <samp>`-k'</samp></dt>
+<dd><p>The number of clusters to use (for algorithms which require
+this input, which is everything except xmeans).  The default is 4.
+</p>
+</dd>
+<dt> <samp>`--keep'</samp></dt>
+<dd><p>Don't delete the temporary files created by the clustering
+process.  This is a debugging flag.
+</p></dd>
+</dl>
+
+<p>The <code>runcluster.pl</code> script currently supports three clustering
+programs.  They are implementations of the kmeans algorithm,
+hierarchical clustering and the xmeans algorithm (kmeans algorithm
+with efficient discovery of the number of clusters).  The kmeans and
+hierarchical clustering tools are provided in the Daikon
+distribution.  The xmeans code and executable are publicly available at
+<a href="http://www.cs.cmu.edu/~dpelleg/kmeans.html">http://www.cs.cmu.edu/~dpelleg/kmeans.html</a> (fill in the license
+form and mail it in).
+</p>
+<hr size="6">
+<a name="Random-selection-for-splitters"></a>
+<a name="SEC65"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC64" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC66" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC62" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 6.3.3 Random selection for splitters </h3>
+
+
+<p>Random selection can create representative samples of a data set with
+the added benefit of finding conditional properties and eliminating
+outliers.  Given traced data, the TraceSelect tool creates several
+small subsets of the data by randomly selecting parts of the original
+trace file.  Any invariant that is discovered in the smaller samples but
+not found over the entire data is a conditional invariant.
+</p>
+<p>To find splitting conditions using random selection, run the
+<code>daikon.tools.TraceSelect</code> program in the following way:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.tools.TraceSelect <var>num_reps</var> <var>sample_size</var> [<var>options</var>] \
+    <var>dtrace_file</var> <var>decls_files ...</var> [<var>daikon_options</var>]
+</pre></td></tr></table>
+<p><var>num_reps</var> is the number of subsets to create, and <var>sample_size</var> is the
+number of invocations to collect for each method.
+</p>
+<p>The <var>daikon_options</var> are the same options that can be provided to the
+daikon.Daikon program.
+</p>
+<p>The <var>options</var> for TraceSelect are:
+</p><dl compact="compact">
+<dt> <samp>`-NOCLEAN'</samp></dt>
+<dd><p>Don't delete the temporary trace samples created by the random
+selection process.  This can help for debugging or for using the tool
+solely to create trace samples instead of calculating invariants over
+the samples.
+</p>
+</dd>
+<dt> <samp>`-INCLUDE_UNRETURNED'</samp></dt>
+<dd><p>Allows random selection to choose method invocations that entered the
+method successfully but did not exit normally; either from a thrown
+Exception or abnormal termination.
+</p>
+</dd>
+<dt> <samp>`-DO_DIFFS'</samp></dt>
+<dd><p>Creates an spinfo file for generating conditional invariants and
+implications by reporting the invariants that appear in at least one
+of the samples but not over the entire data set.
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="NOD67"></a>
+<a name="SEC66"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC65" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC67" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.4 Dynamic abstract type inference (DynComp) </h2>
+
+<p>Abstract types group variables that are used for related purposes in a
+program.
+For example, suppose that some <code>int</code> variables in your program
+are array lengths or indices, and other <code>int</code> variables 
+represent time.  Even thought these variables have the same type
+(<code>int</code>) in the programming language, they have different abstract
+types.
+</p>
+<p>Abstract types can be provided as additional input to Daikon, so that it
+only infers invariants between values of the same abstract type.
+This can improve Daikon's performance, because it reduces the number of
+potential invariants that must be checked, and also improve the
+relevance of its output, since invariants over unrelated variables are
+superfluous for many tasks.
+The Daikon distribution includes a tool named DynComp that dynamically
+infers abstract types (also called comparability types) from program
+executions.
+(In fact, there are two implementations of DynComp that use the same
+algorithm, one for Java programs and one for binaries compiled from C
+and C++ source code.
+When confusion would otherwise arise, we distinguish them as DynCompJ
+(or DynComp for Java)
+and DynCompB (or Dyncomp for C/C++) respectively.)
+</p>
+<p>Because abstract type inference must be performed before Daikon runs, it
+is integrated with the front-ends rather than directly as part of
+Daikon.
+</p>
+<ul class="toc">
+<li>
+The Java DynComp tool produces a comparability file that must then be
+supplied to the Chicory Java front-end.  For examples of using DynComp
+with Java programs, see <a href="daikon_3.html#SEC16">Using DynComp with Java programs</a>.  For
+full details about the DynComp tool for Java, see <a href="daikon_7.html#SEC75">DynComp dynamic comparability (abstract type) analysis for Java</a>.
+
+</li><li>
+The Kvasir front-end for C/C++ binaries has a DynComp mode in which it
+produces a separate <tt>`.decls'</tt> file containing comparability
+information, which must be supplied to Daikon along with the
+<tt>`.dtrace'</tt> file.  For examples of using DynComp with C programs, see
+<a href="daikon_3.html#SEC22">Using DynComp with C programs</a>.  For full details about the DynComp
+tool for C/C++, see <a href="daikon_7.html#SEC83">DynComp dynamic comparability (abstract type) analysis for C/C++</a>.
+
+</li></ul>
+
+<hr size="6">
+<a name="Loop-invariants"></a>
+<a name="SEC67"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC66" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC45" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.5 Loop invariants </h2>
+
+
+<p>Daikon does not by default output loop invariants.  Daikon can detect
+invariants at any location where it is provided with variable values,
+but currently Daikon's front ends do not supply Daikon with variable values
+at loop heads.
+</p>
+<p>You could extend a front end to output more variable values, or you
+could write a new front end.
+</p>
+<p>Alternately, here is a way to use the current front ends to produce loop
+invariants.  This workaround requires you to change your program, but it
+requires no change to Daikon or its front ends.
+</p>
+<p>At the top of a loop (or at any other location in the program at which
+you would like to obtain invariants), insert a call to a dummy procedure
+that does not work but returns immediately.  Pass, as arguments to the
+dummy procedure, all variables of interest (including local variables).
+Daikon will produce (identical) preconditions and postconditions for the
+dummy procedure; these are properties that held at the call site.
+</p>
+<p>For instance, you might change the original code
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  public void calculate(int x) {
+    int tmp = 0;
+    while (x &gt; 0) {
+      // you desire to compute an invariant here
+      tmp=tmp+x;
+      x=x-1;
+    }
+  }
+</pre></td></tr></table>
+<p>into
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  public void calculate(int x) {
+    int tmp = 0;
+    while (x &gt; 0) {
+      calculate_loophead(x, tmp);
+      tmp=tmp+x;
+      x=x-1;
+    }
+  }
+
+  // dummy procedure
+  public void calculate_loophead(int x, int tmp) {
+  }
+</pre></td></tr></table>
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC45" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_7.html#SEC68" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daikon User</em> on <em>December, 19 2009</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

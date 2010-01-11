@@ -1,0 +1,609 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on December, 19 2009 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>The Daikon Invariant Detector User Manual: 2. Installing Daikon</title>
+
+<meta name="description" content="The Daikon Invariant Detector User Manual: 2. Installing Daikon">
+<meta name="keywords" content="The Daikon Invariant Detector User Manual: 2. Installing Daikon">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Installing-Daikon"></a>
+<a name="SEC3"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="daikon_1.html#SEC2" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon_1.html#SEC1" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 2. Installing Daikon </h1>
+
+<p>Shortcut for the impatient:  skip directly to installation instructions
+(see section <a href="#SEC8">Unix/Linux/MacOS installation</a>) (see section <a href="#SEC9">Windows installation</a>).
+</p>
+<p>There are two main ways to install Daikon.  See section <a href="#SEC4">Simple installation instructions</a>,
+for a simple 2-step installation process that is adequate for the needs
+of many users.  See section <a href="#SEC5">Complete installation instructions</a>, for a complete
+installation, in 4 easy steps, that permits you to use all of the
+functionality in the Daikon distribution.
+</p>
+<p>Use the simple installation instructions if you only wish to detect
+invariants in Java programs.  Use the complete installation instructions
+(which are easy to follow) if you wish to detect invariants in C or Perl
+programs, if you wish to run certain other programs distributed with
+Daikon in its <tt>`bin/'</tt> directory, or if you wish to edit and
+recompile the source code of Daikon itself.
+</p>
+<p>Differences from previous versions of Daikon appear
+in the file <tt>`doc/CHANGES'</tt> in the distribution.
+To be notified of new releases, or to join discussions about Daikon,
+subscribe to one of the mailing lists (see section <a href="daikon_1.html#SEC2">Mailing lists</a>).
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC4">2.1 Simple installation instructions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC5">2.2 Complete installation instructions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Simple-installation"></a>
+<a name="SEC4"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC3" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.1 Simple installation instructions </h2>
+
+<p>Daikon is written in Java.  In order to run Daikon, all you really need
+is the <tt>`daikon.jar'</tt> file, which is included in the distribution or
+can be downloaded separately from
+<a href="http://pag.csail.mit.edu/daikon/download/daikon.jar">http://pag.csail.mit.edu/daikon/download/daikon.jar</a>.  Place
+<tt>`daikon.jar'</tt> on your classpath so that Java can find it.  You are
+now ready to use Daikon!
+</p>
+<p>There are two additional requirements.  You must have a Java 5.0 (or later)
+JVM (<a href="http://java.sun.com">Java Virtual Machine</a>).  The
+<tt>`tools.jar'</tt> file that comes with your JVM must also be on your
+classpath.
+</p>
+<p>See section <a href="#SEC3">Installing Daikon</a>, for situations where you should
+follow the complete installation instructions of <a href="#SEC5">Complete installation instructions</a>.  (Also, if you do not know how to add a jar file to your
+classpath, then use the complete installation instructions, which walk
+you through the process.)
+</p>
+
+<hr size="6">
+<a name="Complete-installation"></a>
+<a name="SEC5"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC4" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC6" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.2 Complete installation instructions </h2>
+
+<p>This section gives step-by-step instructions for installing Daikon.
+</p>
+<p>Here is an overview of the steps.  Details appear below; select the
+instructions for your operating system.
+</p>
+<ol>
+<li>
+Download Daikon.
+
+</li><li>
+Place three commands in your shell initialization file.
+
+</li><li>
+Optionally, customize your installation.
+
+</li><li>
+Optionally, compile Daikon and build other tools by running <code>make</code>.
+
+</li></ol>
+
+
+<p>For more complete information on compiling Daikon, see <a href="..//Compiling-Daikon.html#Compiling-Daikon">(./developer)Compiling Daikon</a> section `Compiling Daikon' in <cite>Daikon Developer Manual</cite> in the Daikon Developer Manual.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC6">2.2.1 Requirements for running Daikon</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC8">2.2.2 Unix/Linux/MacOS installation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC9">2.2.3 Windows installation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC10">2.2.4 Running Daikon under Windows</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="Requirements"></a>
+<a name="SEC6"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC5" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC7" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 2.2.1 Requirements for running Daikon </h3>
+
+<p>In order to run Daikon, you must have a Java 5.0 (or later) JVM
+(<a href="http://java.sun.com">Java Virtual Machine</a>).  You must also
+have a Java 5.0 (or later) compiler.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC7">2.2.1.1 Optional requirements for running Daikon</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Optional-requirements"></a>
+<a name="SEC7"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC6" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC8" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC6" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 2.2.1.1 Optional requirements for running Daikon </h4>
+
+<p>All the remaining requirements listed here are optional (they enable you
+to perform certain additional tasks with Daikon).
+</p>
+<p>If you plan to use one of Daikon's source-based front ends, such as
+Mangel-Wurzel (see section <a href="daikon_7.html#SEC94">Source-based C/C++ front end Mangel-Wurzel</a>), then you need a compiler
+for whatever language your target programs are written in.  For
+instance, if you wish to analyze C or C++ programs, you need a C or C++
+compiler such as GCC.  Source code and a compiler are not necessary if
+you plan to use one of Daikon's front ends that work on binaries, such
+as Chicory (see section <a href="daikon_7.html#SEC69">Java front end Chicory</a>) and Kvasir (see section <a href="daikon_7.html#SEC80">C/C++ front end Kvasir</a>).
+</p>
+<p>If you wish to edit the Daikon source code and re-compile Daikon, see
+<a href="..//Compiling-Daikon.html#Compiling-Daikon">(./developer)Compiling Daikon</a> section `Compiling Daikon' in <cite>Daikon Developer Manual</cite> in the 
+Daikon developers manual.
+</p>
+
+
+
+<hr size="6">
+<a name="Unix_002fLinux_002fMacOS-installation"></a>
+<a name="SEC8"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC7" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC9" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 2.2.2 Unix/Linux/MacOS installation </h3>
+
+
+
+<ol>
+<li>
+Choose the directory where you want to install Daikon; we'll call this
+the <var>daikonparent</var> directory.  In this directory, download and
+unpack Daikon.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">cd <var>daikonparent</var>
+wget http://pag.csail.mit.edu/daikon/download/daikon.tar.gz
+tar zxf daikon.tar.gz
+</pre></td></tr></table>
+
+<p>This creates a <tt>`<var>daikonparent</var>/daikon/'</tt> subdirectory.
+</p>
+</li><li>
+Place three commands in your shell initialization file:  
+set two environment variables
+and source a Daikon startup file.
+
+
+<p><strong>sh/bash:</strong>  If you use the sh or bash shell or their variants,
+add these three commands to your <tt>`.bashrc'</tt> or <tt>`.bash_profile'</tt> file:
+</p><table><tr><td>&nbsp;</td><td><pre class="example"># The full pathname of the directory that contains Daikon
+export DAIKONDIR=$HOME/daikon
+# The full pathname of the directory that contains the Java JDK
+export JDKDIR=/usr/lib/j2sdk1.5-sun
+source $DAIKONDIR/bin/daikon.bashrc
+</pre></td></tr></table>
+<p><strong>csh/tcsh:</strong> If you use the csh or tcsh shell or their variants, 
+add these three commands to your <tt>`.cshrc'</tt> file:
+</p><table><tr><td>&nbsp;</td><td><pre class="example"># The full pathname of the directory that contains Daikon
+setenv DAIKONDIR $HOME/daikon
+# The full pathname of the directory that contains the Java JDK
+setenv JDKDIR /usr/lib/j2sdk1.5-sun
+source $DAIKONDIR/bin/daikon.cshrc
+</pre></td></tr></table>
+<p>After editing your shell initialization file, either execute the commands
+you placed in it, or else log out and log back in to achieve the same
+effect.
+</p>
+</li><li>
+Optionally, customize other variables.  The customizable variables are
+listed in the Daikon startup file: <tt>`daikon.bashrc'</tt> or
+<tt>`daikon.cshrc'</tt>.
+
+<p>You may customize them by setting environment variables, or by adding a
+<code>Makefile.user</code> file to directory <code>$DAIKONDIR/java</code> (it is
+automatically read at the beginning of the main Makefile, and prevents
+you from having to edit the main Makefile directly).
+</p>
+</li><li>
+Compile Daikon and build other tools by running <code>make</code>.
+Note that this step is <em>not</em> required if you only want to use Daikon
+with its Java front end (Chicory).    
+
+<table><tr><td>&nbsp;</td><td><pre class="example">cd $DAIKONDIR
+make
+</pre></td></tr></table><p>This builds the various executables used by Daikon, such as the
+C/C++ front end Kvasir (see section <a href="daikon_7.html#SEC92">Installing Kvasir</a>) and the 
+JDK for use with DynComp (see section <a href="daikon_7.html#SEC76">Instrumenting the JDK with DynComp</a>).
+For more
+information about compiling Daikon, see <a href="..//Compiling-Daikon.html#Compiling-Daikon">(./developer)Compiling Daikon</a> section `Compiling Daikon' in <cite>Daikon Developer Manual</cite> in the Daikon Developer Manual.
+</p>
+<p>Note that running this make command may take 20 minutes or more,
+depending on your computer.  
+</p>
+<p>Optionally, download other executables, such as
+the Simplify theorem
+prover (<a href="http://www.hpl.hp.com/downloads/crl/jtk/">http://www.hpl.hp.com/downloads/crl/jtk/</a>).
+</p>
+</li></ol>
+
+<hr size="6">
+<a name="Windows-installation"></a>
+<a name="SEC9"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC8" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC10" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 2.2.3 Windows installation </h3>
+
+<p>To perform a complete install on
+Windows, it is necessary to install the Cygwin toolset.
+After you have installed Daikon, you can run it using either Cygwin or
+the regular Windows shell (see section <a href="#SEC10">Running Daikon under Windows</a>).
+</p>
+<p>The Cygwin toolset (available at
+<a href="http://sources.redhat.com/cygwin/">http://sources.redhat.com/cygwin/</a>) contains everything you need
+to compile and run Unix programs under Windows.  You can install Cygwin
+by simply running the program found at
+<a href="http://sources.redhat.com/cygwin/setup.exe">http://sources.redhat.com/cygwin/setup.exe</a>.  The default
+installation of Cygwin is sufficient for installing Daikon.
+</p>
+
+<ol>
+<li>
+Choose the directory where you want to install Daikon; we'll call this
+the <var>daikonparent</var> directory.  In this directory, download and
+unpack Daikon.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">cd <var>daikonparent</var>
+wget http://pag.csail.mit.edu/daikon/download/daikon.tar.gz
+tar zxf daikon.tar.gz
+</pre></td></tr></table>
+
+<p>This creates a <tt>`<var>daikonparent</var>/daikon/'</tt> subdirectory.
+</p>
+</li><li>
+Place three commands in your shell initialization file <tt>`.bashrc'</tt>:  
+set two environment variables
+and source a Daikon startup file.
+Do not use a Windows shell; use the Cygwin bash shell instead.
+
+<table><tr><td>&nbsp;</td><td><pre class="example"># The full pathname of the directory that contains Daikon
+export DAIKONDIR=$HOME/daikon
+# The full Unix pathname of the directory that contains the Java JDK
+export JDKDIR=/cygdrive/c/Program Files/Java/jdk1.5.0_05
+source $DAIKONDIR/bin/daikon.bashrc
+</pre></td></tr></table>
+<p>Use the Cygwin/Unix path style (e.g., <code>/cygdrive/c/daikon</code>) rather than the
+windows path style (<code>C:\daikon</code>).
+Some users have reported problems when using pathnames
+with spaces.  You can avoid the problem by using the <code>ln</code> command to add a
+symbolic link without spaces to <code>Program Files</code>.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">    cd /cygdrive/c
+    ln -s &quot;Program Files&quot; program_files
+</pre></td></tr></table>
+<p>and then the JDKDIR line becomes:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">export JDKDIR=/cygdrive/c/program_files/Java/jdk1.5.0_05
+</pre></td></tr></table>
+
+<p>After editing your shell initialization file, either execute the commands
+you placed in it, or else log out and log back in to achieve the same
+effect.
+</p>
+</li><li>
+Optionally, customize other variables.  The customizable variables are
+listed in the Daikon startup file: <tt>`daikon.bashrc'</tt> or
+<tt>`daikon.cshrc'</tt>.
+
+<p>You may customize them by setting environment variables, or by adding a
+<code>Makefile.user</code> file to directory <code>$DAIKONDIR/java</code> (it is
+automatically read at the beginning of the main Makefile, and prevents
+you from having to edit the main Makefile directly).
+</p>
+<p>The one variable you must customize is 
+to define the <code>OSTYPE</code> variable to be <code>cygwin</code>.
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  OSTYPE = cygwin
+</pre></td></tr></table>
+</li><li>
+Compile Daikon and build other tools by running <code>make</code>.
+Note that this step is <em>not</em> required if you only want to use Daikon
+with its Java front end (Chicory).    
+
+<table><tr><td>&nbsp;</td><td><pre class="example">cd $DAIKONDIR
+make
+</pre></td></tr></table><p>This builds the various executables used by Daikon, such as the
+C/C++ front end Kvasir (see section <a href="daikon_7.html#SEC92">Installing Kvasir</a>) and the 
+JDK for use with DynComp (see section <a href="daikon_7.html#SEC76">Instrumenting the JDK with DynComp</a>).
+For more
+information about compiling Daikon, see <a href="..//Compiling-Daikon.html#Compiling-Daikon">(./developer)Compiling Daikon</a> section `Compiling Daikon' in <cite>Daikon Developer Manual</cite> in the Daikon Developer Manual.
+</p>
+<p>Note that running this make command may take 20 minutes or more,
+depending on your computer.  
+On Windows, running <code>make</code> requires
+that <a href="http://www.cygwin.com/">Cygwin</a> be installed.
+</p>
+<p>Optionally, download other executables, such as
+the Simplify theorem
+prover (<a href="http://www.hpl.hp.com/downloads/crl/jtk/">http://www.hpl.hp.com/downloads/crl/jtk/</a>),
+or
+the Z3 theorem 
+prover (<a href="http://research.microsoft.com/en-us/um/redmond/projects/z3/">http://research.microsoft.com/en-us/um/redmond/projects/z3/</a>; Z3
+can replace Simplify but is only distributed for Windows).
+</p>
+</li></ol>
+
+
+<hr size="6">
+<a name="Running-Daikon-under-Windows"></a>
+<a name="SEC10"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC9" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC11" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 2.2.4 Running Daikon under Windows </h3>
+
+<p>After you have installed Daikon under Windows (see section <a href="#SEC9">Windows installation</a>), you can run it either using native Windows utilities, or
+using the Cygwin environment -- it's your choice.
+</p>
+<p>Daikon is a <strong>command-line application</strong> (and so are its related
+programs, such as Chicory).  You should invoke them from a command shell
+-- either a Windows command shell or a Cygwin command shell -- rather
+than by double-clicking their icons.  In any event, double-clicking
+would not supply the proper arguments to the program.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC11">2.2.4.1 Windows command line</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC12">2.2.4.2 Cygwin shell</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="Windows-command-line"></a>
+<a name="SEC11"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC10" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC10" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 2.2.4.1 Windows command line </h4>
+
+<p>The first option is to run Daikon using native Windows utilities.
+The is done in the normal fashion.  The <code>CLASSPATH</code> must include
+either <code>$DAIKONDIR/daikon.jar</code> or <code>$DAIKONDIR/java</code> (if you
+have recompiled the Daikon source).  The <code>CLASSPATH</code> should be
+specified in Windows format (Windows paths and semicolon separators).
+</p>
+
+
+
+
+<hr size="6">
+<a name="Cygwin-shell"></a>
+<a name="SEC12"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC11" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC10" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h4 class="subsubsection"> 2.2.4.2 Cygwin shell </h4>
+
+
+<p>The second option for Windows is to run Daikon using the Cygwin
+toolset (available at <a href="http://sources.redhat.com/cygwin/">http://sources.redhat.com/cygwin/</a>), which
+contains everything you need to compile and run Unix programs under
+Windows.  You can install Cygwin by simply running the program found
+at <a href="http://sources.redhat.com/cygwin/setup.exe">http://sources.redhat.com/cygwin/setup.exe</a>.
+</p>
+<p>There is an incompatibility between Cygwin and programs compiled for
+Windows (such as Java).  (The incompatibility does not exist if the
+program was compiled for Cygwin.)  The incompatibility is that Windows
+programs use the semicolon (<samp>`;'</samp>) as their path separator (for
+instance, for <code>CLASSPATH</code>), but Unix and Cygwin programs use the
+colon (<samp>`:'</samp>) as their path separator.
+</p>
+<p>The <code>Makefiles</code> used to build Daikon will change the Unix style
+<code>CLASSPATH</code> (e.g., .;/cygdrive/c/daikon/java) into a Windows
+style <code>CLASSPATH</code> (.;C:\daikon\java) when necessary.  The
+<code>CLASSPATH</code> must be in Unix format for the build to work
+correctly.
+</p>
+<p>However, when running any Java program (such as Daikon or Chicory),
+the <code>CLASSPATH</code> should be specified in Windows format.  That is
+why the build instructions suggest specifying the <code>CLASSPATH</code> in
+the <code>$DAIKONDIR/java/Makefile.user</code> file -- so that the required
+Unix definition is not part of the environment.
+</p>
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_3.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daikon User</em> on <em>December, 19 2009</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

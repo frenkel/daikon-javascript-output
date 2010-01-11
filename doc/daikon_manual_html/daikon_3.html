@@ -1,0 +1,1015 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on December, 19 2009 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>The Daikon Invariant Detector User Manual: 3. Example usage for Java, C/C++, Perl, and Eiffel</title>
+
+<meta name="description" content="The Daikon Invariant Detector User Manual: 3. Example usage for Java, C/C++, Perl, and Eiffel">
+<meta name="keywords" content="The Daikon Invariant Detector User Manual: 3. Example usage for Java, C/C++, Perl, and Eiffel">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Example-usage"></a>
+<a name="SEC13"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="daikon_2.html#SEC12" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC14" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon_2.html#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 3. Example usage for Java, C/C++, Perl, and Eiffel </h1>
+
+<p>Detecting invariants involves two steps:
+</p><ol>
+<li>
+Obtain one or more data trace files by running your program under the control of a
+front end (also known as an instrumenter or tracer) that records information about
+variable values.  You can run your program over one or more inputs of your own
+choosing, such as regression tests or a typical user input session.
+You may choose to obtain trace data for only part of
+your program; this can avoid inundating you with
+output, and can also improve performance.
+
+</li><li>
+Run the Daikon invariant detector over the data trace files
+(see section <a href="daikon_4.html#SEC28">Running Daikon</a>).  This detects invariants in the recorded
+information.  You can view the invariants textually, or process them
+with a variety of tools.
+</li></ol>
+
+<p>Often, you can run a single command that performs both steps.  Among
+other benefits, this can avoid the need to create the data trace file by
+sending trace information directly from the instrumented program to
+Daikon, which is called &quot;online execution&quot; of Daikon.
+</p>
+<p>This section briefly describes how to obtain data traces for Java, C,
+Perl, and Eiffel programs, and how to run Daikon.  For detailed
+information about these and other front ends that are available for
+Daikon, <a href="daikon_7.html#SEC68">Front ends (instrumentation)</a>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC14">3.1 Detecting invariants in Java programs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC20">3.2 Detecting invariants in C/C++ programs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC24">3.3 Detecting invariants in Perl programs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC27">3.4 Detecting invariants in Eiffel programs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Detecting-invariants-in-Java-programs"></a>
+<a name="SEC14"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC13" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.1 Detecting invariants in Java programs </h2>
+
+<p>In order to detect invariants in a Java program, run the
+program using the Chicory front end (see section <a href="daikon_7.html#SEC69">Java front end Chicory</a>) to create a data trace file, then
+run Daikon itself to detect invariants.
+With the <samp>`--daikon'</samp> option to Chicory, a single command performs
+both steps.
+</p>
+<p>For example, if you usually run
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java mypackage.MyClass arg1 arg2 arg3
+</pre></td></tr></table>
+<p>then instead you would run
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Chicory --daikon mypackage.MyClass arg1 arg2 arg3
+</pre></td></tr></table>
+<p>and the Daikon output is written to the terminal.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC15">3.1.1 StackAr example</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC16">3.1.2 Using DynComp with Java programs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC17">3.1.3 Understanding the invariants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC18">3.1.4 Understanding DynComp</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC19">3.1.5 A second Java example</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         
+</td></tr>
+</table>
+
+
+
+<hr size="6">
+<a name="StackAr-example"></a>
+<a name="SEC15"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC14" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC16" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC14" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.1.1 StackAr example </h3>
+
+<p>The Daikon distribution contains some sample programs that will help
+you get practice in running Daikon.
+</p>
+<p>To detect invariants in the StackAr sample program, perform the following steps.
+</p>
+<ol>
+<li>
+Compile the program with the <samp>`-g'</samp> switch to enable debugging
+symbols.  (The program and test suite appear in the
+<tt>`DataStructures'</tt> subdirectory directory.)
+<table><tr><td>&nbsp;</td><td><pre class="example">cd examples/java-examples/StackAr
+javac -g DataStructures/*.java
+</pre></td></tr></table>
+</li><li>
+Run the program under the control of the Chicory front end,
+pass the information to Daikon, print the inferred invariants, and write
+a binary representation of the invariants to <tt>`StackArTester.inv.gz'</tt>.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Chicory --daikon DataStructures.StackArTester
+</pre></td></tr></table>
+<p>Alternately, replacing the <samp>`--daikon'</samp> argument by
+<samp>`--daikon-online'</samp> has the same effect, but does not write a data
+trace file to disk.
+</p>
+</li></ol>
+
+<p>If you wish to have more control over the invariant detection process,
+you can split the second step above into multiple steps.  Then, the
+whole process would be as follows:
+</p>
+<ol>
+<li>
+Compile the program with the <samp>`-g'</samp> switch to enable debugging
+symbols.  (The program and test suite appear in the
+<tt>`DataStructures'</tt> subdirectory directory.)
+<table><tr><td>&nbsp;</td><td><pre class="example">cd examples/java-examples/StackAr
+javac -g DataStructures/*.java
+</pre></td></tr></table>
+</li><li> Run the program under the control of the Chicory front end, in
+order to create a trace file named <tt>`StackArTester.dtrace.gz'</tt>.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Chicory DataStructures.StackArTester
+</pre></td></tr></table>
+</li><li> Run Daikon on the trace file.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Daikon StackArTester.dtrace.gz
+</pre></td></tr></table>
+<p>Daikon can analyze multiple runs (executions) of the program.  You can
+supply Daikon with multiple trace files:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Chicory --dtrace-file=StackArTester1.dtrace.gz DataStructures.StackArTester
+java daikon.Chicory --dtrace-file=StackArTester2.dtrace.gz DataStructures.StackArTester
+java daikon.Chicory --dtrace-file=StackArTester3.dtrace.gz DataStructures.StackArTester
+java daikon.Daikon StackArTester*.dtrace.gz
+</pre></td></tr></table>
+
+<p>(In this example, all the runs are identical, so multiple runs yield the
+same invariants as one run.)
+</p>
+</li><li>
+Examine the invariants.  (They were also printed to standard out
+by the previous step.)
+
+<p>There are various ways to do this.
+</p><ul>
+<li> Examine the output from running Daikon.  (You may find it
+convenient to capture the output in a file; add <samp>`&gt; StackAr.txt'</samp>
+to the end of the command that runs Daikon.)
+
+</li><li> Use the PrintInvariants program to display the invariants.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.PrintInvariants StackArTester.inv.gz
+</pre></td></tr></table>
+<p>For more options to the PrintInvariants program, see <a href="daikon_8.html#SEC113">Printing invariants</a>.
+</p>
+</li><li> Use the Annotate program to insert the invariants as comments
+into the Java source program.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">cd ..
+java daikon.tools.jtb.Annotate StackArTester.inv.gz \
+     DataStructures/StackAr.java
+</pre></td></tr></table>
+<p>Now examine file <tt>`DataStructures/StackAr.java-escannotated'</tt>.
+For more information about the Annotate program, see <a href="daikon_8.html#SEC116">Annotate</a>.
+</p>
+
+</li></ul>
+</li></ol>
+
+
+<hr size="6">
+<a name="Using-DynComp-with-Java-programs"></a>
+<a name="SEC16"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC15" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC17" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC14" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.1.2 Using DynComp with Java programs </h3>
+
+<p>DynComp can help to filter Daikon's output by omitting invariants
+involving unrelated variables (see <a href="daikon_7.html#SEC75">DynComp dynamic comparability (abstract type) analysis for Java</a>).  To do so, run
+DynComp on the target program first, then pass the resulting
+<tt>`.decls'</tt> file to Chicory.  The process would be as follows:
+</p>
+<ol>
+<li>
+Compile the program with the <samp>`-g'</samp> switch to enable debugging
+symbols.  (The program and test suite appear in the
+<tt>`DataStructures'</tt> subdirectory of the <tt>`StackAr'</tt> directory.)
+<table><tr><td>&nbsp;</td><td><pre class="example">cd examples/java-examples/StackAr
+javac -g DataStructures/*.java
+</pre></td></tr></table>
+</li><li>
+Run the program with DynComp to generate comparability information.  You
+should produce an instrumented version of the JDK first (see
+<a href="daikon_7.html#SEC76">Instrumenting the JDK with DynComp</a>).  By default, comparability
+information is written to <tt>`StackArTester.decls-DynComp'</tt>.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.DynComp DataStructures.StackArTester
+</pre></td></tr></table>
+</li><li>
+Run the program under the control of the Chicory front end, including
+comparability information.  Pass the information to Daikon, print the
+inferred invariants, and write a binary representation of the invariants
+to <tt>`StackArTester.inv.gz'</tt>.  Note that this runs the target program
+for a second time.
+
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Chicory --daikon \
+     --comparability-file=StackArTester.decls-DynComp \
+     DataStructures.StackArTester
+</pre></td></tr></table>
+</li></ol>
+
+<p>You could split the third step into multiple steps, as described in
+<a href="#SEC15">StackAr example</a>, to gain more control over the invariant detection
+process.
+</p>
+
+<hr size="6">
+<a name="Understanding-the-invariants"></a>
+<a name="SEC17"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC16" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC18" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC14" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.1.3 Understanding the invariants </h3>
+
+<p>This section examines some of the invariants for the StackAr example.
+For more help interpreting invariants, see <a href="daikon_5.html#SEC39">Interpreting Daikon output</a>.
+</p>
+<p>The StackAr example is an array-based stack implementation.  Take a
+look at <tt>`DataStructures/StackAr.java'</tt> to get a sense of the
+implementation.  Now, look at the first section of Daikon output.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">======================================================================
+StackAr:::OBJECT
+this.theArray != null
+this.theArray.getClass() == java.lang.Object[].class
+this.topOfStack &gt;= -1
+this.theArray[this.topOfStack+1..] elements == null
+this.theArray[0..this.topOfStack] elements != null
+this.topOfStack &lt;= size(this.theArray[])-1
+======================================================================
+</pre></td></tr></table>
+<p>These six annotations describe the representation invariant.  The
+array is never null, and its runtime type is <code>Object[]</code>.  The
+<code>topOfStack</code> index is at least -1 and is less than the length
+of the array.  Finally, the elements of the array are non-null if
+their index is no more than <code>topOfStack</code> and are null
+otherwise.
+</p>
+<p>Next, look at the invariants for the <code>top()</code> method.
+<code>top()</code> has two different exit points, at lines 78 and 79
+in the original source.  There is a set of invariants for each exit
+point, as well as a set of invariants that hold for all exit points.
+Look at the invariants when <code>top()</code> returns at line 79.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">======================================================================
+StackAr.top():::EXIT79
+return == this.theArray[this.topOfStack]
+this.theArray == orig(this.theArray)
+this.theArray[] == orig(this.theArray[])
+this.topOfStack == orig(this.topOfStack)
+return != null
+this.topOfStack &gt;= 0
+this.theArray[this.topOfStack+1..] elements == this.theArray[-1]
+======================================================================
+</pre></td></tr></table>
+<p>The return value is never null, and is equal to the array element at
+index <code>topOfStack</code>.  The top of the stack is at least 0.  The
+array, the elements of the array, and <code>topOfStack</code> are not
+modified by this method -- this method is an &quot;observer&quot;.  The
+last invariant is not particularly interesting.
+</p>
+
+<hr size="6">
+<a name="Understanding-DynComp"></a>
+<a name="SEC18"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC17" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC19" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC14" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.1.4 Understanding DynComp </h3>
+
+<p>To get a sense of how DynComp helps eliminate uninteresting output, take
+a look at the invariants for the exit point at line 32 of the
+<code>createItem(int)</code> method.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">======================================================================
+DataStructures.StackArTester.createItem(int):::EXIT32
+this.phase == 4
+return.getClass() == int[].class
+this.s.topOfStack &lt; orig(i)
+this.phase &lt; orig(i)
+this.phase != size(this.s.theArray[])
+this.maxPhase &lt; orig(i)
+======================================================================
+</pre></td></tr></table>
+<p>The value of <code>phase</code> is always less than the value of
+<code>i</code>.  While this is true for the observed executions, it is not a
+helpful invariant, since <code>phase</code> and <code>i</code> represent different
+abstract types; <code>i</code> is a number to be pushed onto the stack, while
+<code>phase</code> is used for program flow control.  Although they are both
+<code>int</code>s, comparing the two is not meaningful, so this invariant,
+among others, is omitted from the output when Daikon is run with
+DynComp.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">======================================================================
+DataStructures.StackArTester.createItem(int):::EXIT32
+this.phase == 4
+return.getClass() == int[].class
+this.s.topOfStack &lt; orig(i)
+======================================================================
+</pre></td></tr></table>
+
+<hr size="6">
+<a name="Second-Java-example"></a>
+<a name="SEC19"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC18" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC14" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.1.5 A second Java example </h3>
+
+<p>A second example is located in the <tt>`examples/java-examples/QueueAr'</tt> subdirectory.
+Run this sample using the following steps:
+</p>
+<ul>
+<li> Compile
+<table><tr><td>&nbsp;</td><td><pre class="example">cd examples/java-examples/QueueAr
+javac -g DataStructures/*.java
+</pre></td></tr></table>
+</li><li> Trace file generation and invariant detection
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Chicory --daikon DataStructures.QueueArTester
+</pre></td></tr></table>
+</li></ul>
+
+<p>Alternately, you can split the second command into two parts:
+</p>
+<ul class="toc">
+<li> Trace file generation
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Chicory DataStructures.QueueArTester
+</pre></td></tr></table>
+</li><li> Invariant detection
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Daikon QueueArTester.dtrace.gz
+</pre></td></tr></table>
+</li></ul>
+
+
+
+<hr size="6">
+<a name="Detecting-invariants-in-C_002fC_002b_002b-programs"></a>
+<a name="SEC20"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC19" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC21" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.2 Detecting invariants in C/C++ programs </h2>
+
+<p>In order to detect invariants over C or C++ programs, you must first install
+a C/C++ front end (instrumenter).  You can choose Kvasir (see section <a href="daikon_7.html#SEC80">C/C++ front end Kvasir</a>) or 
+Mangel-Wurzel (see section <a href="daikon_7.html#SEC94">Source-based C/C++ front end Mangel-Wurzel</a>).  We recommend the use of Kvasir, and
+this section gives examples
+using Kvasir.
+</p>
+<p>To use the C/C++ front end Kvasir with your program, first make sure that
+your program has been compiled with DWARF-2 format debugging
+information, such as by giving the <samp>`-gdwarf-2'</samp> flag to GCC when
+compiling.  Then, run your program as usual, but prepend
+<code>kvasir-dtrace</code> to the command line.
+</p>
+<p>For more information about Kvasir, including more detailed
+documentation on its command-line options, see <a href="daikon_7.html#SEC80">C/C++ front end Kvasir</a>.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC21">3.2.1 C examples</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC22">3.2.2 Using DynComp with C programs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC23">3.2.3 Dealing with large examples</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="C-examples"></a>
+<a name="SEC21"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC20" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC22" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.2.1 C examples </h3>
+
+<p>The Daikon distribution comes with several example C programs in the
+<tt>`examples/c-examples'</tt> directory to enable users to become
+familiar with running Daikon on C programs.
+</p>
+
+
+<p>To detect invariants for a program with Kvasir, you need to perform
+two basic tasks:  run the program under Kvasir to create a data trace
+file (steps 1-2), and run
+Daikon over the data trace file to produce invariants (steps 3-4).
+The following instructions are for the wordplay example, which is a
+program for finding anagrams.
+</p>
+<ol>
+<li> Change to the directory containing the program.
+<table><tr><td>&nbsp;</td><td><pre class="example">cd $DAIKONDIR/examples/c-examples/wordplay
+</pre></td></tr></table>
+</li><li> Compile the program with DWARF-2 debugging information enabled
+(and all optimizations disabled).
+<table><tr><td>&nbsp;</td><td><pre class="example">gcc -gdwarf-2 wordplay.c -o wordplay
+</pre></td></tr></table>
+<p>Kvasir can also be used for programs constructed by compiling a number
+of <tt>`.c'</tt> files separately, and then linking them together; in such
+a program, specify <samp>`-gdwarf-2'</samp> when compiling each source file
+containing code you wish to see invariants about.
+</p>
+</li><li> Run the program just as you normally would, but prepend
+<code>kvasir-dtrace</code> to the command line.
+<table><tr><td>&nbsp;</td><td><pre class="example">kvasir-dtrace ./wordplay -f words.txt 'daikon dynamic invariant detector'
+</pre></td></tr></table>
+<p>Any options to the program can be specified as usual; here, for
+instance, we give commands to look for anagrams of the phrase &quot;Daikon
+Dynamic Invariant Detector&quot; using words from the file <tt>`words.txt'</tt>.
+</p>
+<p>Executing under Kvasir, the program runs normally, but Kvasir
+executes additional checks and collects trace information (for this
+reason, the program will run more slowly than usual).  Kvasir creates a
+directory named <tt>`daikon-output'</tt> under the current directory, and
+creates the <tt>`wordplay.dtrace'</tt> file, which lists both variable
+declarations and values.
+</p>
+<p>Kvasir will also print messages if it observes your program doing
+something with undefined effects; these may indicate bugs in your
+program, or they may be spurious.  (If they are bugs, they can also be
+tracked down by using Valgrind (<a href="http://www.valgrind.org/">http://www.valgrind.org/</a>)
+with its regular memory checking
+tool; if they do not appear with that tool, they are probably
+spurious).
+</p>
+</li><li> Run Daikon on the trace file.
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Daikon \
+     --config_option daikon.derive.Derivation.disable_derived_variables=true \
+     daikon-output/wordplay.dtrace
+</pre></td></tr></table>
+<p>The invariants are printed to standard output, and a binary representation
+of the invariants is written to <tt>`wordplay.inv.gz'</tt>.  Note that the
+example uses a configuration option to disable the use of derived
+variables; it can also run without that option, but takes significantly
+longer.
+</p>
+<p>Daikon can analyze multiple runs (executions) of the program.  You can
+supply Daikon with multiple trace files:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">kvasir-dtrace --dtrace-file=daikon-output/wordplay1.dtrace ./wordplay -f words.txt 'daikon dynamic invariant detector'
+kvasir-dtrace --dtrace-file=daikon-output/wordplay2.dtrace ./wordplay -f words.txt 'better results from multiple runs'
+kvasir-dtrace --dtrace-file=daikon-output/wordplay3.dtrace ./wordplay -f words.txt 'more testing equals better testing'
+java -Xmx256m daikon.Daikon daikon-output/wordplay*.dtrace
+</pre></td></tr></table>
+
+<p>or, you can append information from multiple runs in a single trace file:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">kvasir-dtrace --dtrace-file=daikon-output/wordplay-all.dtrace ./wordplay -f words.txt 'daikon dynamic invariant detector'
+kvasir-dtrace --dtrace-append --dtrace-file=daikon-output/wordplay-all.dtrace ./wordplay -f words.txt 'better results from multiple runs'
+kvasir-dtrace --dtrace-append --dtrace-file=daikon-output/wordplay-all.dtrace ./wordplay -f words.txt 'more testing equals better testing'
+java -Xmx256m daikon.Daikon daikon-output/wordplay-all.dtrace
+</pre></td></tr></table>
+
+</li><li>
+Examine the invariants.  As described in <a href="#SEC15">StackAr example</a>,
+there are several ways to do this:
+<ul class="toc">
+<li> Examine the output from running Daikon.
+</li><li> Use the PrintInvariants program to display the invariants.
+</li></ul>
+
+<p>For help understanding the invariants, see <a href="daikon_5.html#SEC39">Interpreting Daikon output</a>.
+</p>
+</li></ol>
+
+<hr size="6">
+<a name="Using-DynComp-with-C-programs"></a>
+<a name="SEC22"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC21" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC23" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.2.2 Using DynComp with C programs </h3>
+
+<p>Optionally, the DynComp tool can be used along with Kvasir and Daikon.
+DynComp uses a dynamic analysis to infer which program variables can
+meaningfully be used together; Daikon can then use this information to
+restrict the invariants it considers, potentially improving both its
+performance and the usefulness of its results.
+</p>
+<p>DynComp is enabled as an extra mode of Kvasir; when running with DynComp
+enabled, Kvasir produces two output files instead of one: in addition to
+a <tt>`.dtrace'</tt> file containing a trace of a particular execution, the
+information about what variables and functions exist in a program, along
+with information grouping the variables into abstract types, is stored
+in a file with the extension <tt>`.decls'</tt>.  Both of these files must be
+supplied to Daikon.
+</p>
+<p>For instance, to repeat the wordplay example with DynComp, first rerun
+<code>kvasir-dtrace</code> giving it the option <samp>`--with-dyncomp'</samp>:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">kvasir-dtrace --with-dyncomp \
+   ./wordplay -f words.txt 'daikon dynamic invariant detector'
+</pre></td></tr></table>
+<p>Then, supply the <tt>`.decls'</tt> file when invoking Daikon:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Daikon \
+     --config_option daikon.derive.Derivation.disable_derived_variables=true \
+     daikon-output/wordplay.decls daikon-output/wordplay.dtrace
+</pre></td></tr></table>
+<p>For instance, one effect of DynComp that can be seen in the wordplay
+example concerns the global variables <code>largestlet</code>,
+<code>rec_anag_count</code>, <code>adjacentdups</code>, <code>specfirstword</code>,
+<code>maxdepthspec</code>, and <code>silent</code>.
+These variables are all 0 in the sample execution (for instance, several
+of them correspond to command-line options that are not enabled), so
+without DynComp, Daikon gives the invariants that they are all equal.
+However, DynComp's analysis finds that the variables are of different
+abstract types, so it is not meaningful to compare them.
+When DynComp information is provided, Daikon instead gives separate
+invariants about the value of each variable.
+</p>
+<hr size="6">
+<a name="Dealing-with-large-examples"></a>
+<a name="SEC23"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC22" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC24" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.2.3 Dealing with large examples </h3>
+
+<p>Since the default memory size used by Java virtual machines varies, we
+suggest that Daikon be run with at least 256 megabytes of
+memory (and perhaps much more), specified for many JVMs by the option <samp>`-Xmx256m'</samp>.
+For more
+information about specifying the memory usage for Daikon, see
+<a href="daikon_9.html#SEC130">Out of memory</a>.
+</p>
+<p>Disk usage can be reduced by specifying that the front end should
+compress its output dtrace files.
+</p>
+<p>In some cases, the time and space requirements of the examples can be
+reduced by reducing the length of the program run.
+However, Daikon's running time
+depends on both the length of the test run and the size of the program
+data (such as its use of global variables and nested data
+structures).
+The examples also demonstrate disabling derived variables, which
+significantly improves Daikon's performance at the cost of producing
+fewer invariants.
+For more techniques for using Daikon with large programs
+and long program runs, see <a href="daikon_9.html#SEC136">Large data trace (.dtrace) files</a>.
+</p>
+
+
+
+<hr size="6">
+<a name="Detecting-invariants-in-Perl-programs"></a>
+<a name="SEC24"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC23" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC25" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.3 Detecting invariants in Perl programs </h2>
+
+<p>The Daikon front end for Perl is called dfepl.
+</p>
+<p>Using the Perl front end is a two-pass
+process: first you must run the annotated program so that the runtime
+system can dynamically infer the kind of data stored in each variable,
+and then you must re-annotate and re-run the program with the added
+type information.
+This is necessary because Perl programs do not contain type declarations.
+</p>
+<p>dfepl requires version 5.8 or later of Perl.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC25">3.3.1 Instrumenting Perl programs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC26">3.3.2 Perl examples</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="Instrumenting-Perl-programs"></a>
+<a name="SEC25"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC24" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC26" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC24" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.1 Instrumenting Perl programs </h3>
+
+<p>Perl programs must be instrumented twice.  First they must be
+instrumented without type information.  Then, once the first
+instrumented version has been run to produce type information, they
+must be instrumented again taking the type information into account.
+</p>
+<p>To instrument a stand-alone Perl program, invoke dfepl with
+the name of the program as an argument.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">dfepl program.pl
+</pre></td></tr></table>
+<p>To instrument a Perl module or a collection of modules, invoke
+dfepl either with the name of each module, or with the name
+of a directory containing the modules.  To instrument all the modules
+in the current directory, give dfepl the argument <tt>`.'</tt>.
+For instance, if the current directory contains a module
+<code>Acme::Trampoline</code> in <tt>`Acme/Trampoline.pm'</tt> and another
+module <code>Acme::Date</code> in <tt>`Acme/Date.pm'</tt>, they can be annotated
+by either of the following two commands:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">dfepl Acme/Trampoline.pm Acme/Date.pm
+dfepl .
+</pre></td></tr></table>
+<p>Once type information is available, run the instrumentation command
+again with the <samp>`-T'</samp> or <samp>`-t'</samp> options added to use the
+produced type information.
+</p>
+<p>For more information about dfepl, see <a href="daikon_7.html#SEC107">Perl front end dfepl</a>.
+</p>
+
+<hr size="6">
+<a name="Perl-examples"></a>
+<a name="SEC26"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC25" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC27" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC24" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.2 Perl examples </h3>
+
+<p>The Daikon distribution includes sample Perl programs suitable for use
+with Daikon in the <tt>`examples/perl-examples'</tt> directory.
+</p>
+<p>Here are step-by-step instructions for examining a simple module,
+<tt>`Birthday.pm'</tt>, as used by a test script <tt>`test-bday.pl'</tt>.
+</p>
+<ol>
+<li> Change to the directory containing the <tt>`Birthday.pm'</tt>
+module.
+<table><tr><td>&nbsp;</td><td><pre class="example">cd examples/perl-examples
+</pre></td></tr></table>
+</li><li> Instrument the <tt>`Birthday.pm'</tt> file.
+<table><tr><td>&nbsp;</td><td><pre class="example">dfepl Birthday.pm
+</pre></td></tr></table>
+<p>This command creates a directory <tt>`daikon-untyped'</tt>, and puts
+the instrumented version of <tt>`Birthday.pm'</tt> into
+<tt>`daikon-untyped/Birthday.pm'</tt>.  As the directory name implies, this
+instrumented version doesn't contain type information.
+</p>
+</li><li> Run a test suite using the instrumented <tt>`Birthday.pm'</tt>
+file.
+<table><tr><td>&nbsp;</td><td><pre class="example">dtype-perl test_bday.pl 10
+</pre></td></tr></table>
+<p>The <tt>`dtype-perl'</tt> is a script that runs Perl with the appropriate
+command line options to find the modules used by the Daikon Perl
+runtime tracing modules, and to use the instrumented versions of
+modules in <tt>`daikon-untyped'</tt> in preference to their original
+ones.  The number 10 is an argument to the <tt>`test_bday.pl'</tt> script
+telling it to run a relatively short test.
+</p>
+<p>This will also generate a file
+<tt>`daikon-instrumented/Birthday.types'</tt> recording the type of each
+variable seen during the execution of the instrumented program.
+</p>
+</li><li> Re-annotate the module using the type information.
+<table><tr><td>&nbsp;</td><td><pre class="example">dfepl -T Birthday.pm
+</pre></td></tr></table>
+<p>This step repeats step 2, except that the <samp>`-T'</samp> flag to
+dfepl tells it to use the type information generated in the
+previous step, and to put the output in the directory
+<tt>`daikon-instrumented'</tt>.  dfepl also converts the
+type information into a file <tt>`daikon-output/Birthday.decls'</tt>
+containing subroutine declarations suitable for Daikon.
+</p>
+</li><li> Run the full test suite with the type-instrumented
+<tt>`Birthday.pm'</tt>.
+<table><tr><td>&nbsp;</td><td><pre class="example">dtrace-perl test_bday.pl 30
+</pre></td></tr></table>
+<p>Here we run another test suite, which happens to be the same
+<tt>`test_bday.pl'</tt>, but running for longer. (The example will also
+work with a smaller number).  The script <code>dtrace-perl</code> is
+similar to <code>dtype-perl</code> mentioned earlier, but looks for
+instrumented source files in <tt>`daikon-instrumented'</tt>.
+</p>
+<p>This creates <tt>`daikon-output/test_bday-combined.dtrace'</tt>, a trace
+file containing the values of variables at each invocation. (The
+filename is formed from the name of the test program, with
+<tt>`-combined'</tt> appended because it contains the trace information
+from all the instrumented modules invoked from the program).
+</p>
+</li><li> Change to the <tt>`daikon-output'</tt> directory to analyze the
+output.
+<table><tr><td>&nbsp;</td><td><pre class="example">cd daikon-output
+</pre></td></tr></table>
+</li><li> Run Daikon on the trace file
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Daikon Birthday.decls test_bday-combined.dtrace
+</pre></td></tr></table>
+</li><li>
+Examine the invariants.  They are printed to standard output, and
+they are also saved to file <tt>`Birthday.inv.gz'</tt>, which you can
+manipulate with the PrintInvariants program and other Daikon tools.
+For example:
+<table><tr><td>&nbsp;</td><td><pre class="example">java daikon.PrintInvariants Birthday.inv.gz
+</pre></td></tr></table>
+<p>Invariants produced from Perl programs can be examined using the same
+tools as other Daikon invariants.
+</p></li></ol>
+
+<p>In the example above, the script <tt>`test_bday.pl'</tt> was not itself
+instrumented; it was only used to test the instrumented code.  The
+Perl front end can also be used to instrument stand-alone Perl
+programs.  The following sequence of commands, similar to those above,
+show how Daikon can be used with the stand-alone program
+<tt>`standalone.pl'</tt>, also in the <tt>`examples/perl-examples'</tt>
+directory.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">dfepl standalone.pl
+dtype-perl daikon-untyped/standalone.pl
+dfepl -T standalone.pl
+dtrace-perl daikon-instrumented/standalone.pl
+cd daikon-output
+java daikon.Daikon -o standalone.inv standalone-main.decls \
+     standalone-combined.dtrace
+</pre></td></tr></table>
+<p>Note two differences when running a stand-alone program.  First, the
+instrumented versions of the program, in the <tt>`daikon-untyped'</tt> or
+<tt>`daikon-instrumented'</tt> directory, are run directly.  Second, the
+declarations file is named after the package in which the subroutines
+were declared, but since every stand-alone program uses the
+<code>main</code> package, the name of the program is prepended to the
+<tt>`.decls'</tt> file name to avoid collisions.
+</p>
+
+<hr size="6">
+<a name="Detecting-invariants-in-Eiffel-programs"></a>
+<a name="SEC27"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC26" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.4 Detecting invariants in Eiffel programs </h2>
+
+<p>CITADEL is an Eiffel front-end to the Daikon invariant detector.
+You can obtain Citadel and its documentation from
+<a href="http://se.inf.ethz.ch/people/polikarpova/citadel.html">http://se.inf.ethz.ch/people/polikarpova/citadel.html</a>.
+</p>
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC13" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daikon User</em> on <em>December, 19 2009</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

@@ -1,0 +1,1262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on December, 19 2009 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>The Daikon Invariant Detector User Manual: 9. Troubleshooting</title>
+
+<meta name="description" content="The Daikon Invariant Detector User Manual: 9. Troubleshooting">
+<meta name="keywords" content="The Daikon Invariant Detector User Manual: 9. Troubleshooting">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Troubleshooting"></a>
+<a name="SEC123"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="daikon_8.html#SEC122" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon_8.html#SEC111" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 9. Troubleshooting </h1>
+
+
+<p>This chapter gives solutions for certain problems you might have with
+Daikon.  It also tells you how to report bugs in a useful manner.
+</p>
+<p>If, after reading this section and other parts of the manual, you are
+unable to solve your problem, you may wish to send mail to one of the
+mailing lists (see section <a href="daikon_1.html#SEC2">Mailing lists</a>).
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC124">9.1 Problems running Daikon</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC136">9.2 Large data trace (.dtrace) files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC140">9.3 Parsing Java 5.0 code</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC141">9.4 Problems with Chicory</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC143">9.5 Reporting problems</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC144">9.6 Known bugs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC145">9.7 Further reading</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="Daikon-problems"></a>
+<a name="SEC124"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC123" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC125" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.1 Problems running Daikon </h2>
+
+<p>You may find the debugging flags <samp>`--debug'</samp> and <samp>`--dbg
+<var>category</var>'</samp> useful if you wish to track down bugs or better
+understand Daikon's operation; See section <a href="daikon_4.html#SEC33">Daikon debugging options</a>.
+See section <a href="daikon_6.html#SEC46">Configuration options</a>, for another way to adjust Daikon's output.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC125">9.1.1 Too much output</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC126">9.1.2 Missing output invariants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">   
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC127">9.1.3 No samples and no output</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC128">9.1.4 No return from procedure</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">    
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC129">9.1.5 Unsupported class version</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">   
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC130">9.1.6 Out of memory</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC131">9.1.7 Simplify errors</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC132">9.1.8 Contradictory invariants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">    
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC133">9.1.9 Method needs to be implemented</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC134">9.1.10 Daikon runs slowly</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC135">9.1.11 Bigger traces cause invariants to appear</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="Too-much-output"></a>
+<a name="SEC125"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC124" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC126" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.1 Too much output </h3>
+
+
+<p>Sometimes, Daikon may produce a very large number of seemingly
+irrelevant properties that obscure the facts that you were hoping to
+see.  Which properties are irrelevant depends on your current task, so
+Daikon provides ways for you to customize its output.  See Daikon's
+command-line options (see section <a href="daikon_4.html#SEC28">Running Daikon</a>), and the techniques for
+enhancing its output (see section <a href="daikon_6.html#SEC45">Enhancing Daikon output</a>), including its
+configuration options (see section <a href="daikon_6.html#SEC46">Configuration options</a>).  The options for
+the front ends -- such as Chicory (see section <a href="daikon_7.html#SEC70">Chicory options</a>) and Kvasir
+(see section <a href="daikon_7.html#SEC82">Kvasir options</a>) -- give additional control.
+</p>
+<p>Some irrelevant properties are over unrelated variables, like comparing
+an array index to elements of the array.  You should always use the
+DynComp tool (see <a href="daikon_7.html#SEC75">DynComp dynamic comparability (abstract type) analysis for Java</a>, <a href="daikon_7.html#SEC83">DynComp dynamic comparability (abstract type) analysis for C/C++</a>) to
+avoid producing such properties.
+</p>
+<p>Some irrelevant properties are not relevant to the domain (e.g., bitwise
+operations).  You can exclude whole classes of unhelpful invariants from
+Daikon's output (see section <a href="daikon_6.html#SEC49">Options to enable/disable specific invariants</a>).
+</p>
+<p>Some irrelevant properties are over variables you do not care about, or
+are in parts of the program that you do not care about.  You can exclude
+certain variables or procedures from Daikon's output (see
+<a href="daikon_4.html#SEC31">Processing only part of the trace file</a> and <a href="daikon_6.html#SEC51">Options to enable/disable derived variables</a>).
+</p>
+<p>Some irrelevant properties are logically redundant -- multiple
+properties express the same facts in different ways.  You can eliminate
+such properties from Daikon's output (see section <a href="daikon_4.html#SEC30">Options to control invariant detection</a>).
+</p>
+<p>Some irrelevant output indicates a deficiency in your test suite:
+your test suite is so small that many arbitrary properties hold over it.
+This happens when the test suite does not execute the code with a broad
+distribution of values, but only executes the code with a few specific
+values.  This problem disappears if you augment your test suite so that
+it exercises the code with more different values.
+</p>
+<p>More generally, each property that Daikon produces is a true fact about
+how the target
+program behaved.  However, some of these facts would be true for any
+execution of the target program, and others are accidents of the
+particular executions that Daikon observed.  Both types of facts may be
+useful:  the former tell you about your program, and the latter tell you
+about your test suite (and how to improve it!).
+</p>
+
+<hr size="6">
+<a name="Missing-output-invariants"></a>
+<a name="SEC126"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC125" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC127" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.2 Missing output invariants </h3>
+
+<p>Daikon will sometimes not output invariants that are expected.  There 
+are a number of reasons why this may happen:
+</p>
+<ul class="toc">
+<li> There is a sample that violate the invariant
+</li><li> The invariant is true, but does not pass one of the output filters
+</li><li> One or more of the variables in the invariant always has the same
+value as another variable.  Daikon only prints invariants over one
+variable (the leader) from the set of equal variables (see section <a href="daikon_5.html#SEC41">Equal variables</a>).
+</li><li> The program point had no samples (see section <a href="#SEC127">No samples and no output</a>).
+</li></ul>
+
+<p>There are two command line options (-disc_reason and -track) that
+will display information about invariants that are not printed.  The
+<var>-disc_reason</var> option will indicate why a particular invariant
+was discarded in most cases.  If it does not provide enough
+information, try the <var>-track</var> option which traces the invariant
+through all of Daikon's processing steps.  See <a href="daikon_4.html#SEC33">Daikon debugging options</a> for more information.
+</p>
+<p>Note that in each case the description (class, variables, program
+point) of the invariant must be entered carefully.  It may be helpful
+to try the option on a similar invariant that is printed to make sure
+that each is specified correctly.
+</p>
+<hr size="6">
+<a name="No-samples"></a>
+<a name="SEC127"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC126" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC128" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.3 No samples and no output </h3>
+
+
+<p>When Daikon produces no output, that is usually a result of it having no
+samples from which to generalize.  Use the <samp>`--output_num_samples'</samp>
+flag to Daikon to find out how many samples it is observing.  This
+section tells you how to debug your problem if the
+answer is 0, but you believe that there are samples in the file you are
+feeding to Daikon.
+</p>
+<p>Using the normal dataflow hierarchy, Daikon only explicitly processes 
+<code>:::EXIT</code> program points.  Other program points, such as
+<code>:::ENTER</code> program points, are processed indirectly when their
+corresponding <code>:::EXIT</code> points are encountered.  
+(You can disable this behavior with the
+<samp>`--nohierarchy'</samp> switch to Daikon;
+see See section <a href="daikon_4.html#SEC30">Options to control invariant detection</a>.)
+If no <code>:::EXIT</code> program points are present (perhaps every
+execution threw an exception, you filtered out all the
+<code>:::EXIT</code> program points, or the data trace is obtained from
+spreadsheet data instead of from a program execution),
+then Daikon will not process any of the other program points, such as 
+the <code>:::ENTER</code> program points.  You can make Daikon print information 
+about unmatched procedure entries
+via the <samp>`daikon.FileIO.unmatched_procedure_entries_quiet'</samp>
+configuration option (see section <a href="daikon_6.html#SEC53">General configuration options</a>).
+</p>
+<p>Another way to increase the number of invariants printed
+out is to lower the confidence bound cutoff.  Daikon
+only prints invariants whose confidence level is greater than 
+the bound specified by the <samp>`--conf_limit'</samp> option
+(see section <a href="daikon_4.html#SEC30">Options to control invariant detection</a>).  In order to maximize
+the number of invariants printed, use <samp>`--conf_limit 0'</samp> to see all
+invariants Daikon is considering printing.
+</p>
+<p>To try to determine why an invariant is not printed, use the
+<samp>`--track'</samp> to determine why Daikon does not print an invariant
+(see section <a href="daikon_4.html#SEC33">Daikon debugging options</a>).
+</p>
+
+<hr size="6">
+<a name="No-return-from-procedure"></a>
+<a name="SEC128"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC127" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC129" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.4 No return from procedure </h3>
+
+
+<p>Daikon sometimes issues a warning that a procedure in the target program
+was entered but never exited (that is, the target program abnormally
+terminated).  In other words, the <tt>`.dtrace'</tt> file contains more
+entry records
+than exit records for the given procedure.  Some procedures that were
+entered were never recorded to have exited: either they threw an
+exception, skipping the instrumentation code that would have recorded
+normal termination, or the target program's run was interrupted.
+When this happens, the entry sample is ignored; the rationale is that
+the particular values seen led to exception exit, were probably
+illegal, and so should not be factored into the method preconditions.
+</p>
+<a name="IDX119"></a>
+<a name="IDX120"></a>
+<a name="IDX121"></a>
+
+<p>In some cases, exceptional exit from a procedure can cause procedure
+entries and exits (in the trace file) to be incorrectly matched up; if
+they are incorrectly matched, then the <code>orig(<var>x</var>)</code> values may
+be incorrect.  Daikon has two techniques for associate procedure exits
+with entries -- the nonce technique and the stack technique.  If a
+<tt>`.dtrace'</tt> file uses the nonce technique, <code>orig(<var>x</var>)</code>
+values are guaranteed to be correct.  If a <tt>`.dtrace'</tt> file uses
+the stack technique, then incorrect <code>orig(<var>x</var>)</code> values are
+likely to occur.  You can tell which technique Daikon will use by
+examining the <tt>`.dtrace'</tt> file.  If the second line of each entry
+in the <tt>`.dtrace'</tt> file is <samp>`this_invocation_nonce'</samp>, then Daikon
+uses the nonce technique.  Otherwise, it uses the stack technique.
+Which technique is used is determined by the front end, which creates
+the <tt>`.dtrace'</tt> file, and typically cannot be controlled by the
+user.
+</p>
+
+<hr size="6">
+<a name="Unsupported-class-version"></a>
+<a name="SEC129"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC128" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC130" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.5 Unsupported class version </h3>
+
+
+<p>Daikon requires a Java 5 JVM (see section <a href="daikon_2.html#SEC6">Requirements for running Daikon</a>).
+An error such as
+</p><table><tr><td>&nbsp;</td><td><pre class="example">Exception in thread &quot;main&quot; java.lang.UnsupportedClassVersionError:
+daikon/Daikon (Unsupported major.minor version 49.0)
+</pre></td></tr></table>
+<p>indicates that you are trying to run Daikon on an older JVM.  You need to
+install a newer version of Java in order to run Daikon.
+</p>
+
+<hr size="6">
+<a name="Out-of-memory"></a>
+<a name="SEC130"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC129" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC131" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.6 Out of memory </h3>
+
+
+<p>If Daikon runs out of memory, generating a message like
+</p><table><tr><td>&nbsp;</td><td><pre class="example">Exception in thread &quot;main&quot; java.lang.OutOfMemoryError
+        &lt;&lt;no stack trace available&gt;&gt;
+</pre></td></tr></table>
+<p>then it is likely that it has created more invariants than will fit
+in memory.  The number of invariants created depends on the number of
+program points and the number of variables at each program point.
+In addition to the solutions discussed in <a href="#SEC137">Reducing program points (functions)</a>,
+you can try increasing the amount of memory available to Java
+with the <samp>`-mx'</samp> argument to <code>java</code>.  (This flag is
+JVM-specific; see your JVM documentation for details.  For instance,
+its correct name in JDK versions 1.3 and later is <samp>`-Xmx'</samp>.)
+However, the value you use should be less your system's total amount
+of physical memory.
+The default may be 64 megabytes or less; to permit use of up to 256
+megabytes, you would run Java like so:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java -mx256m ...
+</pre></td></tr></table>
+<p>When using the Java HotSpot JVM, an additional parameter may need to
+be increased.  HotSpot uses a separately-limited memory region, called
+the &quot;permanent generation&quot;, for several special kinds of allocation,
+one of which (interned strings) Daikon sometimes uses heavily.  It may
+be necessary to increase this limit as well, with the
+<samp>`-XX:MaxPermSize='</samp> option.  For instance, to use 512 megabytes,
+of which at most 256 can be used for the permanent generation, you
+would run Java like so:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java -Xmx512m -XX:MaxPermSize=256m
+</pre></td></tr></table>
+<p>Another possible problem is the creation of too many derived variables.
+If you supply the <samp>`--output_num_samples'</samp> option to Daikon
+(see section <a href="daikon_4.html#SEC29">Options to control Daikon output</a>), then it will list all
+variables at each program point.  If some of these are of no interest,
+you may wish to suppress their creation.  For information on how to do that,
+see <a href="daikon_6.html#SEC51">Options to enable/disable derived variables</a>.  Also see
+<a href="#SEC138">Reducing variables</a> for other techniques.
+</p>
+<p>Any output generated before the out-of-memory error is perfectly valid.
+</p>
+
+<hr size="6">
+<a name="Simplify-errors"></a>
+<a name="SEC131"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC130" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC132" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.7 Simplify errors </h3>
+
+
+<p>The warning &quot;Could not utilize Simplify&quot; indicates that the Simplify
+theorem-prover could not be run; this usually indicates that the
+Simplify binary was not found on the user's path.
+Simplify must be separately obtained (from
+<a href="http://www.hpl.hp.com/downloads/crl/jtk/">http://www.hpl.hp.com/downloads/crl/jtk/</a>) and installed.
+</p>
+<p>If Simplify is not used, certain redundant (logically implied)
+invariants may appear in Daikon's output.  The output is
+correct, but more verbose than it would be if you used Simplify.
+</p>
+<hr size="6">
+<a name="Contradictory-invariants"></a>
+<a name="SEC132"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC131" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC133" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.8 Contradictory invariants </h3>
+
+
+<p>The invariants Daikon produces are all true statements about the
+supplied program executions, so they should be mutually consistent.
+Sometimes, however, because of a bug or a limitation in Daikon,
+contradictory invariants are produced.
+</p>
+<p>One known problem involves object invariants.  Daikon infers object
+invariants by observing the state of an object when its public methods
+are called.  However, if an object has publicly accessible fields that
+are changed by code outside the class, after which no public methods
+are called, invariants about the state of the object as seen by other
+code can contradict the class's object invariants.  A workaround is to
+allow changes to an object's state from outside the class only by
+way of public methods.
+</p>
+<p>Besides confusing the user, contradictory invariants also cause
+trouble for the Simplify theorem prover that implements the
+<samp>`--suppress_redundant'</samp> option.  When the invariants at a
+particular program point contradict each other or background
+information (such as the types of objects), Simplify becomes unable to
+distinguish redundant invariants from non-redundant ones.
+</p>
+<p>The best solution in such cases is to fix the underlying cause of the
+contradictory invariants, but since that is sometimes not possible,
+Daikon will try to work around the problem by avoiding the invariants
+that cause a contradiction.  Daikon will attempt to find a small subset
+of the invariants that aren't mutually consistent, and remove one,
+repeating this process until the remaining invariants are consistent.
+(Note that the invariants are removed only for the purposes of
+processing by Simplify; this does not affect whether they will be
+printed in the final output).  While this technique can allow
+redundant invariants to be found when they otherwise wouldn't be, it
+has some drawbacks: the choice of which invariant to remove is
+somewhat arbitrary, and the process of finding contradictory subsets
+can be time consuming.  The removal process can be disabled with the
+<samp>`daikon.simplify.LemmaStack.remove_contradictions'</samp>
+configuration option.
+</p>
+<hr size="6">
+<a name="Method-needs-to-be-implemented"></a>
+<a name="SEC133"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC132" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC134" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.9 Method needs to be implemented </h3>
+
+
+<p>Daikon may produce output like the following (but all on one line):
+</p><table><tr><td>&nbsp;</td><td><pre class="example">method daikon.inv.binary.twoSequence.SubSequence.format_esc()
+needs to be implemented:
+this.theArray[0..this.topOfStack] is a subsequence of
+orig(this.theArray[0..this.topOfStack])
+</pre></td></tr></table>
+<p>This indicates that a particular invariant (shown on the last two lines
+above) cannot be formatted using the current formatting.  In this example,
+the invariant can be formatted using Daikon's default
+formatting (which is how it is shown above), but (as of April 2002)
+Daikon cannot output it in ESC format, so Daikon prints the above
+message instead.  The message also shows exactly what Java method needs
+to be implemented to correct the problem.  You can ignore such messages,
+or else use an output formatting that can handle those invariants.
+Annotate (see section <a href="daikon_8.html#SEC116">Annotate</a>) automatically ignores unformattable invariants.
+</p>
+
+<hr size="6">
+<a name="Daikon-runs-slowly"></a>
+<a name="SEC134"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC133" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC135" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.10 Daikon runs slowly </h3>
+
+
+<p>Daikon's runtime and space depend on the particular data that it analyzes.
+Informally, invariant detection time can be characterized as
+</p><table><tr><td>&nbsp;</td><td><pre class="example">O((<var>vars</var>^3 * <var>falsetime</var> + <var>trueinvs</var> * <var>testsuite</var>) * <var>procedures</var>)
+</pre></td></tr></table>
+<p>where <var>vars</var> is the number of variables <em>at a program point</em>,
+<var>falsetime</var> is the (small constant)
+time to falsify a potential invariant,
+<var>trueinvs</var> is the (small) number of
+true invariants at a program point,
+<var>testsuite</var> is the size of the test
+suite, and
+<var>procedures</var> is the number of instrumented program points.  The first
+two products multiply a number of invariants by the time to test each
+invariant.
+</p>
+<p>If there are many true invariants over an input, then Daikon continues
+to check them all over the entire input.  By contrast, if not many
+invariants are true, then Daikon need no longer check them once they
+are falsified (which in practice happens quickly).  Daikon processes
+each procedure independently.
+</p>
+<p>Another important factor affecting Daikon's runtime is the number of
+variables.  Because invariants involve up to three variables each, the
+number of invariants to check is cubic in the number of variables at a
+single program point.  Derived variables (such as <code>a[i]</code>,
+introduced whenever there is both an array <code>a</code> and an integer
+<code>i</code>) can increase the number of variables substantially.
+The <samp>`daikon.derive.Derivation.disable_derived_variables'</samp> and individual
+<samp>`daikon.derive.*.*.enabled'</samp> configuration variables
+(see section <a href="daikon_6.html#SEC51">Options to enable/disable derived variables</a>) may be used
+to disable derived variables altogether or selectively, at the cost of
+detecting fewer invariants, especially over sequences.
+</p>
+<p>For details on improving Daikon's performance, see <a href="#SEC130">Out of memory</a>, and <a href="#SEC136">Large data trace (.dtrace) files</a>.
+</p>
+
+<hr size="6">
+<a name="Bigger-traces-cause-invariants-to-appear"></a>
+<a name="SEC135"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC134" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC136" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC124" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.1.11 Bigger traces cause invariants to appear </h3>
+
+<p>Suppose that you run Daikon twice.  The first time, you supply Daikon
+with traces <i>T</i>.  The second time you supply Daikon with traces
+<i>T</i>+<i>T'</i>:  either more files, or file(s) that are supersets of the
+original one(s).  The second Daikon execution may report fewer
+invariants, more invariants, or a mix.
+</p>
+<p>The second execution may report <strong>fewer</strong> invariants, because the
+additional data has eliminated overfitting (false positives).  There may
+have been some accidental property of the shorter executions that is not
+true in the longer ones.
+</p>
+<p>Even though fewer invariants are true on the second execution, Daikon may
+report invariants that it did not report on the first execution.  We
+mention two reasons that Daikon might not report an invariant that is true:
+statistical justification, and implication.
+</p>
+<p>The second execution may report <strong>more</strong> invariants, because of Daikon's
+statistical justification tests.  Daikon only reports a property if it is
+statistically justified, and Daikon needs to see enough samples for the
+statistical test to work.  So, there may have been a property that was true
+both in the short trace and in the long one, but Daikon only reported it
+for the long one.  If you want to prevent this from happening, you can
+adjust the confidence limit so that the property is reported even in the
+short executions; see the command-line option <code>--conf_limit</code>.  For
+instance, supplying <code>--conf_limit 0</code> causes all properties that have
+not been falsified to be printed.
+</p>
+<p>Another reason that the second execution might report <strong>more</strong>
+invariants (more specifically, might report an invariant that did not
+appear in the first execution) is because Daikon does not report
+redundant, or implied, invariants.  Suppose that both <code>i &lt; j</code> and
+<code>i &lt;= j</code> were true on the first execution.  Daikon would report
+only <code>i &lt; j</code>; Daikon would not report <code>i &lt;= j</code>, which is
+implied by what Daikon has reported.  Further suppose that the second
+execution had a sample containing <code>i=22, j=22</code>.  Only <code>i &lt;= j</code>
+would be true in the second execution, and Daikon would report it.
+(The invariant <code>i &lt; j</code> is an example of a false positive or
+overfitting in the first execution.)
+</p>
+
+<hr size="6">
+<a name="Large-dtrace-files"></a>
+<a name="SEC136"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC135" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC137" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.2 Large data trace (.dtrace) files </h2>
+
+
+
+<p>Running instrumented code can create very large <tt>`.dtrace'</tt> files.
+This can be a problem because writing the large files can slow the
+target programs substantially, or because the large files may fill up
+your disk.  The solution is to create smaller data trace files, by
+computing invariants over fewer program
+points (procedures), computing invariants over fewer variables, or
+computing invariants over fewer samples (executions).
+</p>
+<p>It is usually possible to create an <tt>`.inv'</tt> file equivalent to
+the one that Daikon would have computed, had Daikon been able to
+process your entire program over its full test suite.  First, use the
+techniques below (see section <a href="#SEC137">Reducing program points (functions)</a>) to split your
+<tt>`.dtrace'</tt> file into parts.  Next, run Daikon on each resulting
+<tt>`.dtrace'</tt> file.  Finally, use the <a href="daikon_8.html#SEC114">MergeInvariants</a> tool 
+to combine the resulting <tt>`.inv'</tt> files into one.
+</p>
+<p>Independently from the above techniques, you can run Daikon online.
+The term &quot;online execution&quot; refers to running Daikon at the same time
+as the target program, without writing any information to a file.  This
+can avoid some I/O overhead, it prevents filling up your disk with
+files, and in the future Daikon may be able to produce partial results
+as the target program is executing.
+The Kvasir front end supports online execution via use of (normal or
+named) Unix pipes (see section <a href="daikon_7.html#SEC90">Online execution</a>).
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC137">9.2.1 Reducing program points (functions)</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">     
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC138">9.2.2 Reducing variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC139">9.2.3 Reducing executions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="Reducing-program-points"></a>
+<a name="SEC137"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC136" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC138" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC136" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.2.1 Reducing program points (functions) </h3>
+
+<p>Here are ways to compute invariants over a subset of the program
+points (functions) in your program.
+</p><ol>
+<li>
+You can make Daikon ignore some program points.  With the
+<samp>`--ppt-select-pattern=<var>ppt_regexp</var>'</samp>
+flag (see section <a href="daikon_4.html#SEC31">Processing only part of the trace file</a>),
+only program points matching
+the regular expression are processed.  Likewise, the
+<samp>`--ppt-omit-pattern=<var>ppt_omit_regexp</var>'</samp> option causes program points
+matching the regular expression to be ignored.
+
+<p>Also, the configuration variable <samp>`daikon.Daikon.ppt_perc'</samp>
+allows a percentage of the program points to be processed.
+See section <a href="daikon_6.html#SEC53">General configuration options</a>, for details.
+</p>
+</li><li>
+<a name="IDX122"></a>
+You can remove some program points (functions) from your
+<tt>`.dtrace'</tt> file.  The <code>trace-purge-fns.pl</code> script takes as
+arguments a (Perl) regular expression and a list of files.  It
+modifies each file in place, removing every program point (function)
+whose name matches the regular expression.  The <samp>`-v'</samp> flag means
+to retain rather than discard matching program points.  For instance,
+to create two subparts of a <tt>`.dtrace'</tt> file -- one containing the
+getters and setters, and the other containing all other functions --
+use the following commands:
+<table><tr><td>&nbsp;</td><td><pre class="example">cp myprog.dtrace myprog-setters.dtrace
+trace-purge-fns.pl -v 'set|get' myprog-setters.dtrace
+cp myprog.dtrace myprog-non-setters.dtrace
+trace-purge-fns.pl 'set|get' myprog-non-setters.dtrace
+</pre></td></tr></table>
+</li><li>
+You can instrument fewer methods, creating smaller <tt>`.dtrace'</tt>
+files in the first place (rather than cutting the <tt>`.dtrace'</tt> files
+down afterward).
+<ul class="toc">
+<li> With Chicory, use the <samp>`--ppt-omit-pattern'</samp> or
+<samp>`--ppt-select-pattern'</samp> options (see <a href="daikon_4.html#SEC31">Processing only part of the trace file</a>, <a href="daikon_7.html#SEC70">Chicory options</a>) to
+restrict which program points are traced.  Running the
+instrumented program will result in a smaller <tt>`.dtrace'</tt> file that
+contains fewer records.
+</li><li> With Kvasir, use the <samp>`--ppt-list-file'</samp> option to specify a list
+of program points that should be traced (see section <a href="daikon_7.html#SEC84">Tracing only part of a program</a> section for more details).
+</li></ul>
+
+</li><li>
+If you are using a source-based front end, you can instrument fewer files.
+
+</li></ol>
+
+<hr size="6">
+<a name="Reducing-variables"></a>
+<a name="SEC138"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC137" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC139" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC136" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.2.2 Reducing variables </h3>
+
+<p>Here are ways to compute invariants over a subset of the variables in
+your program.  This changes the resulting invariants, because
+invariants over the missing variables (including any relationship
+between a missing variable and a retained variable) are not detected
+or reported.  For instance, you might remove uninteresting variables
+(or ones that shouldn't be compared to certain others) or variables
+that use a lot of memory (such as some arrays).
+</p>
+<ol>
+<li>
+You can make Daikon ignore certain variables rather than modifying
+the <tt>`.dtrace'</tt> file directly.  Analogously with the
+<samp>`--ppt-select-pattern'</samp> and <samp>`--ppt-omit-pattern'</samp> flags, the
+<samp>`--var-select-pattern'</samp> and <samp>`--var-omit-pattern'</samp> flags
+restrict which variables Daikon processes
+(see <a href="daikon_4.html#SEC31">Processing only part of the trace file</a>, and <a href="daikon_7.html#SEC70">Chicory options</a>).
+
+</li><li>
+You can reduce the number of variables that are output by instrumented
+code -- for instance, output <samp>`a'</samp> and <samp>`a.b'</samp> but not
+<samp>`a.b.c'</samp>.  Do this by reducing the class/structure instrumentation
+depth.
+<ul class="toc">
+<li> With Chicory, use the <samp>`--nesting-depth=<var>N</var>'</samp> option.
+</li><li> With Kvasir, use the <samp>`--struct-depth=<var>N</var>'</samp> or the
+<samp>`--nesting-depth=<var>N</var>'</samp> option.
+</li><li> With Mangel-Wurzel, use the <samp>`--struct-depth=<var>N</var>'</samp> or the
+<samp>`--nesting-depth=<var>N</var>'</samp> option.
+</li></ul>
+
+</li><li>
+With Kvasir, you can either ignore all global and/or static variables with the
+<samp>`--ignore-globals'</samp> and <samp>`--ignore-static-vars'</samp> options or manually
+specify a subset of variables to trace using the
+<samp>`--var-list-file'</samp> option (see section <a href="daikon_7.html#SEC84">Tracing only part of a program</a>
+section for details)
+
+</li><li>
+You can pare down an existing <tt>`.dtrace'</tt> file using the
+<code>trace-purge-vars.pl</code> script.  Analogously to the
+<code>trace-purge-fns.pl</code> script, it removes certain variables from
+all program points in a function (or retains them, with the
+<samp>`-v'</samp> flag).  After running this command, you will need
+to edit the corresponding <tt>`.decls'</tt> file by hand to remove the
+same variables.
+
+</li></ol>
+
+<hr size="6">
+<a name="Reducing-executions"></a>
+<a name="SEC139"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC138" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC140" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC136" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.2.3 Reducing executions </h3>
+
+<p>Here are ways to run Daikon over fewer executions of each program
+point.  (You cannot combine the resulting invariants in order to
+obtain the same result as running Daikon over all the executions.)
+</p>
+<ol>
+<li>
+If you have multiple <tt>`.dtrace'</tt> files (perhaps resulting from
+multiple program runs), you can run Daikon on just some of them.
+
+</li><li>
+<a name="IDX123"></a>
+You can terminate the instrumented program when it has created a
+sufficiently large <tt>`.dtrace'</tt> file.  If you interrupt the program
+while it is in the middle of writing a record to the <tt>`.dtrace'</tt>
+file, the last record may be only partially written.  Use the
+<code>daikon/bin/trace-untruncate</code> program to remove the last,
+possibly partial, record from the file:
+<table><tr><td>&nbsp;</td><td><pre class="example">trace-untruncate myfile.dtrace
+</pre></td></tr></table>
+<p>modifies <tt>`myfile.dtrace'</tt> in place to remove the last record.
+</p>
+<p>Alternately, you can use the
+<code>daikon/bin/trace-untruncate-fast</code> program.  It operates much
+faster on very large files.  In order to use
+<code>trace-untruncate-fast</code>, you must have already compiled it
+(see section <a href="daikon_2.html#SEC3">Installing Daikon</a>).
+</p>
+</li></ol>
+
+
+<hr size="6">
+<a name="Parsing-Java-5_002e0-code"></a>
+<a name="SEC140"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC139" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC141" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.3 Parsing Java 5.0 code </h2>
+
+<p>The Annotate (see section <a href="daikon_8.html#SEC116">Annotate</a>) and runtimechecker (see section <a href="daikon_8.html#SEC118">Runtime-check instrumenter (runtimechecker)</a>) tools use an external library (JTB,
+<a href="http://compilers.cs.ucla.edu/jtb/">http://compilers.cs.ucla.edu/jtb/</a>) for parsing Java code.  That
+external library has an error in parsing logical shift operators such as
+<code>x &lt;&lt; y</code> or <code>x &gt;&gt; y</code>.  Therefore, such invariants (along with
+a few other invariants that cannot be properly formatted as Java code)
+are suppressed from the output of these tools.  (Annotate inserts them
+as comments, and runtimechecker silently ignores them.)
+</p>
+
+<hr size="6">
+<a name="Chicory-problems"></a>
+<a name="SEC141"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC140" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC142" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.4 Problems with Chicory </h2>
+
+<p>Before reporting or investigating a problem with Chicory, always check
+that the program executes properly when not being run under Chicory's
+control.
+</p>
+<p>For example, if a command such as
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java daikon.Chicory DataStructures.StackArTester
+</pre></td></tr></table>
+<p>fails with an error, then first try
+</p><table><tr><td>&nbsp;</td><td><pre class="example">java DataStructures.StackArTester
+</pre></td></tr></table>
+<p>which is likely to fail with the same error.
+</p>
+<p>If the latter command also fails, the problem is not with Chicory.
+First solve your Java problem, then once again attempt to use Chicory.
+</p>
+<p>If the latter command does not fail, then you have found a bug in
+Chicory; please report it if it is not already explained in this manual.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC142">9.4.1 VerifyError constant pool index error</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="VerifyError-constant-pool-index-error"></a>
+<a name="SEC142"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC141" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC143" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC141" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 9.4.1 VerifyError constant pool index error </h3>
+
+
+<p>If Chicory throws an error such as the following:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">Exception in thread &quot;main&quot; java.lang.VerifyError:
+  (class: ps1/PublicTest, method: &lt;init&gt; signature: (Ljava/lang/String;)V)
+  Illegal constant pool index
+</pre></td></tr></table>
+<p>then the problem is most likely that your classpath contains a version
+of the BCEL library (<tt>`bcel.jar'</tt>) that is not compatible with Java
+5.  You should either remove that version of BCEL from your classpath,
+or you should ensure that it appears after <tt>`daikon.jar'</tt>.  (If you
+are running Daikon from sources rather than from <tt>`daikon.jar'</tt>, then
+ensure that <tt>`$DAIKONDIR/java/lib/bcel.jar'</tt> is the first version of
+BCEL on your classpath.)
+</p>
+
+
+
+<hr size="6">
+<a name="Reporting-problems"></a>
+<a name="SEC143"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC142" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC144" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.5 Reporting problems </h2>
+
+
+<p>If you have any questions, can suggest ways to improve the
+documentation, find bugs in the system, or have suggestions for its
+improvement, please send email to
+<a href="mailto:daikon-developers@lists.csail.mit.edu">daikon-developers@lists.csail.mit.edu</a>.  (If you can't figure
+out how to do something or do not understand why Daikon works the way it
+does, that is a bug, too -- in the Daikon documentation.  Please report
+those as well.)
+We will try to assist you and to correct any
+problems, so please don't hesitate to ask for help or report
+difficulties.  Additionally, if you can contribute enhancements or bug
+fixes, those will be gratefully accepted.
+</p>
+<p>In order for us to assist you, please provide a complete and useful bug
+report.  Your bug report must provide all the information that is
+required in order to replicate the bug and verify that our fix corrects
+the problem.  If you do not provide complete information, we will not be
+able to assist you.
+</p>
+<p>Your bug report should include:
+</p><ul>
+<li>
+the version of Daikon, which appears in the file <tt>`daikon/README'</tt>
+and is also printed when you run Daikon.
+If you are not using the most recent version, download a newer version
+from <a href="http://pag.csail.mit.edu/daikon/">http://pag.csail.mit.edu/daikon/</a> to see whether your problem
+has already been corrected.
+If you are using a modified version of Daikon, you should verify that
+the problem exists in Daikon as distributed.
+</li><li>
+a description of exactly what you did (in sufficient detail for others
+to reproduce the problem), exactly what happened, and what
+you expected to happen instead.
+One good way to describe what you did is a list of
+commands that, if executed, reproduces your error.  A good way to show
+what happened is a transcript of execution of all of the commands.  (A
+list of commands and a transcript are <strong>much</strong> more useful than a
+vague description; please don't give vague English when you can supply a
+more precise specification instead.)  It is crucial that you not omit
+steps in your report.  For example, include instructions for installing
+your software and all customizations to the software or your
+environment, including all relevant environment variables.  Please do
+not force the
+developers to speculate about what you did; that is a waste of their
+time, since you already have the knowledge.
+</li><li>
+input files that permit the problem to be replicated (by following the
+detailed steps in your bug report).  The
+most important thing is the original, uninstrumented source files (e.g.,
+<tt>`.java'</tt>), and any inputs/tests used when you ran the program.
+It is also helpful to include instrumented source files,
+<tt>`.decl'</tt> files, and <tt>`.dtrace'</tt> files.
+</li><li>
+the operating system and revision you are using (e.g., Debian stable,
+Windows XP service pack 2, etc)
+</li><li>
+any other information that you consider relevant.
+</li></ul>
+
+<p>When users provide an inadequate bug report,
+it is frequently more difficult for us to reproduce an error than to correct
+it.  If you make it easy for us to reproduce and verify the problem, then it is
+much more likely to be corrected.  Thanks for helping us to help you!
+</p>
+<p>You may also wish to take advantage of the Daikon mailing lists
+(see section <a href="daikon_1.html#SEC2">Mailing lists</a>).
+</p>
+
+<hr size="6">
+<a name="Known-bugs"></a>
+<a name="SEC144"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC143" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC145" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.6 Known bugs </h2>
+
+
+
+<ul>
+<li>
+This problem affects <a href="daikon_8.html#SEC116">Annotate</a> and the <a href="daikon_8.html#SEC118">Runtime-check instrumenter (runtimechecker)</a>, which output Java source code.  If
+the java file to be annotated/instrumented uses logical
+shift operators (<code>&gt;&gt;</code>, <code>&lt;&lt;</code>, and <code>&gt;&gt;&gt;</code>), the
+annotated/instrumented java may contain extra brackets in these
+operators.  For example, the expression <code>x &lt;&lt; y</code> in the input source
+file may erroneously be translated as <code>x &lt;&lt;&lt;&lt;&lt;&lt; y</code> in the
+annotated/instrumented file.
+
+<p>This error's presence will be immediately apparent if you try to compile
+the annotated/instrumented file and it fails to compile because the
+extra brackets make it syntactically illegal.  In this case, the best
+solution we can recommend is that you manually fix the occurrence of the
+logical shift operator.
+</p>
+<p>This error is caused by a bug in the parser generator that generates
+Daikon's Java parser.  We expect it will be fixed by the next release.
+</p></li></ul>
+
+<hr size="6">
+<a name="Further-reading"></a>
+<a name="SEC145"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC144" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC123" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 9.7 Further reading </h2>
+
+<p>More information on Daikon can be found in the Daikon Developer Manual
+(see <a href="..//index.html#Top">(./developer)Top</a> section `Top' in <cite>Daikon Developer Manual</cite>).
+For instance, the Daikon Developer Manual indicates how to extend
+Daikon with new invariants, new derived variables, and front ends for
+new languages.  It also contains information about the implementation
+and about how to debug.
+</p>
+<p>You may find discussions on the mailing lists (see section <a href="daikon_1.html#SEC2">Mailing lists</a>)
+helpful.  The mailing list archives may contain helpful information, but
+we strive to incorporate that information in this manual so that you
+don't have to search the archives as well.
+</p>
+<p>For further reading, see the list of publications at the
+Daikon homepage, <a href="http://pag.csail.mit.edu/daikon/pubs/">http://pag.csail.mit.edu/daikon/pubs/</a>.
+</p>
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_10.html#SEC146" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daikon User</em> on <em>December, 19 2009</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

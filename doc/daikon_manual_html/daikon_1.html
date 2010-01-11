@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on December, 19 2009 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>The Daikon Invariant Detector User Manual: 1. Introduction</title>
+
+<meta name="description" content="The Daikon Invariant Detector User Manual: 1. Introduction">
+<meta name="keywords" content="The Daikon Invariant Detector User Manual: 1. Introduction">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Introduction"></a>
+<a name="SEC1"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="daikon.html#Top" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_2.html#SEC3" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 1. Introduction </h1>
+
+
+
+<p><a href="http://pag.csail.mit.edu/daikon/">Daikon</a> is an implementation of
+dynamic detection of likely invariants; that is, the Daikon invariant
+detector reports likely program invariants.  An invariant is a property
+that holds at a certain point or points in a program; these are often
+seen in assert statements, documentation, and formal specifications.
+Invariants can be useful in program understanding and a host of other
+applications.  Examples include &quot;.field &gt; abs(y)&quot;; &quot;y = 2*x+3&quot;;
+&quot;array a is sorted&quot;; &quot;for all list objects lst, lst.next.prev =
+lst&quot;; &quot;for all treenode objects n, n.left.value &lt; n.right.value&quot;; &quot;p
+!= null =&gt; p.content in myArray&quot;; and many more.  You can extend Daikon
+to add new properties (see section <a href="daikon_6.html#SEC45">Enhancing Daikon output</a>).
+</p>
+<p>Dynamic invariant detection runs a program, observes the values that the
+program computes, and then reports properties that were true over the
+observed executions.
+Daikon can detect properties in C, C++, Eiffel, Java, and Perl programs;
+in spreadsheet files; and in other data sources.  (Dynamic invariant
+detection is a machine learning technique that can be applied to
+arbitrary data.)  It is easy to extend Daikon to other applications; as
+one example, an interface exists to the Java PathFinder model checker.
+</p>
+<p>Daikon is freely available for download from
+<a href="http://pag.csail.mit.edu/daikon/download/">http://pag.csail.mit.edu/daikon/download/</a>.  The distribution
+includes both source code and
+<a href="http://pag.csail.mit.edu/daikon/download/doc/">documentation</a>,
+and Daikon's license permits unrestricted use (see section <a href="daikon_10.html#SEC148">License</a>).  Many
+researchers and practitioners have used Daikon; those uses, and Daikon
+itself, are described in various
+<a href="http://pag.csail.mit.edu/daikon/pubs/">publications</a>.
+</p>
+<p>More information on Daikon can be found in the Daikon Developer
+Manual (see <a href="..//index.html#Top">(./developer)Top</a> section `Top' in <cite>Daikon Developer Manual</cite>).
+For instance, the Daikon Developer Manual indicates how to
+extend Daikon with new invariants, new derived variables, and front
+ends for new languages.  It also contains information about the
+implementation and about debugging flags.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC2">1.1 Mailing lists</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Mailing-lists"></a>
+<a name="SEC2"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC1" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_2.html#SEC3" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC1" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC1" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_2.html#SEC3" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 1.1 Mailing lists </h2>
+
+<p>The following mailing lists (and their archives) are available:
+</p><dl compact="compact">
+<dt> <samp>`daikon-announce@lists.csail.mit.edu'</samp></dt>
+<dd><p>A low-volume, announcement-only list.  For example,
+announcements of new releases are sent to this list.
+To subscribe, visit
+<a href="https://lists.csail.mit.edu/mailman/listinfo/daikon-announce">https://lists.csail.mit.edu/mailman/listinfo/daikon-announce</a>.
+</p></dd>
+<dt> <samp>`daikon-discuss@lists.csail.mit.edu'</samp></dt>
+<dd><p>A moderated list for the community of Daikon users.  Use it to share
+tips and successes, and to get help with questions or problems (after
+checking the documentation).  To subscribe, visit
+<a href="https://lists.csail.mit.edu/mailman/listinfo/daikon-discuss">https://lists.csail.mit.edu/mailman/listinfo/daikon-discuss</a>.
+</p></dd>
+<dt> <samp>`daikon-developers@lists.csail.mit.edu'</samp></dt>
+<dd><p>This list goes to the Daikon maintainers.  Use it for bug reports,
+suggestions, and the like.  If you are an active contributor to Daikon,
+you may send mail to the list asking to be added.
+</p></dd>
+</dl>
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC1" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_2.html#SEC3" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daikon User</em> on <em>December, 19 2009</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

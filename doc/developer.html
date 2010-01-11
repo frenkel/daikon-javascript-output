@@ -1,0 +1,3370 @@
+<html lang="en">
+<head>
+<title>The Daikon Invariant Detector Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The Daikon Invariant Detector Developer Manual">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h1 class="settitle">The Daikon Invariant Detector Developer Manual</h1>
+<img src="images/daikon-logo.gif" alt="Daikon logo"><!-- Why is this here? It duplicates the stuff further down. -->
+<!-- @html -->
+<!-- <h1>Daikon Invariant Detector User Manual</h1> -->
+<!-- This is the developer manual for the Daikon invariant detector. -->
+<!-- It describes Daikon version 4.6.3, released December 18, 2009. -->
+<!-- @end html -->
+
+<!-- Putting this lower in the HTML version looks a little bit strange, -->
+<!-- but it's acceptable. -->
+<div class="node">
+<p><hr>
+<a name="Top"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Introduction">Introduction</a>
+
+</div>
+
+<!-- node-name, next,          previous, up -->
+<!-- Unfortunately, the Daikon logo doesn't look good in ASCII. -->
+<!-- @ifinfo -->
+<!-- @image{images/daikon-logo,4in,} -->
+<!-- @end ifinfo -->
+<p>This is the developer manual for the Daikon invariant detector. 
+It describes Daikon version 4.6.3, released December 18, 2009.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Introduction">Introduction</a>
+<li><a accesskey="2" href="#Extending-Daikon">Extending Daikon</a>
+<li><a accesskey="3" href="#Debugging-Daikon">Debugging Daikon</a>
+<li><a accesskey="4" href="#Daikon-internals">Daikon internals</a>
+<li><a accesskey="5" href="#Testing">Testing</a>
+<li><a accesskey="6" href="#Historical">Historical</a>
+<li><a accesskey="7" href="#File-formats">File formats</a>
+<li><a accesskey="8" href="#Index">Index</a>
+
+<div class="contents">
+</ul>
+
+</ul>
+
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Introduction" href="#Introduction">1 Introduction</a>
+<li><a name="toc_Extending-Daikon" href="#Extending-Daikon">2 Extending Daikon</a>
+<ul>
+<li><a href="#Compiling-Daikon">2.1 Compiling Daikon</a>
+<li><a href="#CVS-repository">2.2 CVS repository</a>
+<li><a href="#Using-Eclipse">2.3 Using Eclipse</a>
+<li><a href="#New-invariants">2.4 New invariants</a>
+<li><a href="#New-derived-variables">2.5 New derived variables</a>
+<li><a href="#New-formatting-for-invariants">2.6 New formatting for invariants</a>
+<li><a href="#New-front-ends">2.7 New front ends</a>
+<ul>
+<li><a href="#Example-instrumented-Java-program">2.7.1 Example instrumented Java program</a>
+<li><a href="#Instrumenting-C-programs">2.7.2 Instrumenting C programs</a>
+</li></ul>
+<li><a href="#New-suppressors">2.8 New suppressors</a>
+<li><a href="#System_002eexit">2.9 System.exit</a>
+</li></ul>
+<li><a name="toc_Debugging-Daikon" href="#Debugging-Daikon">3 Debugging Daikon</a>
+<ul>
+<li><a href="#Track-logging">3.1 Track logging</a>
+<ul>
+<li><a href="#Adding-track-logging">3.1.1 Adding track logging</a>
+<li><a href="#Track-log-output">3.1.2 Track log output</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Daikon-internals" href="#Daikon-internals">4 Daikon internals</a>
+<ul>
+<li><a href="#Avoiding-work-for-redundant-invariants">4.1 Avoiding work for redundant invariants</a>
+<li><a href="#Dataflow-hierarchy">4.2 Dataflow hierarchy</a>
+<li><a href="#Equality-optimization">4.3 Equality optimization</a>
+</li></ul>
+<li><a name="toc_Testing" href="#Testing">5 Testing</a>
+<ul>
+<li><a href="#Unit-testing">5.1 Unit testing</a>
+<ul>
+<li><a href="#Invariant-format-testing">5.1.1 Invariant format testing</a>
+<li><a href="#Sample-Testing">5.1.2 Sample Testing</a>
+<ul>
+<li><a href="#Assertions">5.1.2.1 Assertions</a>
+<li><a href="#Example-file">5.1.2.2 Example file</a>
+</li></ul>
+</li></ul>
+<li><a href="#Regression-tests">5.2 Regression tests</a>
+<ul>
+<li><a href="#Kvasir-regression-tests">5.2.1 Kvasir regression tests</a>
+<li><a href="#Adding-regression-tests">5.2.2 Adding regression tests</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Historical" href="#Historical">6 Analyzing historical versions of Daikon</a>
+<ul>
+<li><a href="#Branches">6.1 Branches</a>
+</li></ul>
+<li><a name="toc_File-formats" href="#File-formats">Appendix A File formats</a>
+<ul>
+<li><a href="#Declarations-in-a-separate-file">A.1 Declarations in a separate file</a>
+<li><a href="#Conventions">A.2 File format conventions</a>
+<li><a href="#Declarations">A.3 Declarations</a>
+<ul>
+<li><a href="#Declaration_002drelated-records">A.3.1 Declaration-related records</a>
+<ul>
+<li><a href="#Declaration-version">A.3.1.1 Declaration version</a>
+<li><a href="#Input_002dlanguage-declaration">A.3.1.2 Input-language declaration</a>
+<li><a href="#Variable-comparability">A.3.1.3 Variable comparability</a>
+<li><a href="#ListImplementors-declaration">A.3.1.4 ListImplementors declaration</a>
+</li></ul>
+<li><a href="#Program-point-declarations">A.3.2 Program point declarations</a>
+<li><a href="#Variable-declarations">A.3.3 Variable declarations</a>
+</li></ul>
+<li><a href="#Data-trace-records">A.4 Data trace records</a>
+<ul>
+<li><a href="#Nonsensical-values">A.4.1 Nonsensical values for variables</a>
+<li><a href="#Variables-that-do-not-appear-in-trace-records">A.4.2 Variables that do not appear in trace records</a>
+</li></ul>
+<li><a href="#Example-files">A.5 Example files</a>
+<ul>
+<li><a href="#Example-declaration-file">A.5.1 Example declaration file</a>
+<li><a href="#Example-data-trace-file">A.5.2 Example data trace file</a>
+</li></ul>
+<li><a href="#Version-1-Declarations">A.6 Version 1 Declarations</a>
+<ul>
+<li><a href="#V1-Program-point-declarations">A.6.1 V1 Program point declarations</a>
+<li><a href="#V1-pptname-format">A.6.2 Program point name format specification</a>
+<li><a href="#V1-VarComparability-declaration">A.6.3 V1 VarComparability declaration</a>
+<li><a href="#V1-ListImplementors-declaration">A.6.4 V1 ListImplementors declaration</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Index" href="#Index">Index</a>
+</li></ul>
+</div>
+
+   </ul>
+
+<div class="node">
+<p><hr>
+<a name="Introduction"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Extending-Daikon">Extending Daikon</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">1 Introduction</h2>
+
+<p>This is the developer manual for the
+<a href="http://pag.csail.mit.edu/daikon/">Daikon invariant detector</a>. 
+For information about using Daikon, see its user manual (see <a href="daikon.html#Top">Overview</a>). 
+This manual is intended for those who are already familiar with the use
+of Daikon, but wish to customize or extend it.
+
+   <p>Additional information can be found in technical papers available from
+<a href="http://pag.csail.mit.edu/daikon/pubs/">http://pag.csail.mit.edu/daikon/pubs/</a>.
+
+<div class="node">
+<p><hr>
+<a name="Extending-Daikon"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Debugging-Daikon">Debugging Daikon</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">2 Extending Daikon</h2>
+
+<p><a name="index-extending-Daikon-1"></a><a name="index-changing-Daikon-2"></a><a name="index-customizing-Daikon-3"></a><a name="index-modifying-Daikon-4"></a>
+This chapter describes how to customize or modify Daikon.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Compiling-Daikon">Compiling Daikon</a>
+<li><a accesskey="2" href="#CVS-repository">CVS repository</a>
+<li><a accesskey="3" href="#Using-Eclipse">Using Eclipse</a>
+<li><a accesskey="4" href="#New-invariants">New invariants</a>
+<li><a accesskey="5" href="#New-derived-variables">New derived variables</a>
+<li><a accesskey="6" href="#New-formatting-for-invariants">New formatting for invariants</a>
+<li><a accesskey="7" href="#New-front-ends">New front ends</a>
+<li><a accesskey="8" href="#New-suppressors">New suppressors</a>
+<li><a accesskey="9" href="#System_002eexit">System.exit</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Compiling-Daikon"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#CVS-repository">CVS repository</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Extending-Daikon">Extending Daikon</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Extending-Daikon">Extending Daikon</a>
+
+</div>
+
+<h3 class="section">2.1 Compiling Daikon</h3>
+
+<p><a name="index-compiling-daikon-5"></a>
+To compile Daikon, type `<samp><span class="samp">make</span></samp>' in <samp><span class="file">daikon/java/</span></samp> or any of its
+subdirectories.  The distribution includes compiled <samp><span class="file">.class</span></samp> files,
+so you do not need to compile them yourself unless you make changes.
+
+   <p>When you compile Daikon, environment variables <samp><span class="env">DAIKONDIR</span></samp> (or
+<samp><span class="env">INV</span></samp>, whose effect is the same) and <samp><span class="env">JDKDIR</span></samp> should be set. 
+This is already done if you source the <samp><span class="file">daikon.bashrc</span></samp> or
+<samp><span class="file">daikon.cshrc</span></samp> file, as recommended in the installation
+instructions (see <a href="daikon.html#Complete-installation">Complete installation</a>). 
+When you compile Daikon, environment variable <samp><span class="env">DAIKONCLASS_SOURCES</span></samp>
+should be set (to any value) before your startup file sources file
+<samp><span class="file">daikon.bashrc</span></samp> or <samp><span class="file">daikon.cshrc</span></samp>. 
+Thus, a complete <samp><span class="file">.bashrc</span></samp> or <samp><span class="file">.bash_profile</span></samp> shell setup file
+that would enable you to compile Daikon might look like the following.
+
+<pre class="example">       export INV=$HOME/invariants
+       export JDKDIR=$HOME/jdk1.5.0_04
+       export DAIKONCLASS_SOURCES=1
+       source $INV/scripts/daikon.bashrc
+       export CLASSPATH=.:$CLASSPATH
+</pre>
+   <p><a name="index-g_t_002ejpp-files-6"></a><a name="index-jpp-files-7"></a>
+Daikon is written in Java 1.5 (also known as Java 5).  In order to
+compile Daikon, you need a Java 1.5 compiler such as javac on your path. 
+<a name="index-Jikes-compiler-8"></a><a name="index-javac-compiler_002c-overriding-9"></a><a name="index-Java-compiler_002c-specifying-10"></a>To override the default Java compiler (javac), create a
+<samp><span class="file">Makefile.user</span></samp> file in the <samp><span class="file">daikon/</span></samp> directory and add a line
+like the following.
+<pre class="example">     JAVAC ?= jikes -g +E +F
+</pre>
+   <p>In order to compile Daikon, you need the C preprocessor
+<samp><span class="command">cpp</span></samp>, which is used to convert each <samp><span class="file">.jpp</span></samp> file in the
+distribution into multiple <samp><span class="file">.java</span></samp> files, which are then compiled. 
+If you have a C compiler, you almost certainly have <samp><span class="command">cpp</span></samp>. 
+If you do not have <samp><span class="command">cpp</span></samp> (or <samp><span class="command">gcc</span></samp>, which can emulate
+<samp><span class="command">cpp</span></samp> via `<samp><span class="samp">gcc -E</span></samp>'), you may run `<samp><span class="samp">make avoid-jpp</span></samp>', in
+which case changes to <code>.jpp</code> files will not be reflected in the
+<samp><span class="file">.java</span></samp> files or the compiled <samp><span class="file">.class</span></samp> files.  (The purpose
+of the <samp><span class="file">.jpp</span></samp> files is to avoid code duplication by placing
+common code in a single file, then generating other files that need to
+include that common code.)
+
+   <p>To make the documentation (via `<samp><span class="samp">make -C $inv/doc</span></samp>'), you will need a
+recent version of makeinfo. 
+<!-- Info as of November 2005 -->
+Makeinfo version 4.7 is known to work, but makeinfo version 4.1 is known
+to fail.
+
+   <p>For more information about compiling Daikon, see the comments in the Makefiles.
+
+   <p><a name="index-Windows_002c-compiling-11"></a>To compile Daikon on Windows, the best approach is to install the Cygwin
+toolset (available at <a href="http://sources.redhat.com/cygwin/">http://sources.redhat.com/cygwin/</a>), which
+contains everything you need to compile and run Unix programs under
+Windows.  You can install Cygwin by simply running the program found
+at <a href="http://sources.redhat.com/cygwin/setup.exe">http://sources.redhat.com/cygwin/setup.exe</a>.
+
+   <p>When setting up environment pathname variables under Windows/Cygwin
+(such as <samp><span class="command">JDKDIR</span></samp> or <samp><span class="command">CLASSPATH</span></samp>) make sure that the
+pathname is specified in Unix format (e.g., `<samp><span class="samp">/cygdrive/c/daikon</span></samp>'
+rather than `<samp><span class="samp">C:\daikon</span></samp>').  Cygwin expects Unix style pathnames
+and the Makefile will convert them to Windows pathnames when necessary
+(such as when using Windows programs such as Java).  The
+<samp><span class="command">CLASSPATH</span></samp> environment variable should use colons (:) rather
+than semicolons (;) as a separator.  Using windows pathnames or
+separators is a common source of errors that will result in odd error
+messages and build failures.
+
+   <p><a name="index-MacOSX_002c-compiling-12"></a>Compiling Daikon on MacOSX is relatively straightforward.  In addition
+to the standard settings, add an environment variable that specifies
+the location of the Java `<samp><span class="samp">classes.jar</span></samp>' file (`<samp><span class="samp">classes.jar</span></samp>' performs a
+similar function to the more standard `<samp><span class="samp">rt.jar</span></samp>'.  Normally the
+file is found in `<samp><span class="samp">/System/Library/Frameworks</span></samp>' under the appropriate Java
+version.  The following example is for the standard install of
+Java 1.5 on MacOSX:
+
+<pre class="example">       export ORIG_RT=/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/classes.jar
+</pre>
+   <div class="node">
+<p><hr>
+<a name="CVS-repository"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Using-Eclipse">Using Eclipse</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Compiling-Daikon">Compiling Daikon</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Extending-Daikon">Extending Daikon</a>
+
+</div>
+
+<h3 class="section">2.2 CVS repository</h3>
+
+<p><a name="index-CVS-repository-13"></a>
+The layout of the Daikon CVS repository differs slightly from that of
+the distribution.  For example, the top-level directory is named
+<samp><span class="file">invariants/</span></samp> instead of <samp><span class="file">daikon/</span></samp>, and the subdirectory with
+helper programs is named <samp><span class="file">scripts/</span></samp> instead of <samp><span class="file">bin/</span></samp>.
+
+   <p>For information about obtaining Daikon via CVS, see
+<a href="http://groups.csail.mit.edu/pag/daikon/mit/">http://groups.csail.mit.edu/pag/daikon/mit/</a>.
+
+<div class="node">
+<p><hr>
+<a name="Using-Eclipse"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#New-invariants">New invariants</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#CVS-repository">CVS repository</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Extending-Daikon">Extending Daikon</a>
+
+</div>
+
+<h3 class="section">2.3 Using Eclipse</h3>
+
+<p><a name="index-Eclipse-14"></a>
+[To be improved.]
+
+   <p>Here is one way to use Eclipse to edit Daikon.
+
+   <p>First, make sure that Daikon builds cleanly from the command line.
+
+   <p>File &gt; Import &gt; General &gt; Existing Projects into Workspace
+
+   <p>Choose the &ldquo;java&rdquo; directory of your Daikon checkout
+
+   <p>Project &gt; properties &gt; Java build path:
+ libraries : &ldquo;add external jars&rdquo; everything in the lib/ directory,
+   plus also the tools.jar file in the lib/ directory of your JDK. 
+   (I'm not sure why, but &ldquo;add jars&rdquo; doesn't show all .jar files in the directory.)
+
+   <p>Source:
+   add &ldquo;Daikon&rdquo;, remove &ldquo;Daikon/src&rdquo;. 
+   Default output folder: change from &ldquo;Daikon/bin&rdquo; to &ldquo;Daikon&rdquo;.
+
+<div class="node">
+<p><hr>
+<a name="New-invariants"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#New-derived-variables">New derived variables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Using-Eclipse">Using Eclipse</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Extending-Daikon">Extending Daikon</a>
+
+</div>
+
+<h3 class="section">2.4 New invariants</h3>
+
+<p><a name="index-new-invariants-15"></a><a name="index-adding-new-invariants-16"></a>
+You can easily write your own invariants and have Daikon check them,
+in addition to all the other invariants that are already part of Daikon. 
+Adding a new invariant to Daikon requires writing one Java class, adding
+a line to another file to inform Daikon of the new
+class, and recompiling Daikon.
+
+   <p>The file <samp><span class="file">java/daikon/inv/unary/scalar/Positive.java</span></samp> in the
+Daikon distribution contains a sample invariant.  This invariant is
+true if the variable is always positive (greater than zero).  This
+invariant is subsumed by other invariants in the system; it is provided
+only as a pedagogical example.  To enable the invariant, uncomment the
+appropriate line in <code>Daikon.setup_proto_invs()</code>, then recompile
+Daikon.
+
+   <p>A Java class defining an invariant is a concrete subclass of one of
+the following abstract classes:
+     <dl>
+<dt><code>SingleScalar</code><dd>Invariants over a single numeric (scalar) variable,
+such as &ldquo;x != 0&rdquo;. 
+<br><dt><code>TwoScalar</code><dd>Invariants over two numeric variables, such as &ldquo;y
+= abs(x)&rdquo;. 
+<br><dt><code>ThreeScalar</code><dd>Invariants over three numeric variables, such as
+&ldquo;z = ax + by + c&rdquo;. 
+<br><dt><code>SingleSequence</code><dd>Invariants over one sequence (array)
+variable, such as &ldquo;a[] contains no duplicates&rdquo;. 
+<br><dt><code>TwoSequence</code><dd>Invariants over two sequences, such as &ldquo;a[] is a
+subsequence of b[]&rdquo;. 
+<br><dt><code>SequenceScalar</code><dd>Invariants over a scalar and a sequence, such
+as &ldquo;x is a member of a[]&rdquo;. 
+</dl>
+   A complete list of invariants appears in `<samp><span class="samp">Daikon.setup_proto_invs()</span></samp>'.
+
+   <p>Daikon's invariants are first instantiated, then are presented samples
+(tuples of values for all the variables of interest to the invariant;
+this might be a 1-tuple, a 2-tuple, or a 3-tuple) in turn.  If any
+sample falsifies the invariant, the invariant destroys itself.  All
+remaining invariants at the end of the program run can be reported as
+likely to be true.
+
+   <p>The key methods of the new invariant class <var>InvName</var> are
+     <dl>
+<dt><code>protected </code><var>InvName</var><code>(PptSlice ppt)</code><dd>Constructor for class <var>InvName</var>.  Should only be called from
+<code>instantiate_dyn</code>. 
+Its typical implementation is
+     <pre class="example">          super(ppt);
+     </pre>
+     <br><dt><code>protected Invariant instantiate_dyn (PptSlice slice)</code><dd>Returns an invariant of this class on the specified slice.  Its implementation
+is almost always
+     <pre class="example">          return new InvName(slice);
+     </pre>
+     <br><dt><code>public static </code><var>InvName</var><code> get_proto()</code><dd>Returns the prototype invariant used to create other invariants.  Its
+typical implementation is
+     <pre class="example">          if (proto == null)
+            proto = new InvName (null);
+          return (proto);
+     </pre>
+     <br><dt><code>public boolean enabled()</code><dd>Returns whether or not this invariant is enabled.  Its implementation is
+almost always
+     <pre class="example">          return dkconfig_enabled;
+     </pre>
+     <br><dt><code>public boolean instantiate_ok (VarInfo[] vis)</code><dd>Returns whether or not it makes sense to instantiate this invariant
+over the specified variables.  If not present, the invariant is
+created over all comparable variables of the correct types.
+
+     <br><dt><code>public InvariantStatus check_modified (..., int count)</code><dd>Presents a tuple of values to the invariant; these are the first
+N arguments, which have appropriate types for the particular invariant. 
+The <code>count</code> argument indicates how many samples have this value. 
+For example, three calls to
+<code>check_modified</code> with a <code>count</code> parameter of 1 is equivalent to
+one call to <code>check_modified</code> with a <code>count</code> parameter of 3. 
+Returns whether or not the sample is consistent with the invariant. 
+Does not change the state of the invariant.
+
+     <br><dt><code>public InvariantStatus add_modified (..., int count)</code><dd>Similar to <code>check_modified</code> except that it can change the state
+of the invariant if necessary.  If the invariant doesn't have any
+state, then simply calls <code>check_modified</code>.
+
+     <br><dt><code>protected double computeConfidence ()</code><dd>Returns the probability that the observed data could not have happened by
+chance alone.  The result usually falls between 0 and 1, where 0 means
+the values seen so far certainly happened by chance and 1 means they
+could never have happened by chance.  The method may also return one of
+the following constants in the <code>Invariant</code> class (see the class for
+documentation): <code>CONFIDENCE_JUSTIFIED</code>,
+<code>CONFIDENCE_UNJUSTIFIED</code>, <code>CONFIDENCE_NEVER</code>.
+
+     <p>For example, suppose your new invariant has a 50% chance of being true
+by chance for each sample.  (&ldquo;x is even&rdquo; is an example of such an
+invariant.)  Then a reasonable body for <code>computeConfidence</code> would
+be
+     <pre class="example">          return 1 - Math.pow(.5, ppt.num_samples());
+     </pre>
+     <p class="noindent">If 5 values had been seen, then this implementation would return 31/32,
+which is the likelihood that all 5 values seen so far were even purely
+by chance.  Invariants are only printed if their probabilities are small
+enough (by default, less than .01).
+
+     <br><dt><code>public String format ()</code><dt><code>public String repr ()</code><dt><code>public String format_using (OutputFormat format)</code><dd>Returns a high-level printed representation of the
+invariant, for user output.  <code>format</code> produces &ldquo;normal&rdquo; output, while
+the `<samp><span class="samp">repr</span></samp>' formatting routine produces low-level, detailed output for
+debugging.  When first writing
+an invariant, you can make <code>repr</code> and <code>format_using</code>
+simply call <code>format</code>, then fix up the
+implementations for the different output formats later as needed. 
+See also <a href="#New-formatting-for-invariants">New formatting for invariants</a>. 
+</dl>
+
+   <p>After the invariant is written, add a call to its <code>get_proto</code>
+method in the <code>Daikon.setup_proto_invs</code> method.
+
+<div class="node">
+<p><hr>
+<a name="New-derived-variables"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#New-formatting-for-invariants">New formatting for invariants</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#New-invariants">New invariants</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Extending-Daikon">Extending Daikon</a>
+
+</div>
+
+<h3 class="section">2.5 New derived variables</h3>
+
+<p><a name="index-derived-variable-17"></a><a name="index-variable_002c-derived-18"></a><a name="index-adding-new-derived-variables-19"></a><a name="index-new-derived-variables-20"></a>
+A derived variable is an expression that does not appear in the source
+code as a variable, but that Daikon treats as a variable for purposes
+of invariant detection.  For instance, if there exists an array
+`<samp><span class="samp">a</span></samp>' and an integer `<samp><span class="samp">i</span></samp>', then Daikon introduces the derived
+variable `<samp><span class="samp">a[i]</span></samp>'.  This permits detection of invariants over this
+quantity.
+
+   <p>(Describing how to create new variety of derived variable is still to
+be written.  For now, see the derived variables that appear in the Java
+files in directory <samp><span class="file">$DAIKONDIR/java/daikon/derive/</span></samp>.)
+
+<div class="node">
+<p><hr>
+<a name="New-formatting-for-invariants"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#New-front-ends">New front ends</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#New-derived-variables">New derived variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Extending-Daikon">Extending Daikon</a>
+
+</div>
+
+<h3 class="section">2.6 New formatting for invariants</h3>
+
+<p><a name="index-output-format_002c-defining-new-21"></a><a name="index-new-output-formats-22"></a><a name="index-adding-new-output-formats-23"></a>
+Daikon can print invariants in multiple formats
+(see <a href="daikon.html#Invariant-syntax">Invariant syntax</a>).
+
+   <p>To support a new output format, you need to do two things:
+     <ul>
+<li>In <code>daikon.inv.Invariant.OutputFormat</code>, add a new static final
+field and also update the <code>get</code> method. 
+<!-- (if it returns null, then you -->
+<!-- will get an ``Unknown output format'' error message when you run Daikon.) -->
+<li>In every subclass of <code>Invariant</code>, edit the
+<code>format_using</code> method to handle the new <code>OutputFormat</code>. 
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="New-front-ends"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#New-suppressors">New suppressors</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#New-formatting-for-invariants">New formatting for invariants</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Extending-Daikon">Extending Daikon</a>
+
+</div>
+
+<h3 class="section">2.7 New front ends</h3>
+
+<p><a name="index-front-end_002c-writing-24"></a>
+A front end for Daikon converts data into a form Daikon can process,
+producing files in Daikon's input format &mdash; data trace declarations and
+records.  For more information about these files, see <a href="#File-formats">File formats</a>.
+
+   <p>The data traces can be obtained from any source.  For instance, front
+ends have been built for stock data, weather forecasts, truck weight
+data, and spreadsheet data (see <a href="daikon.html#convertcsv_002epl">convertcsv.pl</a>), among others.  More often, users apply a programming language
+front end (also called an &ldquo;instrumenter&rdquo;) to a program, causing
+executions of the program to write files in Daikon's format.  (For
+information about existing front ends, see <a href="daikon.html#Front-ends-_0028instrumentation_0029">Front ends (instrumentation)</a>.)  When a general front end is not
+available, it is possible to manually instrument a specific program so
+that it writes files in Daikon's format.  The resulting instrumented
+program is very similar to what an instrumenter would have created, so
+this section is relevant to both approaches.
+
+   <p>Conceptually, instrumentation is very simple.  For each program point
+(say, a line of code or the entry or exit from a procedure) at which you
+wish to detect invariants, the front end must arrange to create a
+declaration (see <a href="#Declarations">Declarations</a>) that
+lists the variables in scope at that program point, and the front end
+must arrange that execution creates a data trace record (see <a href="#Data-trace-records">Data trace records</a>) for each execution of that
+program point.  Conventionally, the way to create a data trace record is
+to insert a <code>printf</code> (or similar) statement that outputs the current
+values of the variables of interest.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Example-instrumented-Java-program">Example instrumented Java program</a>
+<li><a accesskey="2" href="#Instrumenting-C-programs">Instrumenting C programs</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Example-instrumented-Java-program"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Instrumenting-C-programs">Instrumenting C programs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#New-front-ends">New front ends</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#New-front-ends">New front ends</a>
+
+</div>
+
+<h4 class="subsection">2.7.1 Example instrumented Java program</h4>
+
+<p><a name="index-instrumenting-Java-programs-25"></a><a name="index-Java-programs_002c-instrumenting-26"></a>
+This section gives an example of how an instrumenter for Java might
+work; other languages are analogous. 
+Suppose we wish to instrument file <samp><span class="file">Example.java</span></samp>.
+<pre class="example">     class Example {
+       // Return either the square of x or the square of (x+1).
+       int squar(int x, boolean b) {
+         if (b)
+           x++;
+         return x*x;
+       }
+     }
+</pre>
+   <p>The <samp><span class="file">.decls</span></samp> file might look like the following.
+<pre class="example">     DECLARE
+     Example.squar:::ENTER
+     x
+     int
+     int
+     1
+     b
+     boolean
+     int
+     2
+     
+     DECLARE
+     Example.squar:::EXIT
+     x
+     int
+     int
+     1
+     b
+     boolean
+     int
+     2
+     return
+     int
+     int
+     1
+</pre>
+   <p>The instrumented <samp><span class="file">.java</span></samp> file might look like the following. 
+This example does not compute the &ldquo;modified bits&rdquo;, but simply sets
+them all to 1, which is a safe default.
+<pre class="example">     class Example {
+       static {
+         daikon.Runtime.setDtraceMaybe("daikon-output/StackAr.dtrace");
+       }
+     
+       // Return either the square of x or the square of (x+1).
+       int squar(int x, boolean b) {
+         synchronized (daikon.Runtime.dtrace) {
+           daikon.Runtime.dtrace.println();
+           daikon.Runtime.dtrace.println("Example.squar:::ENTER");
+           daikon.Runtime.dtrace.println("x");
+           daikon.Runtime.dtrace.println(x);
+           daikon.Runtime.dtrace.println(1);  // modified bit
+           daikon.Runtime.dtrace.println("b");
+           daikon.Runtime.dtrace.println(b ? 1 : 0);
+           daikon.Runtime.dtrace.println(1);  // modified bit
+         }
+     
+         if (b)
+           x++;
+     
+         int daikon_return_value = x*x;
+         synchronized (daikon.Runtime.dtrace) {
+           daikon.Runtime.dtrace.println();
+           daikon.Runtime.dtrace.println("Example.squar:::EXIT");
+           daikon.Runtime.dtrace.println("x");
+           daikon.Runtime.dtrace.println(x);
+           daikon.Runtime.dtrace.println(1);  // modified bit
+           daikon.Runtime.dtrace.println("b");
+           daikon.Runtime.dtrace.println(b ? 1 : 0);
+           daikon.Runtime.dtrace.println(1);  // modified bit
+           daikon.Runtime.dtrace.println("return");
+           daikon.Runtime.dtrace.println(daikon_return_value);
+           daikon.Runtime.dtrace.println(1);  // modified bit
+         }
+     
+         return daikon_return_value;
+       }
+     }
+</pre>
+   <div class="node">
+<p><hr>
+<a name="Instrumenting-C-programs"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Example-instrumented-Java-program">Example instrumented Java program</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#New-front-ends">New front ends</a>
+
+</div>
+
+<h4 class="subsection">2.7.2 Instrumenting C programs</h4>
+
+<p><a name="index-C-programs_002c-instrumenting-27"></a><a name="index-instrumenting-C-programs-28"></a>
+Daikon comes with two front ends for the C language:  Kvasir
+(see <a href="daikon.html#Kvasir">Kvasir</a>) and Mangel-Wurzel
+(see <a href="daikon.html#Mangel_002dWurzel">Mangel-Wurzel</a>).  Each has its limitations. 
+Kvasir only works under the Linux operating system, and it works only on
+&ldquo;x86&rdquo; (Intel 386-compatible) processors.  Mangel-Wurzel
+lacks some tracing features related to arrays
+and nested structs, and requires the user to purchase Purify.
+
+   <p>You may wish to infer invariants over C programs running on other
+platforms; for instance, you want a robust C front end that works under
+Microsoft Windows.  This section will help you to either write such a
+front end or to hand-instrument your program to produce output that
+Daikon can process.
+
+   <p>We welcome additions and corrections to this part of the manual.  And,
+if you write a C instrumenter that might be of use to others, please
+contribute it back to the Daikon project.
+
+   <p>A front end for C (or any other language) performs two tasks.  It
+determines the names of all variables that are in scope at a particular
+program point, and it prints the values of those variables each time the
+program point executes.
+
+   <p>Determining the names of the variables is straightforward.  It requires
+either parsing source code or parsing a compiled executable.  In the
+latter case, the variables can be determined from debugging information
+that the compiler places in the executable.
+
+   <p>The challenge for C programs is determining the values of variables at
+execution time:  for each variable, the front end must determine whether
+the variable's value is valid, and how big the value is.
+
+   <p><a name="index-valid-values-29"></a><a name="index-invalid-values-30"></a><a name="index-nonsensical-values-31"></a><a name="index-uninitialized-variables-32"></a><a name="index-deallocated-pointers-33"></a>
+A front end should print only variables that have <em>valid</em> values. 
+Examples of invalid values are variables that have not yet been
+initialized and pointers whose content has been deallocated.  (A pointer
+dereference, such as `<samp><span class="samp">*p</span></samp>' or `<samp><span class="samp">p-&gt;field</span></samp>', can itself
+be to uninitialized and/or deallocated memory.)  Invalid values should
+be printed as &ldquo;nonsensical&rdquo; (see <a href="#Data-trace-records">Data trace records</a>).
+
+   <p>It is desirable to print &ldquo;nonsensical&rdquo; rather than an invalid value,
+for two reasons.  First, outputting nonsense values can degrade
+invariant detection; patterns in the valid data may be masked by noise
+from invalid values.  Second, an attempt to access an invalid value can
+cause the instrumented program to crash!  For instance, suppose that
+pointer `<samp><span class="samp">p</span></samp>' is not yet initialized &mdash; the pointer value refers to
+some arbitrary location in memory, possibly even an address that the
+operating system has not allocated to the program.  An attempt to print
+the value of `<samp><span class="samp">*p</span></samp>' or `<samp><span class="samp">p-&gt;field</span></samp>' will result in a segmentation
+fault when `<samp><span class="samp">*p</span></samp>' is accessed.  (If you choose never to dereference a
+pointer while performing instrumentation, then you do not need to worry
+about invalid references.  However, you will be unable to output any
+fields of a pointer to a struct or class, making your front end less
+useful.  You will still be able to output fields of a regular variable
+to a struct or class, but most interesting uses of structs and classes
+in C and C++ are through pointers.)
+
+   <p>C relies on the programmer to remember which variables are valid, and
+the programmer must take care never to access invalid variables. 
+Unfortunately, there is no simple automatic way to determine variable
+validity for an arbitrary C program.  (Languages with automatic memory
+management, such as Java, do not pose these problems.  All variables
+always have an initial value, so there is no danger of printing
+uninitialized memory, though the initial value may not be particularly
+meaningful.  Because pointed-to memory is never deallocated, all
+non-null pointers are always valid, so there is no danger of a
+segmentation fault.)
+
+   <p>An instrumenter needs information about validity of variable values. 
+This could be obtained from the programmer (which requires work on the
+part of the user of Daikon), or obtained automatically by creating a new
+run-time system that tracks the information (which requires a more
+sophisticated front end).
+
+   <p>In addition to determining which variables are uninitialized and which
+pointers are to allocated memory, there are additional problems for a C
+front end.  For example, given a char pointer `<samp><span class="samp">*c</span></samp>', does it point
+to a single character, or to an array of characters?  If it points to an
+array of characters, how big is that array?  And for each element of the
+array, is that element initialized or not?
+
+   <p>The problem of tracking C memory may seem daunting, but it is not
+insurmountable.  There exist many tools for detecting or debugging
+memory errors in C, and they need to perform exactly the same memory
+tracking as a Daikon front end must perform.  Therefore, a Daikon front
+end can use the same well-known techniques, and possibly can even be
+built on top of such a tool.  For instance, one C front end, named Kvasir, is
+built on top of the Valgrind tool (<a href="http://valgrind.org/">http://valgrind.org/</a>),
+greatly reducing the implementation effort.  Valgrind only works under
+Linux, but a C front end for another platform could build on a similar
+tool; many other such tools exist.
+
+   <p>There are two basic approaches to instrumenting a C program (or a
+program in any other language):  instrument the source code, or
+instrument a compiled binary representation of the program.  In each
+case, additional code that tracks all memory allocations, deallocations,
+writes, and reads must be executed at run time.  Which approach is most
+appropriate for you depends on what tools you use when building your C
+instrumentation system.
+
+   <p>In some cases, it may not be necessary to build a fully general C
+instrumentation system.  You may be able to craft a smaller, simpler
+extension to an existing program &mdash; enabling that program (only) to
+produce files for Daikon to analyze.
+
+   <p>For instance, many programs use specialized memory allocation routines
+(customized versions of <code>malloc</code> and <code>free</code>), in order to
+prevent or detect memory errors.  The information that such libraries
+collect is often sufficient to determine which variable values should be
+printed, and which should be suppressed in favor of printing
+&ldquo;nonsensical&rdquo; instead.
+
+   <p>The presence of memory errors &mdash; even in a program that <em>appears</em>
+to run correctly &mdash; makes it much harder to create Daikon's output. 
+Therefore, as a prerequisite to instrumenting a C program, it is usually
+a good idea to run a memory checker on that program and to eliminate any
+memory errors.
+
+<!-- If you don't have a memory checking tool, then what platform are you -->
+<!-- on??  But you could use some Very simple half-measures such s zeroing -->
+<!-- out memory when it is allocated (always use @code{calloc}, never -->
+<!-- @code{malloc}) and when it is deallocated, and zeroing out pointers -->
+<!-- when they are freed. -->
+<!-- An example of compiler (not runtime) infrastructure for Microsoft -->
+<!-- Windows is Phoenix: -->
+<!-- http://research.microsoft.com/phoenix/ -->
+<div class="node">
+<p><hr>
+<a name="New-suppressors"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#System_002eexit">System.exit</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#New-front-ends">New front ends</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Extending-Daikon">Extending Daikon</a>
+
+</div>
+
+<h3 class="section">2.8 New suppressors</h3>
+
+<p><a name="index-adding-new-suppressors-34"></a><a name="index-new-suppressors-35"></a><a name="index-suppressors_002c-adding-new-36"></a>
+As mentioned in <a href="#Daikon-internals">Daikon internals</a>, one way to make Daikon more
+efficient, and to reduce clutter in output to the user, is to reduce the
+number of redundant invariants of various kinds.  This section describes
+how to add a new suppressor relation, such that if invariant A implies
+B, B is not instantiated or checked as long as A holds, saving time and
+space.  Suppression implications use some terminology.  A
+<em>suppressor</em> (defined in the class <code>NISuppressor</code>) is one of a
+set of invariants (<code>NISuppression</code>) that imply and suppress a
+<em>suppressee</em> invariant (<code>NISuppressee</code>).  The set of all of
+the suppressions that suppress a particular suppressee is stored in the
+class <code>NISuppressionSet</code>.
+
+   <p>Adding a new suppression is straightforward when the invariants involved
+do not have any state.  Define the suppressee and
+each of the suppressions that suppress it using the corresponding
+constructors.  Add the method <code>get_ni_suppressions</code> to the class
+of the invariant being suppressed and return the appropriate
+suppression set.  Make sure that <code>get_ni_suppressions</code> always
+returns the same suppression set (i.e., that storage to store
+the suppressions is only allocated once).  Normally this is
+done by defining a static variable to hold the suppression sets
+and initializing this variable the first time that <code>get_ni_suppressions</code>
+is called.
+
+   <p>The following example defines suppressions for &ldquo;x == y&rdquo; implies
+&ldquo;x &gt;= y&rdquo; and &ldquo;x &gt; y&rdquo; implies &ldquo;x &gt;= y&rdquo;.
+
+<pre class="example">     private static NISuppressionSet suppressions = null;
+     
+     public NISuppressionSet get_ni_suppressions() {
+       if (suppressions == null) {
+         NISuppressee = new NISuppressee (IntGreaterEqual);
+     
+         NISuppressor v1_eq_v2 = new NISuppressor (0, 1, IntEqual.class);
+         NISuppressor v1_lt_v2 = new NISuppressor (0, 1, IntLessThan.class);
+     
+         suppressions = new NISuppressionSet (new NISuppression[] {
+           new NISuppression (v1_eq_v2, suppressee),
+           new NISuppression (v1_lt_v2, suppressee),
+         });
+       }
+       return (suppressions);
+     }
+</pre>
+   <p>For suppressions depending on the state of a particular invariant, each <code>Invariant</code> has an <code>isObviousDynamically(VarInfo[] vis)</code> method that is called once the state of other invariants has already been determined.  This method returns a non-null value if this invariant is implied by a fact that can be derived from the given <code>VarInfo</code>s.
+
+   <p>For example, suppose division was not defined for divisors smaller than 1.  The following example defines an obvious check for &ldquo;x &lt;= c&rdquo; (where c &lt; 1 is a constant) implies &ldquo;y % x == 0&rdquo;, written in the Divides class.
+
+<pre class="example">     public DiscardInfo isObviousDynamically(VarInfo[] vis) {
+       DiscardInfo di = super.isObviousDynamically(vis);
+       if(di != null) {
+         return di;
+       }
+     
+       VarInfo var1 = vis[0];
+     
+       PptSlice1 ppt_over1 = ppt.parent.findSlice(var1);
+     
+       if(ppt_over1 == null) {
+         return null;
+       }
+     
+       for(Invariant inv : ppt_over1.invs) {
+         if(inv instanceof UpperBound) {
+           if(((UpperBound) inv).max() &lt; 1) {
+             return new DiscardInfo(this, DiscardCode.obvious,
+                                    ``Divides is obvious when divisor less than one'');
+           }
+         }
+       }
+     
+       return null;
+     }
+</pre>
+   <div class="node">
+<p><hr>
+<a name="System.exit"></a>
+<a name="System_002eexit"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#New-suppressors">New suppressors</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Extending-Daikon">Extending Daikon</a>
+
+</div>
+
+<h3 class="section">2.9 System.exit</h3>
+
+<p>The Daikon codebase does not call <code>System.exit()</code>, except in a
+dummy main method that catches <code>TerminationMessage</code>, which is the
+standard way that a component of Daikon requests the JVM to shut down.
+
+   <p>The reason for this is that calling <code>System.exit()</code> is usually a
+bad idea.  It makes the class un-usable as a subroutine, because it
+might kill the calling program.  It can cause deadlock.  And it can
+leave data in an inconsistent state (for example, if the program was in
+the middle of writing a file, still held non-Java locks, etc.), because
+the program has no good way of completing any actions that it was in the
+middle of.  Therefore, it is better to throw an exception and let the
+program handle it appropriately.  (This is true of instrumentation code
+as well.)
+
+<div class="node">
+<p><hr>
+<a name="Debugging-Daikon"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Daikon-internals">Daikon internals</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Extending-Daikon">Extending Daikon</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">3 Debugging Daikon</h2>
+
+<p><a name="index-debugging-Daikon-37"></a>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Track-logging">Track logging</a>
+</ul>
+
+   <p>This chapter describes some techniques that can be used for debugging
+Daikon.  Because Daikon processes large amounts of data, using
+a debugger can be difficult.  The following logging techniques provide
+alternatives to using a debugger.
+
+   <p>Daikon's logging routines are based on the <code>java.util.logging</code> utilities
+(built into Java 1.4 and later).
+
+<div class="node">
+<p><hr>
+<a name="Track-logging"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Debugging-Daikon">Debugging Daikon</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Debugging-Daikon">Debugging Daikon</a>
+
+</div>
+
+<h3 class="section">3.1 Track logging</h3>
+
+<p><a name="index-logging-38"></a><a name="index-track-logging-39"></a>
+Often it is desirable to print information only about one or more specific
+invariants.  This is distinct from general logging because it concentrates
+on specific invariant objects rather than a particular class or portion of Daikon. 
+This is referred to as <em>Track</em> logging because it tracks particular
+values across Daikon.
+
+   <p>The <samp><span class="option">--track </span><var>class|class|...&lt;var,var,var&gt;@ppt</var></samp> option to Daikon
+(see <a href="daikon.html#Daikon-debugging-options">Daikon debugging options</a>)
+enables track logging. 
+The argument to the <samp><span class="option">--track</span></samp> option supplies three pieces of information:
+
+     <ol type=1 start=1>
+
+     <li>The class name of the invariant (e.g., <code>IntEqual</code>). 
+Multiple class arguments can be specified separated by pipe symbols
+(`<samp><span class="samp">|</span></samp>').
+
+     <li>The variables that are used in the invariant (e.g., <code>return</code>,
+<code>size(this.s[])</code>).  The variables are specified in angle brackets
+(`<samp><span class="samp">&lt;&gt;</span></samp>').
+
+     <li>The program point of interest (e.g.,
+<code>DataStructures.StackAr.makeEmpty()V:::ENTER</code>).  The program point
+is preceded by an at sign (`<samp><span class="samp">@</span></samp>').
+
+        </ol>
+
+   <p>Each item is optional. 
+For example:
+<pre class="example">     IntEqual&lt;x,y&gt;@makeEmpty()
+     LessThan|GreaterThan&lt;return,orig(y)&gt;@EXIT99
+</pre>
+   <p>Multiple <samp><span class="option">--track</span></samp> switches can be specified. The class, program point,
+and each of the variables must match one of the specifications in order
+for information concerning the invariant to be printed.
+
+   <p>Matching is a simple substring comparison.  The specified item must be
+a substring of the actual item.  For instance, <code>LessThan</code> matches
+both <code>IntLessThan</code> and <code>FloatLessThan</code>.
+
+   <p>Program points and variables are specified exactly as they are seen in
+normal Daikon invariant output.  Specifically, <code>Ppt.name</code> and
+<code>VarInfo.name.name()</code> are used to generate the names for comparisons.
+
+   <p>Invariants are not the only classes that can be tracked.  Any class name
+is a valid entry.  Thus, for example, to print information about derived
+sequence variables from sequence <code>this.theArray[]</code> and scalar
+<code>x</code> at program point <code>DisjSets.find(int):::EXIT</code>, the tracking
+argument would be:
+
+<pre class="example">     SequenceScalarSubscriptFactory&lt;x,this.theArray[]&gt;@DisjSets.find(int):::EXIT
+</pre>
+   <p>There are two configuration options that can customize the output.  The
+option <samp><span class="option">daikon.Debug.showTraceback</span></samp> will output a stack trace on
+each log statement.  The option <samp><span class="option">daikon.Debug.logDetail</span></samp> will cause
+more detailed (and often voluminous) output to be printed.  For more
+information, <a href="daikon.html#Configuration-options">Configuration options</a>.
+
+   <p>Note that all interesting information is not necessarily currently logged. 
+It will often be necessary to add new logging statements for the specific
+information of interest (see <a href="#Adding-track-logging">Adding track logging</a>). 
+This is covered in the next section.
+
+   <p>More detailed information can be found in the Javadoc for
+<a href="http://pag.csail.mit.edu/daikon/download/jdoc/daikon/Debug.html"><code>daikon.Debug</code></a>
+and
+<a href="http://pag.csail.mit.edu/daikon/download/jdoc/daikon/inv/Invariant.html"><code>daikon.inv.Invariant</code></a>.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Adding-track-logging">Adding track logging</a>
+<li><a accesskey="2" href="#Track-log-output">Track log output</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Adding-track-logging"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Track-log-output">Track log output</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Track-logging">Track logging</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Track-logging">Track logging</a>
+
+</div>
+
+<h4 class="subsection">3.1.1 Adding track logging</h4>
+
+<p>When you add a new invariant, derived variable, or other component to
+Daikon, you should ensure that it supports track logging in the same way
+that existing components do.  This section describes how to do so.
+
+   <p><em>Track</em> logging is based
+around the class name, program point name, and variables of interest. 
+Track logging methods accept these parameters and a string to be printed. 
+<samp><span class="file">Debug.java</span></samp> implements the following basic log methods:
+
+<pre class="example">     log (String)
+     log (Class, Ppt, String)
+     log (Class, Ppt, Varinfo[], String)
+</pre>
+   <p>The first uses the cached version of the <code>Class</code>, <code>Ppt</code>,
+and <code>VarInfo</code> that
+was provided in the constructor.  The second uses the specified
+variables and the <code>VarInfo</code> information from <code>Ppt</code>. 
+The third specifies each variable explicitly.
+
+   <p>When logging is not enabled, calling the logging functions can take a
+significant amount of time (because the parameters need to be evaluated and
+passed).  To minimize this, a function <code>logOn()</code> is provided to see
+if logging is enabled.  It is recommended that code of the following form
+be used for efficiency:
+
+<pre class="example">     if (Debug.logOn()) {
+       Debug.log (getClass(), ppt, "Entering routine foo");
+     }
+</pre>
+   <p>Track logging also can work with other loggers.  Each of the logging
+methods has an alternative version that also accepts a logger as the
+first argument.  In this case, normal track logging is performed if
+the class, ppt, and vars match.  If they don't match, the same
+information is logged via the specified logger.  For example:
+
+<pre class="example">     if (Debug.logOn || logger.isLoggable (Level.FINE)) {
+       Debug.log (logger, getClass(), ppt, "Entering routine foo");
+     }
+</pre>
+   <p>The above will print if either the tracking information matches or if the
+specified logger is enabled.
+
+   <p>Convenience methods are available for track logging invariants.  In this
+case the class name, ppt, and variable information are all taken from the
+invariant.  The available methods are:
+
+<pre class="example">     logOn()
+     logDetail()
+     log (String)
+     log (Logger, String)
+</pre>
+   <p>These correspond to the <code>Debug</code> methods described above.  They are
+the recommended way to log information concerning invariants.
+
+   <p>Track logging also provides one additional level of detail.  The function
+<code>logDetail()</code> returns whether or not more detailed information
+should be printed.  This should be used for information which is not
+normally interesting or especially voluminous output.  Often statements
+using <code>logDetail()</code> should be commented out when not in active use.
+
+<div class="node">
+<p><hr>
+<a name="Track-log-output"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Adding-track-logging">Adding track logging</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Track-logging">Track logging</a>
+
+</div>
+
+<h4 class="subsection">3.1.2 Track log output</h4>
+
+<p>Each call to a track log method will produce output in the same basic
+format. Space for three variables is always maintained for consistency:
+
+<pre class="example">      daikon.Debug: &lt;class&gt;: &lt;ppt&gt;: &lt;var1&gt;: &lt;var2&gt;: &lt;var3&gt;: &lt;msg&gt;
+</pre>
+   <p>If <code>showTrackback</code> is enabled, the traceback will follow each
+line of debug output.
+
+   <p>Unfortunately, in ASCII text, the above can be a little difficult to read
+because it normally doesn't line up very well.  A simple translator to
+HTML exists that can be used to provide HTML formatted output.  This tool
+is not completely tested, but seems to work reasonably well in most
+situations.  The following instructions only apply to MIT, but the tool
+is shipped in the scripts directory and can easily be setup elsewhere
+as well.
+
+   <p><a name="index-log2html-40"></a>
+Use the URL <a href="http://pag.csail.mit.edu/daikon/mit/log2html.php">http://pag.csail.mit.edu/daikon/mit/log2html.php</a> to
+access log2html. 
+It will ask you for a file of daikon output.  One good way to create this
+file is to use the <samp><span class="command">tee</span></samp> command.  For example:
+
+<pre class="example">     daikon [daikon args] | tee ~/daikon.out
+</pre>
+   <p>Then specify that file to log2html.  Note that when supplying a filename
+to log2html, you must expand `<samp><span class="samp">~</span></samp>' yourself
+since the webserver doesn't know who you are.  The result will contain
+tables with the log output in them (all other output is unchanged).  Table
+columns are based on the `<samp><span class="samp">: </span></samp>' separator in the ASCII output.  If traceback
+is enabled, another column is added showing where the log method was
+called.  For example, the traceback column might contain:
+
+<pre class="example">     +PptSlice1.addInvariant
+</pre>
+   <p>If you put your cursor over <code>PptSlice1.addInvariant</code> it will show
+the exact line number in the source file where the log method was
+called as part of the href.  If you click on the traceback it will
+create an output file of type `<samp><span class="samp">application/emacs</span></samp>' that contains an
+<samp><span class="command">emacsclient</span></samp> command to edit the related source file.  Most browsers
+can be setup to execute a command to process these files (in Mozilla
+this is done in the &ldquo;Navigator/Helper Applications&rdquo; section of
+preferences).  The script <samp><span class="command">$inv/scripts/browser_emacs</span></samp> will
+correctly handle files of this type and bring up the appropriate file
+in Emacs.  This could easily be changed to support other editors. 
+Note that as currently implemented this creates a possible security
+hole (malicious non-editor commands could be executed) as no checking
+is done on the validity of the command.
+
+   <p>Clicking on the leading plus of the traceback information will show
+the entire traceback.  For example:
+
+<pre class="example">     -PptSlice1.addInvariant
+      PptSlice.flow_and_remove_falsified
+      PptSlice1.add
+      PptTopLevel.add
+      PptTopLevel.add_and_flow
+      FileIO.process_sample
+      FileIO.read_data_trace_file
+      FileIO.read_data_trace_files
+      Daikon.process_data
+      Daikon.main
+</pre>
+   <p>The same capabilities (showing the line number, bringing up the buffer
+in emacs) exist on each of the frames in the traceback.  The detailed
+traceback can be hidden by clicking on the leading `<samp><span class="samp">-</span></samp>' on the first
+frame.  Note that the current state of what tracebacks are expanded is
+kept in a file named the same as your Daikon output file with
+<samp><span class="file">.state</span></samp> appended.  For example, the state file for
+<samp><span class="file">~/daikon.out</span></samp> is <samp><span class="file">~/daikon.out.state</span></samp>.  This file must be
+world writable for log2html to work correctly.
+
+<div class="node">
+<p><hr>
+<a name="Daikon-internals"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Testing">Testing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Debugging-Daikon">Debugging Daikon</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 Daikon internals</h2>
+
+<p><a name="index-Daikon-internals-41"></a><a name="index-efficiency-issues-42"></a><a name="index-optimizations-43"></a>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Avoiding-work-for-redundant-invariants">Avoiding work for redundant invariants</a>
+<li><a accesskey="2" href="#Dataflow-hierarchy">Dataflow hierarchy</a>
+<li><a accesskey="3" href="#Equality-optimization">Equality optimization</a>
+</ul>
+
+   <p>This chapter describes some of the techniques used in Daikon to make
+it efficient in terms of time and space needed.  These techniques can
+be enabled or disabled at the Daikon command line, as described in
+<a href="daikon.html#Running-Daikon">Running Daikon</a>.
+
+<div class="node">
+<p><hr>
+<a name="Avoiding-work-for-redundant-invariants"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Dataflow-hierarchy">Dataflow hierarchy</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Daikon-internals">Daikon internals</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Daikon-internals">Daikon internals</a>
+
+</div>
+
+<h3 class="section">4.1 Avoiding work for redundant invariants</h3>
+
+<p><a name="index-non_002dinstantiation-of-invariants-44"></a><a name="index-non_002dchecking-of-invariants-45"></a><a name="index-non_002dprinting-of-invariants-46"></a>
+Daikon reduces runtime and memory by avoiding performing work for
+redundant invariants that provide no useful information to the user. 
+There are three basic types of optimization that can be performed for
+uninteresting invariants:  non-instantiation, suppression, and
+non-printing.
+
+   <p><em>Non-instantiation</em> prevents the creation of an invariant because
+the invariant's truth value is statically obvious (from the semantics
+of the programming language), no matter what values may be seen at run
+time.  Two examples are &ldquo;A[i] is an element of A[]&rdquo; and &ldquo;size(A[])
+&gt;= 0&rdquo;.  Non-instantiation is implemented by the by the
+<code>isObviousStatically</code> method. 
+With the equality sets optimization (see <a href="#Equality-optimization">Equality optimization</a>),
+non-instantiation can only happen if all equality permutations are
+statically obvious.  Note that <code>isObviousStatically</code> should
+be used only for invariants that are known to be true.  Other code
+presumes that any statically obvious invariants are true and can
+be safely presumed when determining if other invariants are redundant.
+
+   <p>An invariant can be <em>suppressed</em> if it is logically implied by some
+set of other invariants (referred to as &ldquo;suppressors&rdquo;).  A suppressed
+invariant is not instantiated or checked as long as its suppressors
+hold.  For example &ldquo;x &gt; y&rdquo; implies &ldquo;x &gt;= y&rdquo;.  Suppression has some
+limitations.  It cannot use as suppressors or suppress sample dependent
+invariants (invariants that adapt themselves to the samples they see and
+whose equation thus involves a constant such as &ldquo;x &gt; 42&rdquo;). 
+Suppression also cannot use relationships between variables.  For
+example, it cannot suppress &ldquo;x[i] = y[j]&rdquo; by &ldquo;(x[] = y[]) ^ (i =
+j)&rdquo;.  Suppressor invariants can only use variables that are also in the
+invariant that is being suppressed.  In this example, only invariants
+using the variables &ldquo;x[i]&rdquo; and &ldquo;y[i]&rdquo; can be used as a suppressors. 
+See <a href="#New-suppressors">New suppressors</a> for more information.
+
+   <p><em>Non-printing</em> is a post-pass that throws out any invariants that
+are implied by other true invariants.  It is similar to suppression, but
+has none of the limitations of suppression.  But since it is only run as
+a post pass, it cannot optimize runtime and memory use as suppression can. 
+Non-printing should be used only in cases where suppression cannot. 
+Non-printing is implemented by <code>ObviousFilter</code>, which calls the
+<code>isObviousDynamically</code> method on invariants.  The
+<code>isObviousStatically</code> method is also used by the non-printing
+checks; it can be called at the end without reference to equality sets.
+
+   <p>More detail can be found in the paper &ldquo;Efficient incremental algorithms
+for dynamic detection of likely invariants&rdquo; by Jeff H. Perkins and
+Michael D. Ernst, published in FSE 2004; the paper is available from
+<a href="http://pag.csail.mit.edu/pubs/invariants-incremental-fse2004-abstract.html">http://pag.csail.mit.edu/pubs/invariants-incremental-fse2004-abstract.html</a>.
+
+<div class="node">
+<p><hr>
+<a name="Dataflow-hierarchy"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Equality-optimization">Equality optimization</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Avoiding-work-for-redundant-invariants">Avoiding work for redundant invariants</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Daikon-internals">Daikon internals</a>
+
+</div>
+
+<h3 class="section">4.2 Dataflow hierarchy</h3>
+
+<p><a name="index-dataflow-hierarchy-47"></a><a name="index-hierarchy-48"></a>
+Dataflow hierarchy is a means to relate variables in different program
+points in a partial ordering.  Variables in program point X are
+related to variables in another program point Y by a &ldquo;flow&rdquo; relation
+if every sample seen of X's variables is also meant to be seen at Y. 
+Y is called a parent program point of X.  For example, all the field
+variables in the <code>:::ENTER</code> program point of a method in class C relate to
+the field variables in the <code>:::CLASS</code> program point of C.  This is because
+the state of C, when in context at the entry <code>:::ENTER</code> program point, is
+also in context at the <code>:::CLASS</code> program point.  Any invariant that holds
+true on a parent program point must hold on the child program point. 
+The purpose of dataflow hierarchy is to reduce the presence of
+redundant invariants by only keeping invariants at the highest parent
+at which they apply.  This saves both time and space.
+
+   <p>There are many ways that program points can be connected.  Daikon
+provides for four ways.  First, <code>:::CLASS</code> program points are parents of
+all their method program points.  Second, between two classes that are
+related by inheritance, corresponding program points relate &mdash; for
+example, <code>java.util.Vector:::CLASS</code> is a child of
+<code>java.util.List:::CLASS</code>.  Third, when a program point contains
+variables of a type whose <code>:::CLASS</code> program point is also available to
+Daikon, the former program point's variables relate to the latter
+program point's <code>:::CLASS</code> method.  For example, if X.y is of type Y, and
+Y contains fields a and b, X.y, X.y.a and X.y.b relate to
+Y.this, Y.b and Y.a.  Fourth, variables at <code>:::ENTER</code> program
+points are related to the &ldquo;orig&rdquo; versions at <code>:::EXIT</code> program points.
+
+   <p>When using Daikon, the above four ways of relations in the dataflow
+hierarchy will result in some true invariants that are not reported at
+some program points.  However, the invariant will be present in some
+parent program point.  Dataflow hierarchy is enabled by default, but
+can be disabled by the <samp><span class="option">--nohierarchy</span></samp> flag.  When dataflow is enabled,
+the only samples that are examined by Daikon are the <code>:::EXIT</code> program
+points (plus &ldquo;orig&rdquo; variables) since these contain a complete view of
+the data.
+
+<div class="node">
+<p><hr>
+<a name="Equality-optimization"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Dataflow-hierarchy">Dataflow hierarchy</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Daikon-internals">Daikon internals</a>
+
+</div>
+
+<h3 class="section">4.3 Equality optimization</h3>
+
+<p><a name="index-equality-optimization-49"></a>
+When N variables are equal within a program point there will be
+N(N-1)/2 pairwise invariants to represent the equality within the
+equal variables, and N copies of every other invariant.  For example,
+if a, b, and c are equal, then &ldquo;a == b&rdquo;, &ldquo;a == c&rdquo;, &ldquo;b == c&rdquo; will be
+reported as pairwise invariants, and &ldquo;odd(a)&rdquo;, &ldquo;odd(b)&rdquo; and &ldquo;odd(c)&rdquo;
+will be reported.  If the variables will always be equal, then
+reporting N times the invariants is wasteful.  Daikon thus treats
+equality specially.
+
+   <p>Each group of variables that are equal from the start of inferencing
+are placed in <em>equality sets</em>.  An equality set can hold an
+arbitrary number of variables, and replaces the O(N^2) pairwise
+equality invariants.  Every equality set has a leader or
+<em>canonical</em> representation by a variable in the set. 
+Non-equality invariants are only instantiated and checked on the
+leader.  When printing invariants, Daikon reports only invariants on
+the leader.  The user can easily determine that &ldquo;odd(a)&rdquo; and &ldquo;a == b&rdquo;
+imply &ldquo;odd(b)&rdquo;.  Equality optimization can be turned off at the
+command line with the <samp><span class="option">--noequality</span></samp> flag.
+
+<div class="node">
+<p><hr>
+<a name="Testing"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Historical">Historical</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Daikon-internals">Daikon internals</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">5 Testing</h2>
+
+<p><a name="index-testing-Daikon-50"></a>
+Daikon has two sets of tests: unit tests (see <a href="#Unit-testing">Unit testing</a>) and
+regression tests (see <a href="#Regression-tests">Regression tests</a>).  If there
+are any differences between the expected results and the ones you get,
+don't check in your changes until you understand which is the desired
+behavior and possibly update the goals.
+
+   <p>The Daikon distribution contains unit tests, but not regression tests
+(which would make the distribution much larger).  The regression tests
+appear in Daikon's CVS repository.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Unit-testing">Unit testing</a>
+<li><a accesskey="2" href="#Regression-tests">Regression tests</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Unit-testing"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Regression-tests">Regression tests</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Testing">Testing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Testing">Testing</a>
+
+</div>
+
+<h3 class="section">5.1 Unit testing</h3>
+
+<p><a name="index-unit-testing-51"></a><a name="index-new-unit-tests-52"></a><a name="index-adding-new-unit-tests-53"></a>
+The unit tests are found in <samp><span class="file">invariants/java/daikon/test/</span></samp>; they use
+the JUnit unit testing framework.  They take a few seconds to run.  They
+are automatically run each time you compile Daikon (by running
+`<samp><span class="samp">make</span></samp>' in <samp><span class="file">$inv/java</span></samp> or any of its subdirectories).  You can
+also run them explicitly via `<samp><span class="samp">make unit</span></samp>'.  When you write new code
+or modify old code, please try to add unit tests.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Invariant-format-testing">Invariant format testing</a>
+<li><a accesskey="2" href="#Sample-Testing">Sample Testing</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Invariant-format-testing"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Sample-Testing">Sample Testing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Unit-testing">Unit testing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Unit-testing">Unit testing</a>
+
+</div>
+
+<h4 class="subsection">5.1.1 Invariant format testing</h4>
+
+<p>This tests the formatting of invariants with specified input.  The
+tests are configured in the file <samp><span class="file">InvariantFormatTest.commands</span></samp> under
+<samp><span class="file">daikon/test/</span></samp>.  Make sure the <samp><span class="file">InvariantFormatTest.commands</span></samp> file is
+in the classpath when this tester is run or the tester will not work. 
+(It will just tell you that the file is not in the classpath.)
+
+   <p>The file is formatted as follows:
+<pre class="example">     &lt;fully qualified class name&gt; [&lt;instantiate args&gt;]
+     &lt;type string&gt;
+     &lt;goal string&gt;+ &lt;- 1 or more goal strings
+     &lt;sample&gt;* &lt;- 0 or more samples
+</pre>
+   <p>The file format should be the same regardless of blank or commented
+lines except in the samples area. No blank lines or comments should
+appear after the goal string before the first sample or between parts
+of samples (these lines are used currently to determine where samples
+lists end). This will be remedied in a future version of the tester.
+
+     <dl>
+<dt><code>Instantiate args</code><dd>These are optional additional arguments to the static
+instantiate method of the class.  Each argument consists of the type (boolean
+or int) followed by the value.  For example:
+     <pre class="example">              boolean true
+              int 37 boolean false
+     </pre>
+     <br><dt><code>Type string:</code><dd>A type string must consist of one or more of the following literals:
+`<samp><span class="samp">int</span></samp>', `<samp><span class="samp">double</span></samp>', `<samp><span class="samp">string</span></samp>', `<samp><span class="samp">int_array</span></samp>',
+`<samp><span class="samp">double_array</span></samp>', or `<samp><span class="samp">string_array</span></samp>', separated by spaces. 
+This string represents the
+types that an invariant is supposed to compare For instance, a binary
+integer comparison would have type string `<samp><span class="samp">int int</span></samp>'.  A pairwise
+sequence comparison would have type string `<samp><span class="samp">int_array int_array</span></samp>'.
+
+     <br><dt><code>Goal string:</code><dd>The goal string must start with the prefix `<samp><span class="samp">Goal </span></samp>', and then
+continue with `<samp><span class="samp">(&lt;format type&gt;): </span></samp>',
+where format type is the format in which the invariant will
+print. After this the representation of the invariant must occur. It
+must represent the invariant result exactly as printed, even white
+space is significant (as proper formatting should be correct down to
+the whitespace). The first variable (the one corresponding to the
+first type in the type string) corresponds with `<samp><span class="samp">a</span></samp>', the second with
+`<samp><span class="samp">b</span></samp>' and so on. Format the type string accordingly. (In samples, the
+value of `<samp><span class="samp">a</span></samp>' is read first, possibly followed by `<samp><span class="samp">b</span></samp>', and then
+possibly `<samp><span class="samp">c</span></samp>', depending on the arity of the invariant.)
+
+     <pre class="example">          Example:
+          Type string, Goals
+           |             |
+          \|/            |
+          int           \|/
+          Goal (daikon): a &gt;= -6
+          Goal (java): a &gt;= -6
+          Goal (esc): a &gt;= -6
+          Goal (ioa): a &gt;= -6
+          Goal (jml): a &gt;= -6
+          Goal (simplify): (&gt;= |a| -6)
+     </pre>
+     <p>Note that the spacing on the goal lines is exact, that is, no extra
+spaces are allowed and no spaces are allowed to be missing. So the
+exact format is again:
+     <pre class="example">          Goal&lt;1 space&gt;(&lt;format name&gt;):&lt;1 space&gt;&lt;goal text&gt;
+     </pre>
+     <br><dt><code>Samples:</code><dd>Values formatted according to the type string, one value per
+line Make sure that the samples provided are actually instances of that
+particular invariant (That is, if the desired invariant is &ldquo;a &lt; b&rdquo;, then
+the first number of each sample better be less than the second)
+
+     <!-- The below is not necessary since we don't check this before formatting -->
+<!-- Also be -->
+<!-- sure to have enough samples to ensure the invariant is apparent (and -->
+<!-- probable) to Daikon (6-8 will do for most binary integer comparisons, -->
+<!-- 1-3 for array-based comparisons) Example: Formatting for -->
+<!-- samples of a binary integer comparison -->
+<p>Arrays and strings must be formatted according to the Daikon dtrace file
+convention (for a full description, see <a href="#File-formats">File formats</a>.  This
+states that arrays must be surrounded in brackets (start with `<samp><span class="samp">[</span></samp>', end
+with `<samp><span class="samp">]</span></samp>'), and entries must be separated by a space.  Strings must be
+enclosed in quotes (`<samp><span class="samp">"</span></samp>'). Quotes within a string can be represented by the
+sequence `<samp><span class="samp">\"</span></samp>'.
+
+     <p>For example:
+     <pre class="example">          [1 2 3 4 5] - an array with the elements 1, 2, 3, 4, 5
+          "aString" - a string
+          "a string" - also legal as a string
+          "\"" - the string with the value "
+          ["a" "b" "c"] - an array of strings
+          
+          int int        &lt;- type string
+          Goal: a &lt; b    &lt;- goal string, no comment/blank lines after this
+          1              &lt;- or before this
+          2
+          2              &lt;-|__ Pair of values (a = 2 , b = 3)
+          3              &lt;-|
+     </pre>
+     <p>Other examples are in the existing test file
+(<samp><span class="file">InvariantFormatTest.commands</span></samp>). 
+</dl>
+
+   <p>The output of a test run can be converted into goals by using the
+<samp><span class="option">--generate_goals</span></samp> switch to the tester as follows:
+<pre class="example">     java daikon.test.InvariantFormatTester --generate_goals
+</pre>
+   <p>Note that this test is included in the set of tests performed by the
+master tester, and so it is not necessary to separately run this test
+except to generate goal files.
+
+   <p>Furthermore, this framework cannot parse complex types from files
+unless they contain a <code>public (Object) valueOf(String s)</code>
+function. Otherwise the program has no was of knowing how to create
+such an object from a string. All primitives and the String type are
+already recognized.
+
+<div class="node">
+<p><hr>
+<a name="Sample-Testing"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Invariant-format-testing">Invariant format testing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Unit-testing">Unit testing</a>
+
+</div>
+
+<h4 class="subsection">5.1.2 Sample Testing</h4>
+
+<p>Sample testing tests various components of Daikon as samples are being
+processed.  A file (normally <samp><span class="file">daikon/test/SampleTester.commands</span></samp>)
+specifies a decls file to use, the samples for each ppt/var, and assertions
+about Daikon's state (such as whether or not a particular invariant exists).
+
+   <p>Each line of the file specifies exactly one command.  Blank lines and
+leading blanks are ignored.  Comments begin with the number sign (`<samp><span class="samp">#</span></samp>') and
+extend to the end of the line.  The type of command is specified as the
+first token on the line followed by a colon.  The supported commands
+are:
+
+<div class="defun">
+&mdash; SampleTester Command: <b>decl:</b><var> decl-file<a name="index-decl_003a-54"></a></var><br>
+<blockquote><p>This command specifies the declaration file to use.  This is a normal
+decls file that should follow the format defined in the user manual. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; SampleTester Command: <b>ppt:</b><var> ppt<a name="index-ppt_003a-55"></a></var><br>
+<blockquote><p>This command specifies the program point that will be used with following
+vars, data, and assert commands.  The program point should be specified
+exactly as it appears in the decls file. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; SampleTester Command: <b>vars:</b><var> var1 var2...<a name="index-vars_003a-56"></a></var><br>
+<blockquote><p>Specifies the variables that will be used on following data lines. 
+Each variable must match exactly a variable in the ppt.  Other
+variables will be treated as missing. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; SampleTester Command: <b>data:</b><var> val1 val2...<a name="index-data_003a-57"></a></var><br>
+<blockquote><p>Specifies the values for each of the previously specified variables.  The
+values must match the type of the variables.  A single dash (-) indicates
+that a variable is missing. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; SampleTester Command: <b>assert:</b><var> assertion<a name="index-assert_003a-58"></a></var><br>
+<blockquote><p>Specifies an assertion that should be true at this point (see <a href="#Assertions">Assertions</a>). 
+The negation of an assertion can be specified by adding an exclamation
+point before the assertion (for example: <code>!inv("x &gt; y", x, y</code>)). 
+</p></blockquote></div>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Assertions">Assertions</a>
+<li><a accesskey="2" href="#Example-file">Example file</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Assertions"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Example-file">Example file</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Sample-Testing">Sample Testing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Sample-Testing">Sample Testing</a>
+
+</div>
+
+<h5 class="subsubsection">5.1.2.1 Assertions</h5>
+
+<p>Assertions are formatted like function calls: &lt;name&gt;(arg1, arg2, ...). 
+The valid assertions for the assert: command are:
+
+<div class="defun">
+&mdash; Assertion: <b>inv</b><var> format var1 ...<a name="index-inv-59"></a></var><br>
+<blockquote>
+<p>The inv assertion asserts that the specified invariant exists in the
+current ppt.  The <var>format</var> argument is the result of calling
+<code>format()</code> on
+the invariant.  This is how the invariant is recognized.  The remaining
+arguments are the variables that make up the invariants slice.  These
+must match exactly variables in the ppt.  The inv assertion returns true
+iff the slice exists and an invariant is found within that slice that
+matches <var>format</var>.
+
+        <p>Optionally, <var>format</var> can be replaced by the fully qualified class name of
+the invariant.  In this case, it is only necessary for the class to match. 
+</p></blockquote></div>
+
+   <p>More assertions can easily be added to <samp><span class="file">SampleTester.java</span></samp> as required.
+
+<div class="node">
+<p><hr>
+<a name="Example-file"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Assertions">Assertions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Sample-Testing">Sample Testing</a>
+
+</div>
+
+<h5 class="subsubsection">5.1.2.2 Example file</h5>
+
+<p>The following is an simple example of sample testing.
+<pre class="example">     decl: daikon/test/SampleTesters.decls
+     
+     ppt: foo.f():::EXIT35
+       vars: x y z
+       data: 1 1 0
+       data: 2 1 0
+       assert: inv("x &gt;= y", x, y)
+       assert: inv(daikon.inv.binary.twoScalar.IntGreaterEqual,x,y)
+       assert: !inv("x &lt;= y", x, y)
+</pre>
+   <div class="node">
+<p><hr>
+<a name="Regression-tests"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Unit-testing">Unit testing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Testing">Testing</a>
+
+</div>
+
+<h3 class="section">5.2 Regression tests</h3>
+
+<p><a name="index-regression-tests-60"></a>
+The regression tests run Daikon on many different inputs and compare
+Daikon's output to expected output.  They take about an hour to run.
+
+   <p>The regression tests appear in the <samp><span class="file">$inv/tests/</span></samp> directory.  Type
+`<samp><span class="samp">make</span></samp>' in that directory to see a list of makefile targets.  The
+most common target is `<samp><span class="samp">make diffs</span></samp>'; if any resulting file has
+non-zero size, the tests fail.  You do not generally need to do
+`<samp><span class="samp">make clean</span></samp>', which forces re-instrumentation (a possibly slow
+process) the next time you run the tests.
+
+   <p>As when you install or compile Daikon, when you run the tests
+environment variables <samp><span class="env">DAIKONDIR</span></samp> (or <samp><span class="env">INV</span></samp>, whose effect is
+the same) and <samp><span class="env">JDKDIR</span></samp> should be set.  Additionally, you should set
+environment variable <samp><span class="env">JDKDIR</span></samp> (or, equivalently, <samp><span class="env">JDK5DIR</span></samp>) to the directory containing the Java
+5 JDK.
+
+   <p>You should generally run the regression tests before checking it a
+change (especially any non-trivial change).  If any of the regression
+test diffs has a non-zero size, then your edits have changed Daikon's
+output and you should not check in without carefully determining that
+the changes are intentional and desirable (and you should update the
+goal output files, so that the diffs are again zero).
+
+   <p>There are several subdirectories under <samp><span class="file">$inv/tests/</span></samp>, testing
+different components of the Daikon distribution (such as Kvasir,
+see <a href="daikon.html#Kvasir">Kvasir</a>).  Tests of the
+invariant detection engine itself appear in
+<samp><span class="file">$inv/tests/daikon-tests/</span></samp>.
+
+   <p>Each Makefile under <samp><span class="file">$inv/tests/</span></samp> includes
+<samp><span class="file">$inv/tests/Makefile.common</span></samp>, which contains the logic for all of
+the tests.  <samp><span class="file">Makefile.common</span></samp> is somewhat complicated, if only
+because it controls so many types of tests.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Kvasir-regression-tests">Kvasir regression tests</a>
+<li><a accesskey="2" href="#Adding-regression-tests">Adding regression tests</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Kvasir-regression-tests"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Adding-regression-tests">Adding regression tests</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Regression-tests">Regression tests</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Regression-tests">Regression tests</a>
+
+</div>
+
+<h4 class="subsection">5.2.1 Kvasir regression tests</h4>
+
+<p>Note on Kvasir tests: The Kvasir (Daikon C front-end) tests appear in the
+<samp><span class="file">$inv/tests/kvasir-tests</span></samp> directory. These tests run Daikon to ensure
+that the Kvasir output is valid Daikon input. To run them, go to
+<samp><span class="file">$inv/tests/kvasir-tests</span></samp> or any test sub-directory within here and run
+`<samp><span class="samp">make summary-w-daikon</span></samp>'. If any tests return `<samp><span class="samp">FAILED</span></samp>', then
+you should look at the appropriate <samp><span class="file">.diff</span></samp> file. If you feel that the
+failure was actually a result of your Daikon changes and should be in fact
+correct output, then run `<samp><span class="samp">make update-inv-goals</span></samp>' to update the Daikon
+<samp><span class="file">invs.goal</span></samp> file.
+
+<div class="node">
+<p><hr>
+<a name="Adding-regression-tests"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Kvasir-regression-tests">Kvasir regression tests</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Regression-tests">Regression tests</a>
+
+</div>
+
+<h4 class="subsection">5.2.2 Adding regression tests</h4>
+
+<p><a name="index-adding-new-regression-tests-61"></a><a name="index-new-regression-tests-62"></a>
+Most Daikon regression tests appear in <samp><span class="file">$inv/tests/daikon-tests</span></samp>.  Each
+test is placed in a separate directory.  That directory contains a
+simple makefile and the goal files for the tests.  The source files
+for the test are stored in <samp><span class="file">$inv/tests/sources</span></samp>.  For example,
+the <samp><span class="file">StackAr</span></samp> directory contains the following files in CVS:
+<pre class="example">     Makefile
+     Stackar.spinfo-static.goal
+     StackAr.txt-daikon.goal
+     StackAr.txt-esc.goal
+     StackAr.txt-jml.goal
+     StackAr.txt-merge-esc.goal
+     StackAr.txt-merge-jml.goal
+</pre>
+   <p>The <samp><span class="file">Makefile</span></samp> must contain the following entries.
+
+     <dl>
+<dt>`<samp><span class="samp">MAIN_CLASS</span></samp>'<dd>Dot separated fully qualified name of the class that contains the main
+entry point for the test.  For example
+MAIN_CLASS := DataStructures.StackArTester.
+
+     <br><dt>`<samp><span class="samp">include ../../Makefile.common</span></samp>'<dd>This includes the common portion of the test makefiles that does most
+of the work.  See it for more information on the details of regression
+testing.
+
+     <br><dt>`<samp><span class="samp">instrument-files-revise:</span></samp>'<dd>A target that writes the list of files to instrument.  For example,
+     <pre class="example">          instrument-files-revise:
+              echo "DataStructures/StackAr.java" &gt;| ${INST_LIST_FILE}
+     </pre>
+     </dl>
+
+   <p>The goal files are the expected results of running daikon and its
+associated tools.  The easiest way to create them is to simply create
+empty versions of each.  They execute `<samp><span class="samp">make diffs</span></samp>' to run the test and
+produce results.  When the results are as expected execute
+`<samp><span class="samp">make update-goals</span></samp>' to copy the results in to the goal files. 
+Release the test by committing the goal files, Makefile, and source files
+to the CVS repository.
+
+   <p>The common makefile contains a number of other useful targets.  A brief
+explanation of each can be found by executing `<samp><span class="samp">make</span></samp>' (without a target).
+
+   <p>The test can be added into the standard tests (either `<samp><span class="samp">everything</span></samp>' or
+`<samp><span class="samp">quick</span></samp>' by adding the test the appropriate list in
+<samp><span class="file">$inv/tests/daikon-tests/Makefile</span></samp>.
+
+<div class="node">
+<p><hr>
+<a name="Historical"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#File-formats">File formats</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Testing">Testing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">6 Analyzing historical versions of Daikon</h2>
+
+<p><a name="index-CVS-repository-63"></a>
+<!-- Commands to run to distribute CVS: -->
+<!-- cd /afs/csail.mit.edu/group/pag/projects/invariants/.CVS/ -->
+<!-- tar czf ~mernst/www/tmp/inv-cvs.tar.gz invariants -->
+<!-- This took 40 minutes on 1/7/2005. -->
+<!-- This took 20 minutes on 5/17/2006. -->
+<!-- Tell those who receive the repository: -->
+<!-- You can find a copy of the Daikon CVS repository at -->
+<!-- http://pag.csail.mit.edu/~mernst/tmp/inv-cvs.tar.gz -->
+<!-- The compressed repository is about 800 Mbytes in size. -->
+<!-- Let me know when you have downloaded it, so I can remove the file. -->
+<!-- Please do not further redistribute it. -->
+<!-- Before using it, please read the "Analyzing historical versions of -->
+<!-- Daikon" section of the Daikon Developer Manual.  Feel free to -->
+<!-- contact me if you have any problems, questions, or suggestions.  I -->
+<!-- would like to correct problems - both for you and for other users -->
+<!-- of Daikon or of the CVS repository.  This can also avoid misleading -->
+<!-- results that follow from incorrect assumptions about the system. -->
+<!-- I would enjoy hearing what you learn about Daikon - please share -->
+<!-- any interesting findings.  If you write any publications that use -->
+<!-- Daikon, either as a test subject or as one step in your -->
+<!-- methodology, let me know so I can link to them from -->
+<!-- http://pag.csail.mit.edu/daikon/pubs/. -->
+<!-- I wish you the best of luck with your research! -->
+<!-- Some recent distributions: -->
+<!-- 1/07/2005  Miryung Kim <miryung@cs.washington.edu> -->
+<!-- 9/19/2005  Barbara Ryder <ryder@cs.rutgers.edu>, Xiaoxia Ren <xren@cs.rutgers.edu>, Frank Tip <ftip@us.ibm.com> -->
+<!-- 5/17/2006	Harry Xu <xug@cse.ohio-state.edu> -->
+<!-- 7/26/2006  Gregory Kapfhammer <gkapfham@allegheny.edu> -->
+<!-- 10/10/2006  Bob Evans <bobevans@agitar.com> -->
+<!-- 7/29/2007  John Hatcliff <hatcliff@cis.ksu.edu> -->
+<!-- 9/10/2007  Saurabh Sinha <saurabhsinha@in.ibm.com>, Vibha S Sinha <vibha.sinha@in.ibm.com> -->
+<!-- 11/19/2007	Kevin Hoffman <kevinjohnhoffman@gmail.com> -->
+<!-- 12/27/2008 zlmdunk@126.com -->
+<!-- 11/15/2009 Jay Liu <jayliu@cs.utexas.edu> -->
+<!-- 11/15/2009 Alex Loh <alexloh@cs.utexas.edu> -->
+
+   <p>This section is intended primarily for researchers who are analyzing
+historical versions of Daikon.  A number of researchers (for example, in
+the testing community) use Daikon because it contains both a CVS
+repository and a set of tests.  (The CVS repository can also be useful
+to those making non-trivial changes to the Daikon code base, because the
+CVS repository includes regression tests that are more extensive than
+the unit tests that are included in the Daikon distribution.  However,
+note that the Daikon distribution contains full source code, and we are
+always happy to receive bug fixes and patches against the source code.)
+
+   <p>If you wish access to the Daikon CVS repository, send mail to
+<a href="mailto:daikon-developers@lists.csail.mit.edu">daikon-developers@lists.csail.mit.edu</a>.  We appreciate it if you
+let us know why you need it and what you want to use it for.  Also, we
+request that you keep us appraised of any problems that you encounter or
+discoveries that you make, and that you let us know of any publications
+so that we can publicize them at
+<a href="http://pag.csail.mit.edu/daikon/pubs/#daikon-testsubject">http://pag.csail.mit.edu/daikon/pubs/#daikon-testsubject</a>. 
+Also, please do not redistribute the repository without prior permission
+from us.
+
+   <p>We typically give you a copy of the CVS repository (about a 1GB download)
+rather than remote access to the master CVS
+repository.  This protects you from the possibility that our server is
+down, or that we someday cut you off from access to the repository; you
+are guaranteed to be able to reproduce your results.  It is also less
+hassle for us (we don't have to create an account for you), and it is
+less load on our servers (since researchers may wish to perform many CVS
+operations).
+
+   <p>This section points out some pitfalls for such researchers.  Although
+these problems are easy to avoid, some previous published work has made
+these mistakes; don't let that happen to you!
+
+   <p>Recall that Daikon contains two sets of tests (see <a href="#Testing">Testing</a>); you
+should include both in any analysis of Daikon's tests. 
+(Or, if you can analyze only one of the two sets of tests, then clearly
+explain that the regression tests are the main tests.) 
+The regression tests use Makefiles to avoid re-doing unnecessary work,
+so any description of the time taken to run Daikon's tests should be a
+measurement of re-running the tests after they have been run once, not
+running them from a clean checkout or after a `<samp><span class="samp">make clean</span></samp>' command.
+
+   <p>Daikon intentionally does not contain tests for third-party libraries
+that are included (sometimes in source form) in the Daikon distribution. 
+As one example, the <samp><span class="file">java/jtb/</span></samp> directory
+contains an external library.  Therefore, any measurement of Daikon's code
+coverage should not include such libraries (or other libraries, some of
+which are distributed as <samp><span class="file">.jar</span></samp> files).
+
+   <p>Be sure to see file <samp><span class="file">doc/www/mit/index.html</span></samp> in the repository for
+information about how group members use Daikon.  This file changes from
+time to time &mdash; for instance, it changed when a CVS branch was created
+and later when development on it ceased (see <a href="#Branches">Branches</a>).
+
+<ul class="menu">
+<li><a accesskey="1" href="#Branches">Branches</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Branches"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Historical">Historical</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Historical">Historical</a>
+
+</div>
+
+<h3 class="section">6.1 Branches</h3>
+
+<p><a name="index-branches_002c-in-CVS-repository-64"></a>
+The Daikon CVS repository contains two branches:  a main trunk and a
+branch (named `<samp><span class="samp">ENGINE_V2_PATCHES</span></samp>') for version 2 of Daikon.
+
+   <p>The CVS manual
+(see section <a href="http://ximbiot.com/cvs/manual/cvs-1.11.18/cvs_5.html">&ldquo;Branching and merging&rdquo;</a> of the manual <em>CVS &mdash; Concurrent Versions System</em>)
+describes CVS branches:
+
+   <blockquote>
+  CVS allows you to isolate changes onto a separate line of development,
+  known as a &ldquo;branch&rdquo;.  When you change files on a branch, those changes
+  do not appear on the main trunk or other branches.
+
+        <p>Later you can move changes from one branch to another branch (or the
+  main trunk) by &ldquo;merging&rdquo;.  Merging involves first running
+  `<samp><span class="samp">cvs update -j</span></samp>', to merge the changes into the working directory. 
+  You can then commit that revision, and thus effectively copy the
+  changes onto another branch. 
+</blockquote>
+
+<!-- It is important that the following paragraph not contain any substrings -->
+<!-- matching the regex /(Daikon version )[0-9]+(\.[0-9]+)*/, -->
+<!-- because such phrases are automatically changed at the time of a release to -->
+<!-- mention the most recent Daikon version, while the intent of this paragraph -->
+<!-- is to discuss historical versions. -->
+<p>In early January 2002 (or perhaps in late 2001), we created the
+`<samp><span class="samp">ENGINE_V2_PATCHES</span></samp>' branch at the <samp><span class="file">invariants/java/daikon level</span></samp> of
+the Daikon CVS repository.  Primary development continued along the CVS
+branch `<samp><span class="samp">ENGINE_V2_PATCHES</span></samp>', which we called
+&ldquo;Daikon version <!-- trick version updater -->
+2&rdquo;.  We
+called the CVS trunk &ldquo;Daikon version <!-- trick version updater -->
+3&rdquo;; it was experimental, and very
+few people ran its code or performed development on it.  Periodically,
+all changes made to the branch would be merged into the trunk, as one
+large checkin on the trunk.  Later, development on version 3 became more
+common, some changes were merged from the trunk to the branch, and
+version 2 was finally retired (and no more changes were made to the
+branch) in December 2003.
+
+   <p>A regular `<samp><span class="samp">cvs checkout</span></samp>' gets the trunk.  The <samp><span class="option">-r</span></samp> flag specifies a
+branch.  For example, to get the branch as of June 9, 2002, one could do
+<pre class="example">     cvs -d $pag/projects/invariants/.CVS co -r ENGINE_V2_PATCHES \
+         -D 2003/06/09 invariants/java/daikon
+</pre>
+   <p>Some warnings about analyzing historical versions of Daikon:
+     <ol type=1 start=1>
+<li>When analyzing 2002 (and at least parts of 2003) you should be careful
+to use the branch, not the trunk.  Or, you could analyze both (but as a
+single development effort, not as separate efforts). 
+<li>When a programmer periodically merged changes from the branch to the
+trunk (or vice versa), that operation resulted in very large checkins. 
+The times at which these merges occurred is indicated in file
+<samp><span class="file">invariants/java/daikon/merging.txt</span></samp> in the repository; for
+example, this happened 34 times during calendar year 2002.  CVS checkins
+for the branch properly attribute and time-stamp the work that appears
+as a single large checkin on the trunk. 
+<li>There may be long periods of time in the branch (respectively, the
+trunk) with no checkins, but that does not necessarily indicate a lacuna
+in development, as checkins might have occurred in the meanwhile in the
+trunk (respectively, the branch).
+        </ol>
+
+<div class="node">
+<p><hr>
+<a name="File-formats"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Index">Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Historical">Historical</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="appendix">Appendix A File formats</h2>
+
+<p><a name="index-file-formats-65"></a>
+This chapter contains information about the file format of Daikon's
+input files.  It is of most information to those who wish to write a
+front end, also known as an instrumenter (see <a href="daikon.html#Front-ends-_0028instrumentation_0029">Front ends (instrumentation)</a>). 
+A new front end enables Daikon to detect
+invariants in another programming language.
+
+   <p>Daikon's input is conventionally one or more <samp><span class="file">.dtrace</span></samp> data trace
+files.  (Another, optional type of input file for Daikon is a splitter
+info file; see <a href="daikon.html#Splitter-info-file">Splitter info file</a>.) 
+A trace file is a text file that consists of newline-separated
+records.  There are two basic types of records that can appear in Daikon's
+input:  program point declarations, and trace records. 
+The declarations describe the structure of the trace records.  The trace
+records contain the data on which Daikon operates &mdash; the run-time
+values of variables in your program.
+
+   <p>Each declaration names an instrumented program point and lists the
+variables at that program point.  A program point is a location in the
+program, such as a specific line number, or a specific procedure's entry or exit. 
+An instrumented program point is a place where the instrumenter may emit
+a trace record. 
+A program point declaration
+may be repeated, so long as the declarations match exactly (any
+declarations after the first one have no effect).
+
+   <p>A data trace record (also known as a &ldquo;sample&rdquo;)
+represents one execution of a program point.  The
+record specifies the program point and gives the runtime values of each
+variable.  The list of variables in the data trace record must be
+identical to that in the corresponding declaration.  For a given program point,
+the declaration must precede the first data trace record for the program
+point.  It is not required that all the program point declarations
+appear before any of the data trace records.
+
+   <p>There exist some other declaration-related records;
+See <a href="#Declaration_002drelated-records">Declaration-related records</a>.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Declarations-in-a-separate-file">Declarations in a separate file</a>
+<li><a accesskey="2" href="#Conventions">Conventions</a>
+<li><a accesskey="3" href="#Declarations">Declarations</a>
+<li><a accesskey="4" href="#Data-trace-records">Data trace records</a>
+<li><a accesskey="5" href="#Example-files">Example files</a>
+<li><a accesskey="6" href="#Version-1-Declarations">Version 1 Declarations</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Declarations-in-a-separate-file"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Conventions">Conventions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#File-formats">File formats</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-formats">File formats</a>
+
+</div>
+
+<h3 class="section">A.1 Declarations in a separate file</h3>
+
+<p>Instead of placing both declarations and data trace records in a single
+file, it is permitted to place the declarations in one or more
+<samp><span class="file">.decls</span></samp> &ldquo;declaration files&rdquo; while leaving the data trace records
+in the <samp><span class="file">.dtrace</span></samp> file.  This can be convenient for tools that
+perform a separate instrumentation step, such as dfepl (see <a href="daikon.html#dfepl">dfepl</a>)
+and Mangel-Wurzel (see <a href="daikon.html#Mangel_002dWurzel">Mangel-Wurzel</a>).  Such a tool takes as
+input a target program to be analyzed, and produces two outputs:  a
+<samp><span class="file">.decls</span></samp> file and an instrumented program.  Executing the
+instrumented program produces a <samp><span class="file">.dtrace</span></samp> file containing data
+trace records for all the program points that appear in the
+<samp><span class="file">.dtrace</span></samp> file.  This approach works fine and is easier to
+implement in certain situations, but has a few disadvantages.  It
+requires the user to perform at least two steps &mdash; instrumentation and
+execution &mdash; and the existence of two versions of the program
+(instrumented and uninstrumented) can lead to confusion or extra work. 
+It is also more convenient to have a single file that contains all
+information about a program, rather than multiple <samp><span class="file">.decls</span></samp> files
+that must be associated with the <samp><span class="file">.dtrace</span></samp> file.
+
+<div class="node">
+<p><hr>
+<a name="Conventions"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Declarations">Declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Declarations-in-a-separate-file">Declarations in a separate file</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-formats">File formats</a>
+
+</div>
+
+<h3 class="section">A.2 File format conventions</h3>
+
+<p>Daikon files are textual, to permit easier viewing and editing by humans. 
+Each record is separated by one or more blank lines. 
+To permit easier parsing by programs, each piece of information in a record
+appears on a separate line.
+
+   <p>Outside a record, any line starting with a pound sign (#) or double
+slashes (//) is ignored as a comment.  Comments are not permitted
+inside a record.
+
+<div class="node">
+<p><hr>
+<a name="Declarations"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Data-trace-records">Data trace records</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Conventions">Conventions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-formats">File formats</a>
+
+</div>
+
+<h3 class="section">A.3 Declarations</h3>
+
+<p><a name="index-declaration-format-66"></a><a name="index-g_t_002edecls-file-67"></a>
+The trace file (or declaration file) first states the declaration file format
+version number (see <a href="#Declaration-version">Declaration version</a>). 
+It may also specify some other information about the file
+(see <a href="#Declaration_002drelated-records">Declaration-related records</a>). 
+Then, it defines each program point and its variables.
+
+   <p>Indentation is ignored, so it may be used to aid readability. 
+Fields with defaults can be omitted.
+
+   <p>As a rule, each line of the declaration file is of the form
+<code>&lt;field-name&gt; &lt;field-value&gt;</code>.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Declaration_002drelated-records">Declaration-related records</a>
+<li><a accesskey="2" href="#Program-point-declarations">Program point declarations</a>
+<li><a accesskey="3" href="#Variable-declarations">Variable declarations</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Declaration-related-records"></a>
+<a name="Declaration_002drelated-records"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Program-point-declarations">Program point declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Declarations">Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declarations">Declarations</a>
+
+</div>
+
+<h4 class="subsection">A.3.1 Declaration-related records</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Declaration-version">Declaration version</a>
+<li><a accesskey="2" href="#Input_002dlanguage-declaration">Input-language declaration</a>
+<li><a accesskey="3" href="#Variable-comparability">Variable comparability</a>
+<li><a accesskey="4" href="#ListImplementors-declaration">ListImplementors declaration</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Declaration-version"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Input_002dlanguage-declaration">Input-language declaration</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Declaration_002drelated-records">Declaration-related records</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declaration_002drelated-records">Declaration-related records</a>
+
+</div>
+
+<h5 class="subsubsection">A.3.1.1 Declaration version</h5>
+
+<p>The declaration version record must be the first record in the file.
+
+   <p>The declaration version record is as follows:
+<pre class="example">     decl-version &lt;version&gt;
+</pre>
+   <p>The current version is 2.0.
+
+   <p>Previous versions (see <a href="#Version-1-Declarations">Version 1 Declarations</a>) did not include a
+version field and are identified by the lack of this field.
+
+<div class="node">
+<p><hr>
+<a name="Input-language-declaration"></a>
+<a name="Input_002dlanguage-declaration"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Variable-comparability">Variable comparability</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Declaration-version">Declaration version</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declaration_002drelated-records">Declaration-related records</a>
+
+</div>
+
+<h5 class="subsubsection">A.3.1.2 Input-language declaration</h5>
+
+<p>You can specify the language in which the program was written with a
+record of the form
+
+<pre class="example">     input-language &lt;language&gt;
+</pre>
+   <p>The language string is arbitrary and is not currently used.
+
+<div class="node">
+<p><hr>
+<a name="Variable-comparability"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#ListImplementors-declaration">ListImplementors declaration</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Input_002dlanguage-declaration">Input-language declaration</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declaration_002drelated-records">Declaration-related records</a>
+
+</div>
+
+<h5 class="subsubsection">A.3.1.3 Variable comparability</h5>
+
+<p><a name="index-comparability_002c-for-variables-68"></a><a name="index-variable-comparability-69"></a><a name="index-units-of-measurement_002c-see-variable-comparability-70"></a>
+The Variable comparability record indicates how the comparability field
+of a variable declaration should be interpreted.
+
+   <p>Its format is:
+<pre class="example">     var-comparability &lt;comparability-type&gt;
+</pre>
+   <p>The possible values for <var>comparability-type</var> are <code>implicit</code> and
+<code>none</code>.
+
+   <p>&ldquo;<code>implicit</code>&rdquo; means ordinary comparability as described in
+<a href="#Program-point-declarations">Program point declarations</a>.  (The name <code>implicit</code> is retained
+for historical reasons.)
+
+   <p>This record is optional.  The <code>implicit</code> type is the default.
+
+<div class="node">
+<p><hr>
+<a name="ListImplementors-declaration"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Variable-comparability">Variable comparability</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declaration_002drelated-records">Declaration-related records</a>
+
+</div>
+
+<h5 class="subsubsection">A.3.1.4 ListImplementors declaration</h5>
+
+<p>This declaration indicates classes that implement the
+<code>java.util.List</code> interface, and should be treated as sequences
+for the purposes of invariant detection.  The syntax is as follows:
+
+<pre class="example">     ListImplementors
+     &lt;classname1&gt;
+     &lt;classname2&gt;
+     ...
+</pre>
+   <p>Each classname is in Java format (for example, &ldquo;java.util.LinkedList&rdquo;).
+
+   <p>The `<samp><span class="samp">--list_type</span></samp>' command-line option to Daikon can also be used to
+specify classes that implement lists; See <a href="daikon.html#Options-to-control-invariant-detection">Options to control invariant detection</a>.
+
+<div class="node">
+<p><hr>
+<a name="Program-point-declarations"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Variable-declarations">Variable declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Declaration_002drelated-records">Declaration-related records</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declarations">Declarations</a>
+
+</div>
+
+<h4 class="subsection">A.3.2 Program point declarations</h4>
+
+<p>The format of a program point declaration is:
+<pre class="example">     ppt &lt;ppt-name&gt;
+     &lt;ppt-info&gt;
+     &lt;ppt-info&gt;
+     ...
+     &lt;variable-declaration&gt;
+     &lt;variable-declaration&gt;
+     ...
+</pre>
+   <p>The program point name can include any character.  In the declaration
+file,
+<!-- Replacing blanks by \_ isn't important on this line, but is important -->
+<!-- on other lines. -->
+blanks must be replaced by <code>\_</code>, and backslashes must be escaped as <code>\\</code>. 
+Program point names must be distinct.
+
+   <p>The following information about the program point (<code>ppt-info</code>) can be specified:
+     <ul>
+<li><code>ppt-type &lt;type&gt;</code>
+
+     <p>Specifies the <var>type</var> of the program point.  Possible program point
+types are <code>point</code>, <code>class</code>, <code>object</code>, <code>enter</code>,
+<code>exit</code>, <code>subexit</code>.
+
+     <li><code>flags &lt;flags&gt;</code>
+
+     <p>Specifies one or more flags for this ppt.  The possible flags are:
+<code>static</code>, <code>enter</code>, <code>exit</code>, <code>private</code>, <code>return</code>.
+
+     <li><code>parent &lt;relation-type&gt; &lt;parent-ppt-name&gt; &lt;relation-id&gt;</code>
+
+     <p>Specifies the program point hierarchy (<a href="#Dataflow-hierarchy">Dataflow hierarchy</a>).
+
+     <p>In particular, each <code>parent</code> field names one parent of this program point.  A parent program point
+is a point whose samples should include all of the samples at this
+program point.  For example, an object program point is a parent of
+each of the method program points in that object.
+
+     <p>The <var>relation-type</var> is the type of parent-child relationship in
+the hierarchy.  Possible relationship types are <code>parent</code> and
+<code>user</code>.
+
+     <p>The <var>relation-id</var> is a unique integer that identifies this parent
+relation.  They are used when defining the the specific parent
+relations for variables.
+
+     <p>Multiple parent fields can be specified.
+
+   </ul>
+
+<div class="node">
+<p><hr>
+<a name="Variable-declarations"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Program-point-declarations">Program point declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declarations">Declarations</a>
+
+</div>
+
+<h4 class="subsection">A.3.3 Variable declarations</h4>
+
+<p><a name="index-declaration-file-format-71"></a>
+The format of a variable declaration is:
+<pre class="example">     variable &lt;name&gt;
+       &lt;variable-info&gt;
+       &lt;variable-info&gt;
+       ...
+</pre>
+   <p>The variable name is arbitrary, but for clarity, it should match what is
+used in the programming language.  All characters are legal in a name,
+but blanks must be represented as <code>\_</code> and backslashes as
+<code>\\</code>.
+
+   <p>If the variable is an array, '<code>..</code>' marks the location of
+array indices within the variable name.  Some examples of names are:
+<pre class="example">     this.theArray
+     this.theArray[..]
+     this.stack.getClass()
+</pre>
+   <p>The following information about the variable (<code>variable-info</code>) can be specified:
+     <ul>
+<li><code>var-kind &lt;kind&gt; [&lt;relative-name&gt;]</code>
+
+     <p>Specifies the variable kind.  Possible values are: <code>field</code>, <code>function</code>,
+<code>array</code>, <code>variable</code>, <code>return</code>.  If <code>field</code> or <code>function</code>
+are specified, the relative name of the field or function must be
+specified.  For example, if the variable is <code>this.theArray</code>, the
+relative name is <code>theArray</code>.  Pointers to arrays are of type
+<code>field</code>.  The arrays themselves (a sequence of values) are of
+type <code>array</code>.
+
+     <li><code>enclosing-var &lt;enclosing-var-name&gt;</code>
+
+     <p>The variable that contains this variable.  Required for fields and
+arrays and optional for functions.  If specified for functions, the
+function is an instance method.  If not specified the function is
+static.  A variable is specified by its name.  The enclosing-var must
+be defined.  If a variable is omitted (e.g., by the omit-var switch),
+any variable for which it is the enclosing variable must be omitted as
+well.
+
+     <p>For example, if the variable is <code>this.theArray</code>, the
+enclosing variable is <code>this</code>
+
+     <li><code>reference-type pointer|offset</code>
+
+     <p>Specifies the kind of reference for variables which are structures or
+classes.  The possible values are <code>pointer</code> or <code>offset</code>.  In
+C, <code>pointer</code> is used if the variable is a pointer, <code>offset</code>
+is used when the structure is placed inline.  Pointer would be used
+for all references to java objects.  Defaults to pointer.
+
+     <li><code>array &lt;dim&gt;</code>
+
+     <p>The number of array dimensions inherited or declared by this variable. 
+The valid values are 0 or 1.  This should be specified for any variable
+that has multiple values.  If not specified it defaults to 0.  Future
+versions of Daikon may support more levels of arrays.
+
+     <li><code>dec-type &lt;language-declaration&gt;</code>
+
+     <p>This is what the programmer used in the declaration of the variable. 
+Names for standard types should use Java's names (e.g., <code>int</code>,
+<code>boolean</code>, etc.), but names for user-defined or language-specific
+types can be arbitrary strings.
+
+     <li><code>rep-type &lt;daikon-type&gt;</code>
+
+     <p>This describes what will appear in the data
+trace file.  For instance, the declared type might be <code>char[]</code> but
+the representation type might be <code>java.lang.String</code>.  Or, the declared
+type might be <code>Object</code> but the representation type might be
+<code>hashcode</code>, if the address of the object is written to the data trace
+file.
+
+     <p><a name="index-pointer-variables_002c-see-_0060_0060hashcode_0027_0027-type-72"></a><a name="index-hashcode-type_002c-for-variables-73"></a>
+The representation type should be one of <code>boolean</code>, <code>int</code>,
+<code>hashcode</code>, <code>double</code>, or <code>java.lang.String</code>; or an
+array of one of those (indicated by a <code>[]</code> suffix, as in Java).
+
+     <p><code>hashcode</code> is intended for unique object identifiers like memory
+addresses (pointers) or the return value of Java's
+<code>Object.hashCode</code> method.  <code>hashcode</code> is treated like
+<code>int</code>, except that the hashcode values are considered uninteresting
+for the purposes of output.  For example, Daikon will print
+`<samp><var>var</var><span class="samp"> has only one value</span></samp>' instead of `<samp><var>var</var><span class="samp"> ==
+0x38E8A</span></samp>'.
+
+     <li><code>flags &lt;flags&gt;</code>
+
+     <p>One or more flags may be specified.  Possible values are:
+          <ul>
+<li><code>is_param</code>
+
+          <p>Indicates that a given variable is a parameter to a procedure.  Some
+procedures reassign parameters &ndash; essentially using them as local
+variables.  Such uses are not relevant to the procedure's external
+specification.  The <code>is_param</code> flag causes Daikon not to print
+certain invariants, if the variable has been reassigned.
+
+               <ol type=1 start=1>
+<li>Invariants
+that use the parameter variable <code>p</code> in its post-state form are not
+printed. 
+<li>Invariants that use fields of <code>p</code> (such as <code>p.x</code>)
+are printed only if <code>p</code> has not changed. 
+<li>Some immutable
+characteristics, such as the size of arrays and data types, are not
+printed.  (These can change only if <code>p</code> is changed, but then, <code>p</code>
+would no longer be interesting.)
+               </ol>
+
+          <li><code>no_dups</code>
+
+          <p>Indicates that a collection can not contain duplicates. 
+If it cannot, Daikon does not check for some invariants that only have
+meaning for collections that can contain duplicate elements.
+
+          <li><code>not_ordered</code>
+
+          <p>Indicates that the order of a collection does not have meaning.  In
+this case, Daikon does not check for element-wise comparisons between
+it and other collections.
+
+          <li><code>synthetic</code>
+
+          <p>Indicates that the variable was added by the front end and is not
+manifest in the input program.
+
+          <li><code>classname</code>
+
+          <p>Indicates that the variable indicates the classname of its
+enclosing variable.
+
+          <li><code>to_string</code>
+
+          <p>Indicates that the variable is the string representation of its
+enclosing variable.
+
+          <li><code>non_null</code>
+
+          <p>Indicates that the variable can't take on a null value.  In this
+case, Daikon will not check for the NonZero invariant.
+
+     </ul>
+
+     <li><code>comparability &lt;comparability-key&gt;</code>
+
+     <p>The <var>comparability-key</var> indicates which other variables are
+comparable to this one.  The information specified here might have been
+obtained dynamically, via
+type-inference based analysis, or in some other manner.
+
+     <p>A comparability for a non-array type is a signed integer.  Two
+variables at the same program point are considered comparable if both
+integers are the same, or if either integer is negative (that is, a
+negative number means &ldquo;comparable to every other variable&rdquo;).  A
+comparability for an array type must contain an integer for each index
+and for the contents; for instance, `<samp><span class="samp">5[22][17]</span></samp>' for a
+two-dimensional array.  An array comparison succeeds if comparisons over each
+component succeed.
+
+     <p>Variables at different program points are never compared to one another. 
+Use of the same number at different program points does not indicate any
+relationship between the variables, and a given variable may have a
+different comparability integer at different program points.
+
+     <p>As an example, in the following code:
+     <pre class="example">          int sum(int len, int[] a) {
+            int sum=0;
+            for (int i=0; i++; i&lt;len)
+              sum += a[i];
+            return sum;
+          }
+     </pre>
+     <p>variables <code>i</code> and <code>len</code> are comparable to one another (and
+to indices of array <code>a</code>).  Furthermore, the result is comparable
+to the elements of array <code>a</code>.  The comparability keys for these
+variables might look like
+     <pre class="example">          len     - comparability 5
+          a       - comparability 8[5]
+          return  - comparability 8
+     </pre>
+     <li><code>parent &lt;parent-ppt&gt; &lt;rel-id&gt; [&lt;parent-variable&gt;]</code>
+
+     <p>Specifies the parent variable of this variable in the program
+point/variable hierarchy.  The <var>parent-ppt</var> is the name of the
+parent program point.  The <var>rel-id</var> must be one of the
+relationship ids specified for this program point.  The
+<var>parent-variable</var> is the name of this variable's parent in the
+parent program point.  If the names are the same, it can be omitted.
+
+     <li><code>constant &lt;value&gt;</code>
+
+     <p>Specifies a constant value for this variable.  If the variable has
+compile-time constant value, it must be omitted from the data trace
+records.
+
+     <li><code>function-args &lt;arg1&gt; &lt;arg2&gt; ...</code>
+
+     <p>Specifies the arguments to a function (if any).  Specified by the
+external name of the argument variables.  Multiple arguments are
+blank separated.  For example
+     <pre class="example">          function-args a.b this.f1
+     </pre>
+     <p>specifies that the function takes two arguments which are <code>a.b</code> and
+<code>this.f1</code>.  As with enclosing variables, each of the arguments must
+be defined as variables.
+
+   </ul>
+
+<div class="node">
+<p><hr>
+<a name="Data-trace-records"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Example-files">Example files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Declarations">Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-formats">File formats</a>
+
+</div>
+
+<h3 class="section">A.4 Data trace records</h3>
+
+<p><a name="index-data-trace-format-74"></a><a name="index-g_t_002edtrace-file-75"></a>
+A data trace record (also known as a &ldquo;sample&rdquo;) contains run-time value
+information.  Its format is:
+<pre class="example">     &lt;program-point-name&gt;
+     this-invocation-nonce
+     &lt;nonce-string&gt;
+     &lt;varname-1&gt;
+     &lt;var-value-1&gt;
+     &lt;var-modified-1&gt;
+     &lt;varname2&gt;
+     &lt;var-value-2&gt;
+     &lt;var-modified-2&gt;
+     ...
+</pre>
+   <p>In other words, the sample record contains:
+     <ul>
+<li>name of the program point
+
+     <li>optionally, an arbitrary string (a nonce) used to match up procedure
+entries (whose names conventionally end with <code>:::ENTER</code>) with
+procedure exits (whose names conventionally end with <code>:::EXIT</code>). 
+This is necessary in concurrent systems because there may
+be several invocations of a procedure active at once and they do not
+necessarily follow a stack discipline, being exited in the reverse order of
+entry.  For non-concurrent systems, this nonce is not necessary, and
+both the line <code>this-invocation-nonce</code> and the nonce value may be
+omitted.
+
+     <li>for each variable:
+          <ul>
+<li>name
+<li>value
+               <ul>
+<li>if an integer: sequence of digits, optionally preceded by a minus sign. 
+Boolean values are written as the number 0 (for false) or the number 1
+(for true).  For pointers, the value may be <code>null</code>. 
+<li>if a string: characters surrounded by double-quotes.  Internal
+double-quotes and backslashes are escaped by a backslash.  Newlines and
+carriage returns are represented as `<samp><span class="samp">\n</span></samp>' and `<samp><span class="samp">\r</span></samp>',
+respectively.
+
+               <li>if an array: open bracket (<code>[</code>), elements separated by
+spaces, close bracket (<code>]</code>).  (Also, the array name
+should end in `<samp><span class="samp">[..]</span></samp>'; use `<samp><span class="samp">a[..]</span></samp>' for array contents,
+but `<samp><span class="samp">a</span></samp>' for the identity of the array itself.) 
+</ul>
+
+          <p><a name="index-nonsensical-values-for-variables-76"></a><a name="index-missing-values-for-variables_002c-see-nonsensical-values-77"></a>
+<!-- the Daikon code sometimes calls this "missing" rather than "nonsensical". -->
+The value may also be the string <code>nonsensical</code>; See <a href="#Nonsensical-values">Nonsensical values</a>. 
+A string or array value is never <code>null</code>.  A reference to a
+string or array may be <code>null</code>, in which case the string or array is
+<code>nonsensical</code>.
+
+          <li>modified? (0, 1, or 2). 
+<a name="index-modified-bit-78"></a>This value is 0 if the variable has not been assigned to since the
+last time this program point was executed, and 1 if the variable has
+been assigned to since then.  It is safe for an implementation to
+always set it to 1.  It is also safe to always set it to 0, because
+Daikon corrects obviously incorrect modification bits (such as 0 for a
+never-before-seen value).
+
+          <p>The special value 2 should be used only (and always) when the value
+field is <code>nonsensical</code>.
+
+     </ul>
+
+     <p>The variables should appear in the same order as they did in the
+declaration of the program point, without omissions or additions. 
+</ul>
+
+   <p><a name="index-nonce_002c-invocation-79"></a><a name="index-this_005finvocation_005fnonce-80"></a>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Nonsensical-values">Nonsensical values</a>
+<li><a accesskey="2" href="#Variables-that-do-not-appear-in-trace-records">Variables that do not appear in trace records</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Nonsensical-values"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Variables-that-do-not-appear-in-trace-records">Variables that do not appear in trace records</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Data-trace-records">Data trace records</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Data-trace-records">Data trace records</a>
+
+</div>
+
+<h4 class="subsection">A.4.1 Nonsensical values for variables</h4>
+
+<p>Some trace variables and derived variables may not have a value because
+the expression that computes it cannot be evaluated.  In such a
+circumstance, the value is said to be nonsensical, it is written in the
+trace file as <code>nonsensical</code>, and its modified field must be 2. 
+Examples include
+     <ul>
+<li><code>x</code> when <code>x</code> is uninitialized or deallocated,
+<li><code>x.y</code> when <code>x</code> is null (or uninitialized or deallocated)
+<li><code>a[i]</code> when <code>i</code> is outside the bounds of <code>a</code> (or
+uninitialized or deallocated, or <code>a</code> is null, uninitialized, or
+deallocated)
+</ul>
+   For trace variables, it is the responsibility of the front end to
+perform a check at run time whenever a variable's value is about to be
+output to the trace, and to output the value &ldquo;nonsensical&rdquo;
+(see <a href="#Nonsensical-values">Nonsensical values</a>) rather than crashing the program or
+outputting an uninitialized or meaningless value.  (Determining when an
+expression's value is meaningless is the most challenging part of
+writing an instrumenter for a language like C, since it requires
+tracking memory allocation and initialization.)  For derived variables
+created by Daikon, Daikon does the same thing, setting values to
+&ldquo;nonsensical&rdquo; when appropriate.  For controlling Daikon's output in
+the presence of nonsensical values, see the
+<samp><span class="option">daikon.Daikon.guardNulls</span></samp> configuration option (see <a href="daikon.html#General-configuration-options">General configuration options</a>).
+
+<div class="node">
+<p><hr>
+<a name="Variables-that-do-not-appear-in-trace-records"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Nonsensical-values">Nonsensical values</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Data-trace-records">Data trace records</a>
+
+</div>
+
+<h4 class="subsection">A.4.2 Variables that do not appear in trace records</h4>
+
+<p>A trace record should contain exactly the same variables as in the
+corresponding declaration.  There is one exception:  for efficiency,
+compile-time constants (e.g., static final variables in Java) are
+omitted from the trace record, since they would have the same value
+every time.
+
+   <p>Neither the declarations nor the trace records contains derived
+variables (see <a href="daikon.html#Variable-names">Variable names</a>).
+
+<div class="node">
+<p><hr>
+<a name="Example-files"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Version-1-Declarations">Version 1 Declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Data-trace-records">Data trace records</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-formats">File formats</a>
+
+</div>
+
+<h3 class="section">A.5 Example files</h3>
+
+<p>Here are portions of two files <samp><span class="file">StackArTester.decls</span></samp> and
+<samp><span class="file">StackArTester.dtrace</span></samp>, for a Java class that implements a stack of
+integers using an array as the underlying data structure.  You can see
+many more examples by simply running an existing front end on some Java,
+C, or Perl programs and viewing the resulting files.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Example-declaration-file">Example declaration file</a>
+<li><a accesskey="2" href="#Example-data-trace-file">Example data trace file</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Example-declaration-file"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Example-data-trace-file">Example data trace file</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Example-files">Example files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Example-files">Example files</a>
+
+</div>
+
+<h4 class="subsection">A.5.1 Example declaration file</h4>
+
+<p>This is part of the file <samp><span class="file">StackArTester.decls</span></samp>, a declaration file for
+the <samp><span class="file">StackAr.java</span></samp> program (see <a href="daikon.html#StackAr-example">StackAr example</a>).
+
+<pre class="example">     ppt DataStructures.StackAr.push(java.lang.Object):::ENTER
+     ppt-type enter
+     parent parent DataStructures.StackAr:::OBJECT 1
+       variable this
+         var-kind variable
+         dec-type DataStructures.StackAr
+         rep-type hashcode
+         flags is_param
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.theArray
+         var-kind field theArray
+         enclosing-var this
+         dec-type java.lang.Object[]
+         rep-type hashcode
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.theArray.getClass()
+         var-kind function getClass()
+         enclosing-var this.theArray
+         dec-type java.lang.Class
+         rep-type java.lang.String
+         flags synthetic classname
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.theArray[..]
+         var-kind array
+         enclosing-var this.theArray
+         array 1
+         dec-type java.lang.Object[]
+         rep-type hashcode[]
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.theArray[..].getClass()
+         var-kind function getClass()
+         enclosing-var this.theArray[..]
+         array 1
+         dec-type java.lang.Class[]
+         rep-type java.lang.String[]
+         flags synthetic classname
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.topOfStack
+         var-kind field topOfStack
+         enclosing-var this
+         dec-type int
+         rep-type int
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable x
+         var-kind variable
+         dec-type java.lang.Object
+         rep-type hashcode
+         flags is_param
+         comparability 22
+       variable x.getClass()
+         var-kind function getClass()
+         enclosing-var x
+         dec-type java.lang.Class
+         rep-type java.lang.String
+         flags synthetic classname
+         comparability 22
+     
+     ppt DataStructures.StackAr.push(java.lang.Object):::EXIT99
+     ppt-type subexit
+     parent parent DataStructures.StackAr:::OBJECT 1
+       variable this
+         var-kind variable
+         dec-type DataStructures.StackAr
+         rep-type hashcode
+         flags is_param
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.theArray
+         var-kind field theArray
+         enclosing-var this
+         dec-type java.lang.Object[]
+         rep-type hashcode
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.theArray.getClass()
+         var-kind function getClass()
+         enclosing-var this.theArray
+         dec-type java.lang.Class
+         rep-type java.lang.String
+         flags synthetic classname
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.theArray[..]
+         var-kind array
+         enclosing-var this.theArray
+         array 1
+         dec-type java.lang.Object[]
+         rep-type hashcode[]
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.theArray[..].getClass()
+         var-kind function getClass()
+         enclosing-var this.theArray[..]
+         array 1
+         dec-type java.lang.Class[]
+         rep-type java.lang.String[]
+         flags synthetic classname
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable this.topOfStack
+         var-kind field topOfStack
+         enclosing-var this
+         dec-type int
+         rep-type int
+         comparability 22
+         parent DataStructures.StackAr:::OBJECT 1
+       variable x
+         var-kind variable
+         dec-type java.lang.Object
+         rep-type hashcode
+         flags is_param
+         comparability 22
+       variable x.getClass()
+         var-kind function getClass()
+         enclosing-var x
+         dec-type java.lang.Class
+         rep-type java.lang.String
+         flags synthetic classname
+         comparability 22
+     
+     ppt DataStructures.StackAr:::OBJECT
+     ppt-type object
+       variable this
+         var-kind variable
+         dec-type DataStructures.StackAr
+         rep-type hashcode
+         flags is_param
+         comparability 22
+       variable this.theArray
+         var-kind field theArray
+         enclosing-var this
+         dec-type java.lang.Object[]
+         rep-type hashcode
+         comparability 22
+       variable this.theArray.getClass()
+         var-kind function getClass()
+         enclosing-var this.theArray
+         dec-type java.lang.Class
+         rep-type java.lang.String
+         flags synthetic classname
+         comparability 22
+       variable this.theArray[..]
+         var-kind array
+         enclosing-var this.theArray
+         array 1
+         dec-type java.lang.Object[]
+         rep-type hashcode[]
+         comparability 22
+       variable this.theArray[..].getClass()
+         var-kind function getClass()
+         enclosing-var this.theArray[..]
+         array 1
+         dec-type java.lang.Class[]
+         rep-type java.lang.String[]
+         flags synthetic classname
+         comparability 22
+       variable this.topOfStack
+         var-kind field topOfStack
+         enclosing-var this
+         dec-type int
+         rep-type int
+         comparability 22
+     
+</pre>
+   <div class="node">
+<p><hr>
+<a name="Example-data-trace-file"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Example-declaration-file">Example declaration file</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Example-files">Example files</a>
+
+</div>
+
+<h4 class="subsection">A.5.2 Example data trace file</h4>
+
+<p>This is part of file <samp><span class="file">StackArTester.dtrace</span></samp>, which you can create by
+running the instrumented <samp><span class="file">StackAr.java</span></samp> program (see <a href="daikon.html#StackAr-example">StackAr example</a>).  This excerpt contains only the first two calls to
+<code>push</code> and the first return from <code>push</code>, along with the
+associated object program point records; omitted records are indicated
+by ellipses.
+
+<pre class="example">     ...
+     
+     StackAr.push(java.lang.Object):::ENTER
+     this_invocation_nonce
+     55
+     x
+     1217030
+     1
+     x.getClass()
+     "DataStructures.MyInteger"
+     1
+     this.theArray
+     3852104
+     1
+     this.theArray.getClass()
+     "java.lang.Object[]"
+     1
+     this.theArray[]
+     [null]
+     1
+     this.theArray[].getClass()
+     [null]
+     1
+     this.topOfStack
+     -1
+     1
+     
+     StackAr:::OBJECT
+     this.theArray
+     3852104
+     1
+     this.theArray.getClass()
+     "java.lang.Object[]"
+     1
+     this.theArray[]
+     [null]
+     1
+     this.theArray[].getClass()
+     [null]
+     1
+     this.topOfStack
+     -1
+     1
+     
+     ...
+     
+     StackAr.push(java.lang.Object):::EXIT96
+     this_invocation_nonce
+     55
+     x
+     1217030
+     1
+     x.getClass()
+     "DataStructures.MyInteger"
+     1
+     this.theArray
+     3852104
+     1
+     this.theArray.getClass()
+     "java.lang.Object[]"
+     1
+     this.theArray[]
+     [1217030]
+     1
+     this.theArray[].getClass()
+     ["DataStructures.MyInteger"]
+     1
+     this.topOfStack
+     0
+     1
+     
+     StackAr:::OBJECT
+     this.theArray
+     3852104
+     1
+     this.theArray.getClass()
+     "java.lang.Object[]"
+     1
+     this.theArray[]
+     [1217030]
+     1
+     this.theArray[].getClass()
+     ["DataStructures.MyInteger"]
+     1
+     this.topOfStack
+     0
+     1
+     
+     ...
+     
+     StackAr.push(java.lang.Object):::ENTER
+     this_invocation_nonce
+     94
+     x
+     1482257
+     1
+     x.getClass()
+     "DataStructures.StackAr"
+     1
+     this.theArray
+     350965
+     1
+     this.theArray.getClass()
+     "java.lang.Object[]"
+     1
+     this.theArray[]
+     [null]
+     1
+     this.theArray[].getClass()
+     [null]
+     1
+     this.topOfStack
+     -1
+     1
+     
+     StackAr:::OBJECT
+     this.theArray
+     350965
+     1
+     this.theArray.getClass()
+     "java.lang.Object[]"
+     1
+     this.theArray[]
+     [null]
+     1
+     this.theArray[].getClass()
+     [null]
+     1
+     this.topOfStack
+     -1
+     1
+     
+     ...
+</pre>
+   <div class="node">
+<p><hr>
+<a name="Version-1-Declarations"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Example-files">Example files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-formats">File formats</a>
+
+</div>
+
+<h3 class="section">A.6 Version 1 Declarations</h3>
+
+<p><a name="index-g_t_002edecls-file-_0028version-1_0029-81"></a>
+This section describes the original version (1.0) of declaration
+records.  These are now obsolete and should not be used.
+
+   <p>A declarations file can contain program point declarations,
+<code>VarComparability</code> declarations, and <code>ListImplementors declarations</code>.
+
+<ul class="menu">
+<li><a accesskey="1" href="#V1-Program-point-declarations">V1 Program point declarations</a>
+<li><a accesskey="2" href="#V1-pptname-format">V1 pptname format</a>
+<li><a accesskey="3" href="#V1-VarComparability-declaration">V1 VarComparability declaration</a>
+<li><a accesskey="4" href="#V1-ListImplementors-declaration">V1 ListImplementors declaration</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="V1-Program-point-declarations"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#V1-pptname-format">V1 pptname format</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Version-1-Declarations">Version 1 Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Version-1-Declarations">Version 1 Declarations</a>
+
+</div>
+
+<h4 class="subsection">A.6.1 V1 Program point declarations</h4>
+
+<p>The format of a program point declaration is:
+<pre class="example">     DECLARE
+     program-point-name
+     varname1
+     declared-type1 [# auxiliary-information1]
+     representation-type1 [= constant-value1]
+     comparable1
+     varname2
+     declared-type2 [# auxiliary-information2]
+     representation-type2 [= constant-value2]
+     comparable2
+     ...
+</pre>
+   <p>Program point information includes:
+     <ul>
+<li>name (&ldquo;tag&rdquo;) of this program point, an arbitrary string containing no
+tab or newline characters.  This name contains information such as the
+class name or method name; what information is contained depends on
+which instrumenter is being used.  See <a href="#V1-pptname-format">V1 pptname format</a>, for a full
+specification of the naming format.
+
+     <li>for each variable:
+          <ul>
+<li>name: a string containing no tabs or newlines.  See <a href="daikon.html#Variable-names">Variable names</a>.
+
+          <li>declared type: this is what the programmer used in the declaration of
+the variable.  Array types must be suffixed by the proper number of
+`<samp><span class="samp">[]</span></samp>' to indicate their dimensionality.  Names for standard types
+should use Java's names (e.g., <code>int</code>, <code>boolean</code>, etc.), but names for
+user-defined or language-specific types can be arbitrary strings.
+
+          <li>auxiliary information: optionally, Daikon can be given information
+about the meaning of the variable to help it better interpret the
+values it later sees.  Information is provided as a comma-separated
+list of items, with each item in the form of `<samp><span class="samp">key = value</span></samp>'.  Unrecognized
+keys are silently ignored.  All values are
+either `<samp><span class="samp">true</span></samp>' or `<samp><span class="samp">false</span></samp>'.  Mainly, this information is used for
+collections, which are presented to Daikon as arrays.  Valid keys are:
+
+               <dl>
+<dt><code>hasDuplicates</code><dd>Whether a collection can contain duplicates.  If it
+cannot, Daikon does not check for some invariants that only have
+meaning for collections that can contain duplicate elements.
+
+               <br><dt><code>hasOrder</code><dd>Whether order has meaning for a collection.  If order does
+not have meaning in a collection, then Daikon does not check for
+element-wise comparisons between it and other collections.
+
+               <br><dt><code>hasNull</code><dd>Whether zero has the special meaning null for the variable or
+collection.  If it does, then Daikon checks for whether a value or the
+elements in a collection are null.
+
+               <br><dt><code>nullTerminated</code><dd>Whether a collection has a value (usually null) that
+ends its representation.  If it does, then Daikon looks at the
+collection's size and at the collection's size-1 as &ldquo;interesting&rdquo;
+values.  If it does not, then Daikon only looks at the collection's
+size.
+
+               <br><dt><code>isParam</code><dd>Whether a given variable is a parameter to a method.  If a
+variable is a parameter, Daikon avoids printing some information that
+would be considered uninteresting for parameters.  First, invariants
+that use the parameter variable <code>p</code> in its post-state form are not
+printed.  Second, invariants that use fields of <code>p</code> (such as <code>p.x</code>)
+are printed only if <code>p</code> has not changed.  Lastly, some immutable
+characteristics, such as the size of arrays and data types are not
+printed (both can be changed if <code>p</code> is changed, but then, <code>p</code>
+would no longer be interesting).
+
+          </dl>
+
+          <li>representation type:  this describes what will appear in the data
+trace file.  For instance, the declared type might be <code>char[]</code> but
+the representation type might be <code>java.lang.String</code>.  Or, the declared
+type might be <code>Object</code> but the representation type might be
+<code>hashcode</code>, if the address of the object is written to the data trace
+file.
+
+          <p>The representation type should be one of <code>boolean</code>, <code>int</code>,
+<code>hashcode</code>, <code>double</code>, or <code>java.lang.String</code>; or an
+array of one of those (indicated by a <code>[]</code> suffix, as in Java). 
+Hashcodes are treated like integers, except that their actual values
+are considered uninteresting for the purposes of output; they are
+intended for unique object identifiers like memory addresses or the
+return value of Java's <code>Object.hashCode</code> method.
+
+          <p>The representation type may optionally be followed by an equals
+sign and a value; in that case, the variable is known to have a
+compile-time constant value and should be omitted from the data
+trace file. 
+</ul>
+     <li><a name="index-comparability_002c-for-variables-_0028decls-format-version-1_0029-82"></a><a name="index-variable-comparability-_0028decls-format-version-1_0029-83"></a>comparable variables.  This information indicates
+which other variables are comparable to this one.
+
+     <p>The point of comparability is that Daikon should not compare unrelated
+quantities.  For example, each person's height in centimeters may always
+be less than their birth year, but it is not helpful for Daikon to
+output `<samp><span class="samp">height &lt; birthyear</span></samp>', because they are measuring
+incomparable quantities.  (In this case, the variables use different
+units of measurement.)
+
+     <p>Variable comparability information helps Daikon to avoid computing
+information over unrelated variables.  This saves time and (more
+importantly) improves the quality of Daikon's output.  For more details,
+see the paper
+<a href="http://www.cs.washington.edu/homes/mernst/pubs/invariants-relevance-icse2000-abstract.html">&ldquo;Quickly detecting relevant program invariants&rdquo;</a>.
+
+     <p>Variable comparability information may be obtained dynamically
+(see <a href="daikon.html#Dynamic-abstract-type-inference-_0028DynComp_0029">Dynamic abstract type inference (DynComp)</a>), via
+type-inference based analysis, or in some other manner.  In any event,
+Daikon reads it from the variable declarations.
+
+     <p>A comparability for a non-array type is a signed integer.  Two variables
+at the same program point
+are considered comparable if both integers are the same, <em>or</em> if either
+integer is negative. 
+A comparability for an array type must contain an
+integer for each index and for the contents; for instance, `<samp><span class="samp">5[22][17]</span></samp>'
+for a two-dimensional array.  Comparisons succeed if comparisons over
+each component succeed.
+
+     <p>Regardless of comparability, variables at different program points are
+never compared to one another.  Use of the same comparability integer at
+different program points does not indicate any
+relationship between the variables, and a given variable may have a
+different comparability integer at different program points.
+
+     <p>As an example, in the following code:
+     <pre class="example">          int sum(int len, int[] a) {
+            int sum=0;
+            for (int i=0; i++; i&lt;len)
+              sum += a[i];
+            return sum;
+          }
+     </pre>
+     <p>variables <code>i</code> and <code>len</code> are comparable to one another (and
+to indices of array <code>a</code>).  Furthermore, the result is comparable
+to the elements of array <code>a</code>.  A declaration file for these
+variables might look like
+     <pre class="example">          len
+          int
+          int
+          5
+          a
+          int[]
+          int[]
+          8[5]
+          return
+          int
+          int
+          8
+     </pre>
+     </ul>
+
+<!-- Future enhancements may include: -->
+<!-- @itemize @bullet -->
+<!-- @item -->
+<!-- permit variables to be omitted if they haven't changed (but always -->
+<!-- outputting the bit permits us to write a sanity checker) -->
+<!-- @item -->
+<!-- permit variables to appear in any order (not sure this is so worthwhile) -->
+<!-- @item -->
+<!-- specify which @file{.decl} files should be used (including their pathnames -->
+<!-- and/or MD5 hashes) -->
+<!-- @end itemize -->
+<div class="node">
+<p><hr>
+<a name="V1-pptname-format"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#V1-VarComparability-declaration">V1 VarComparability declaration</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#V1-Program-point-declarations">V1 Program point declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Version-1-Declarations">Version 1 Declarations</a>
+
+</div>
+
+<h4 class="subsection">A.6.2 Program point name format specification</h4>
+
+<p>Instrumenting code creates a <samp><span class="file">.decls</span></samp> file that contains program
+point names such as:
+
+<pre class="example">     DataStructures.StackAr.push(java.lang.Object):::ENTER
+     DataStructures.StackAr.push(java.lang.Object):::EXIT99
+     PolyCalc.RatNum.RatNum(int, int):::ENTER
+     PolyCalc.RatNum.RatNum(int, int):::EXIT55
+     PolyCalc.RatNum.RatNum(int, int):::EXIT67
+</pre>
+   <p>This section describes the format of these program point names.  Someone
+writing an instrumenter for a new language must be sure to follow this
+format specification.
+
+   <p>A program point name is a string with no tabs or newlines in it.  The basic
+format is `<samp><var>topLevel</var><span class="samp">.</span><var>bottomLevel</var><span class="samp">:::</span><var>pptInfo</var></samp>'. 
+For the first example given above, the top level of the hierarchy would
+be <code>DataStructures.StackAr</code>, the bottom level would be
+<code>push(java.lang.Object)</code>, and the
+program point information would be <code>ENTER</code>.
+
+   <p><var>topLevel</var> may contain any number of periods (`<samp><span class="samp">.</span></samp>'). <var>bottomLevel</var>
+and <var>pptInfo</var> may not contain any periods.  The string `<samp><span class="samp">:::</span></samp>' may only
+appear once.
+
+   <p><var>topLevel</var> and <var>pptInfo</var> are required (i.e., they must be non-empty),
+as are the period to the right of <var>topLevel</var> and the colons to the
+left of <var>pptInfo</var>.  However, <var>bottomLevel</var> is optional.
+
+   <p>By convention, for Java <var>topLevel</var> consists of the class name, and
+<var>bottomLevel</var> consists of the method name and method signature.
+
+   <p>For C, <var>topLevel</var> consists of a filename (or a single period for
+global functions), and <var>bottomLevel</var>
+could consist of a function name and signature. 
+More precisely, names of C program points follow these conventions:
+
+     <ul>
+<li>Names of program points for file-static functions are prefixed with the name
+of the source file, with `<samp><span class="samp">.</span></samp>' characters mapped to `<samp><span class="samp">_</span></samp>',
+followed by a `<samp><span class="samp">.</span></samp>'.
+
+     <li>Names of program points for
+file-scope functions with external linkage are prefixed with `<samp><span class="samp">..</span></samp>'. 
+For example, a global function program point might be named
+`<samp><span class="samp">..main():::ENTER</span></samp>'., the first period denoting that it is global in
+scope and the second denoting the separator between the <var>toplevel</var>
+and <var>bottomlevel</var> parts of the name.
+
+     <li>Names of C++ functions that are class or namespace members are prefixed
+with the name(s) of their classes or namespaces, with the C++ `<samp><span class="samp">::</span></samp>'
+syntax mapped onto the Java `<samp><span class="samp">.</span></samp>' syntax used by Daikon. 
+</ul>
+
+   <p>For IOA, <var>topLevel</var> consists of an Automaton name and
+<var>bottomLevel</var> consists of information for a transition state.
+
+   <p>By convention, the entry and exit points for a function have names of
+a special form so that they can be associated with one another. 
+(Currently, those names end with <code>:::ENTER</code> and <code>:::EXIT</code>.)  This
+convention permits Daikon to generate pre-state variables
+(see <a href="daikon.html#Variable-names">Variable names</a>) automatically at procedure exit points, so
+front ends need not output them explicitly.  When there
+are multiple exit points, then each one should be suffixed by a number
+(such as a line number, for example, <code>foo::EXIT22</code>).  Daikon produces
+the main (non-numbered) <code>:::EXIT</code> point automatically.  All the
+numbered exits should contain the same set of variables; in general,
+this means that local variables are not included at exit points. 
+Daikon currently requires that declarations for <code>:::ENTER</code> program
+points appear before any declarations for matching <code>:::EXIT</code> program
+points.
+
+   <p>Another convention is to have another program point whose
+<var>bottomLevel</var> is empty and whose <var>pptInfo</var> is  <code>OBJECT</code>:
+for example, <code>StackAr:::OBJECT</code>.  This contains the
+representation invariant (sometimes called the object invariant) of a
+class.  This program point is created automatically by Daikon; it need
+not appear in a trace file.
+
+<!-- This program point is not created automatically by Daikon, because -->
+<!-- there isn't a way to know whether a particular method is a private -->
+<!-- helper method or not - that is, whether the representation -->
+<!-- invariants should hold on entry to and exit from it. -->
+<div class="node">
+<p><hr>
+<a name="V1-VarComparability-declaration"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#V1-ListImplementors-declaration">V1 ListImplementors declaration</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#V1-pptname-format">V1 pptname format</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Version-1-Declarations">Version 1 Declarations</a>
+
+</div>
+
+<h4 class="subsection">A.6.3 V1 VarComparability declaration</h4>
+
+<p>There is a special <code>VarComparability</code> declaration that controls how
+the comparability field in program point declarations is interpreted. 
+The default <code>VarComparability</code> is <code>implicit</code>, which means
+ordinary comparability as described in <a href="#Program-point-declarations">Program point declarations</a>. 
+(The name <code>implicit</code> is retained for historical reasons.) 
+You can override it as
+follows:
+<pre class="example">     VarComparability
+     none
+</pre>
+   <p class="noindent">As with all records in Daikon input files, a
+blank line is required between this record and the next one.
+
+<div class="node">
+<p><hr>
+<a name="V1-ListImplementors-declaration"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#V1-VarComparability-declaration">V1 VarComparability declaration</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Version-1-Declarations">Version 1 Declarations</a>
+
+</div>
+
+<h4 class="subsection">A.6.4 V1 ListImplementors declaration</h4>
+
+<p>This declaration indicates classes that implement the
+<code>java.util.List</code> interface, and should be treated as sequences
+for the purposes of invariant detection.  The syntax is as follows:
+
+<pre class="example">     ListImplementors
+     &lt;classname1&gt;
+     &lt;classname2&gt;
+     ...
+</pre>
+   <p>Each classname is in Java format (for example, &ldquo;java.util.LinkedList&rdquo;).
+
+   <p>The `<samp><span class="samp">--list_type</span></samp>' command-line option to Daikon can also be used to
+specify classes that implement lists; See <a href="daikon.html#Options-to-control-invariant-detection">Options to control invariant detection</a>.
+
+<div class="node">
+<p><hr>
+<a name="Index"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#File-formats">File formats</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="unnumbered">Index</h2>
+
+<ul class="index-cp" compact>
+<li><a href="#index-g_t_002edecls-file-67">.decls file</a>: <a href="#Declarations">Declarations</a></li>
+<li><a href="#index-g_t_002edecls-file-_0028version-1_0029-81">.decls file (version 1)</a>: <a href="#Version-1-Declarations">Version 1 Declarations</a></li>
+<li><a href="#index-g_t_002edtrace-file-75">.dtrace file</a>: <a href="#Data-trace-records">Data trace records</a></li>
+<li><a href="#index-g_t_002ejpp-files-6">.jpp files</a>: <a href="#Compiling-Daikon">Compiling Daikon</a></li>
+<li><a href="#index-adding-new-derived-variables-19">adding new derived variables</a>: <a href="#New-derived-variables">New derived variables</a></li>
+<li><a href="#index-adding-new-invariants-16">adding new invariants</a>: <a href="#New-invariants">New invariants</a></li>
+<li><a href="#index-adding-new-output-formats-23">adding new output formats</a>: <a href="#New-formatting-for-invariants">New formatting for invariants</a></li>
+<li><a href="#index-adding-new-regression-tests-61">adding new regression tests</a>: <a href="#Adding-regression-tests">Adding regression tests</a></li>
+<li><a href="#index-adding-new-suppressors-34">adding new suppressors</a>: <a href="#New-suppressors">New suppressors</a></li>
+<li><a href="#index-adding-new-unit-tests-53">adding new unit tests</a>: <a href="#Unit-testing">Unit testing</a></li>
+<li><a href="#index-branches_002c-in-CVS-repository-64">branches, in CVS repository</a>: <a href="#Branches">Branches</a></li>
+<li><a href="#index-C-programs_002c-instrumenting-27">C programs, instrumenting</a>: <a href="#Instrumenting-C-programs">Instrumenting C programs</a></li>
+<li><a href="#index-changing-Daikon-2">changing Daikon</a>: <a href="#Extending-Daikon">Extending Daikon</a></li>
+<li><a href="#index-comparability_002c-for-variables-68">comparability, for variables</a>: <a href="#Variable-comparability">Variable comparability</a></li>
+<li><a href="#index-comparability_002c-for-variables-_0028decls-format-version-1_0029-82">comparability, for variables (decls format version 1)</a>: <a href="#V1-Program-point-declarations">V1 Program point declarations</a></li>
+<li><a href="#index-compiling-daikon-5">compiling daikon</a>: <a href="#Compiling-Daikon">Compiling Daikon</a></li>
+<li><a href="#index-customizing-Daikon-3">customizing Daikon</a>: <a href="#Extending-Daikon">Extending Daikon</a></li>
+<li><a href="#index-CVS-repository-63">CVS repository</a>: <a href="#Historical">Historical</a></li>
+<li><a href="#index-CVS-repository-13">CVS repository</a>: <a href="#CVS-repository">CVS repository</a></li>
+<li><a href="#index-Daikon-internals-41">Daikon internals</a>: <a href="#Daikon-internals">Daikon internals</a></li>
+<li><a href="#index-data-trace-format-74">data trace format</a>: <a href="#Data-trace-records">Data trace records</a></li>
+<li><a href="#index-dataflow-hierarchy-47">dataflow hierarchy</a>: <a href="#Dataflow-hierarchy">Dataflow hierarchy</a></li>
+<li><a href="#index-deallocated-pointers-33">deallocated pointers</a>: <a href="#Instrumenting-C-programs">Instrumenting C programs</a></li>
+<li><a href="#index-debugging-Daikon-37">debugging Daikon</a>: <a href="#Debugging-Daikon">Debugging Daikon</a></li>
+<li><a href="#index-declaration-file-format-71">declaration file format</a>: <a href="#Variable-declarations">Variable declarations</a></li>
+<li><a href="#index-declaration-format-66">declaration format</a>: <a href="#Declarations">Declarations</a></li>
+<li><a href="#index-derived-variable-17">derived variable</a>: <a href="#New-derived-variables">New derived variables</a></li>
+<li><a href="#index-Eclipse-14">Eclipse</a>: <a href="#Using-Eclipse">Using Eclipse</a></li>
+<li><a href="#index-efficiency-issues-42">efficiency issues</a>: <a href="#Daikon-internals">Daikon internals</a></li>
+<li><a href="#index-equality-optimization-49">equality optimization</a>: <a href="#Equality-optimization">Equality optimization</a></li>
+<li><a href="#index-extending-Daikon-1">extending Daikon</a>: <a href="#Extending-Daikon">Extending Daikon</a></li>
+<li><a href="#index-file-formats-65">file formats</a>: <a href="#File-formats">File formats</a></li>
+<li><a href="#index-front-end_002c-writing-24">front end, writing</a>: <a href="#New-front-ends">New front ends</a></li>
+<li><a href="#index-hashcode-type_002c-for-variables-73">hashcode type, for variables</a>: <a href="#Variable-declarations">Variable declarations</a></li>
+<li><a href="#index-hierarchy-48">hierarchy</a>: <a href="#Dataflow-hierarchy">Dataflow hierarchy</a></li>
+<li><a href="#index-instrumenting-C-programs-28">instrumenting C programs</a>: <a href="#Instrumenting-C-programs">Instrumenting C programs</a></li>
+<li><a href="#index-instrumenting-Java-programs-25">instrumenting Java programs</a>: <a href="#Example-instrumented-Java-program">Example instrumented Java program</a></li>
+<li><a href="#index-invalid-values-30">invalid values</a>: <a href="#Instrumenting-C-programs">Instrumenting C programs</a></li>
+<li><a href="#index-Java-compiler_002c-specifying-10">Java compiler, specifying</a>: <a href="#Compiling-Daikon">Compiling Daikon</a></li>
+<li><a href="#index-Java-programs_002c-instrumenting-26">Java programs, instrumenting</a>: <a href="#Example-instrumented-Java-program">Example instrumented Java program</a></li>
+<li><a href="#index-javac-compiler_002c-overriding-9">javac compiler, overriding</a>: <a href="#Compiling-Daikon">Compiling Daikon</a></li>
+<li><a href="#index-Jikes-compiler-8">Jikes compiler</a>: <a href="#Compiling-Daikon">Compiling Daikon</a></li>
+<li><a href="#index-jpp-files-7">jpp files</a>: <a href="#Compiling-Daikon">Compiling Daikon</a></li>
+<li><a href="#index-log2html-40">log2html</a>: <a href="#Track-log-output">Track log output</a></li>
+<li><a href="#index-logging-38">logging</a>: <a href="#Track-logging">Track logging</a></li>
+<li><a href="#index-MacOSX_002c-compiling-12">MacOSX, compiling</a>: <a href="#Compiling-Daikon">Compiling Daikon</a></li>
+<li><a href="#index-missing-values-for-variables_002c-see-nonsensical-values-77">missing values for variables, see nonsensical values</a>: <a href="#Data-trace-records">Data trace records</a></li>
+<li><a href="#index-modified-bit-78">modified bit</a>: <a href="#Data-trace-records">Data trace records</a></li>
+<li><a href="#index-modifying-Daikon-4">modifying Daikon</a>: <a href="#Extending-Daikon">Extending Daikon</a></li>
+<li><a href="#index-new-derived-variables-20">new derived variables</a>: <a href="#New-derived-variables">New derived variables</a></li>
+<li><a href="#index-new-invariants-15">new invariants</a>: <a href="#New-invariants">New invariants</a></li>
+<li><a href="#index-new-output-formats-22">new output formats</a>: <a href="#New-formatting-for-invariants">New formatting for invariants</a></li>
+<li><a href="#index-new-regression-tests-62">new regression tests</a>: <a href="#Adding-regression-tests">Adding regression tests</a></li>
+<li><a href="#index-new-suppressors-35">new suppressors</a>: <a href="#New-suppressors">New suppressors</a></li>
+<li><a href="#index-new-unit-tests-52">new unit tests</a>: <a href="#Unit-testing">Unit testing</a></li>
+<li><a href="#index-non_002dchecking-of-invariants-45">non-checking of invariants</a>: <a href="#Avoiding-work-for-redundant-invariants">Avoiding work for redundant invariants</a></li>
+<li><a href="#index-non_002dinstantiation-of-invariants-44">non-instantiation of invariants</a>: <a href="#Avoiding-work-for-redundant-invariants">Avoiding work for redundant invariants</a></li>
+<li><a href="#index-non_002dprinting-of-invariants-46">non-printing of invariants</a>: <a href="#Avoiding-work-for-redundant-invariants">Avoiding work for redundant invariants</a></li>
+<li><a href="#index-nonce_002c-invocation-79">nonce, invocation</a>: <a href="#Data-trace-records">Data trace records</a></li>
+<li><a href="#index-nonsensical-values-31">nonsensical values</a>: <a href="#Instrumenting-C-programs">Instrumenting C programs</a></li>
+<li><a href="#index-nonsensical-values-for-variables-76">nonsensical values for variables</a>: <a href="#Data-trace-records">Data trace records</a></li>
+<li><a href="#index-optimizations-43">optimizations</a>: <a href="#Daikon-internals">Daikon internals</a></li>
+<li><a href="#index-output-format_002c-defining-new-21">output format, defining new</a>: <a href="#New-formatting-for-invariants">New formatting for invariants</a></li>
+<li><a href="#index-pointer-variables_002c-see-_0060_0060hashcode_0027_0027-type-72">pointer variables, see &ldquo;hashcode&rdquo; type</a>: <a href="#Variable-declarations">Variable declarations</a></li>
+<li><a href="#index-regression-tests-60">regression tests</a>: <a href="#Regression-tests">Regression tests</a></li>
+<li><a href="#index-suppressors_002c-adding-new-36">suppressors, adding new</a>: <a href="#New-suppressors">New suppressors</a></li>
+<li><a href="#index-testing-Daikon-50">testing Daikon</a>: <a href="#Testing">Testing</a></li>
+<li><a href="#index-this_005finvocation_005fnonce-80">this_invocation_nonce</a>: <a href="#Data-trace-records">Data trace records</a></li>
+<li><a href="#index-track-logging-39">track logging</a>: <a href="#Track-logging">Track logging</a></li>
+<li><a href="#index-uninitialized-variables-32">uninitialized variables</a>: <a href="#Instrumenting-C-programs">Instrumenting C programs</a></li>
+<li><a href="#index-unit-testing-51">unit testing</a>: <a href="#Unit-testing">Unit testing</a></li>
+<li><a href="#index-units-of-measurement_002c-see-variable-comparability-70">units of measurement, see variable comparability</a>: <a href="#Variable-comparability">Variable comparability</a></li>
+<li><a href="#index-valid-values-29">valid values</a>: <a href="#Instrumenting-C-programs">Instrumenting C programs</a></li>
+<li><a href="#index-variable-comparability-69">variable comparability</a>: <a href="#Variable-comparability">Variable comparability</a></li>
+<li><a href="#index-variable-comparability-_0028decls-format-version-1_0029-83">variable comparability (decls format version 1)</a>: <a href="#V1-Program-point-declarations">V1 Program point declarations</a></li>
+<li><a href="#index-variable_002c-derived-18">variable, derived</a>: <a href="#New-derived-variables">New derived variables</a></li>
+<li><a href="#index-Windows_002c-compiling-11">Windows, compiling</a>: <a href="#Compiling-Daikon">Compiling Daikon</a></li>
+   </ul></body></html>
+

@@ -1,0 +1,489 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on December, 19 2009 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>The Daikon Invariant Detector User Manual: 10. Details</title>
+
+<meta name="description" content="The Daikon Invariant Detector User Manual: 10. Details">
+<meta name="keywords" content="The Daikon Invariant Detector User Manual: 10. Details">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Details"></a>
+<a name="SEC146"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="daikon_9.html#SEC145" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC147" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon_9.html#SEC123" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 10. Details </h1>
+
+<p>The Daikon invariant detector is named after an Asian radish.
+&quot;Daikon&quot; is pronounced like the combination of the two one-syllable
+English words &quot;die-con&quot;.
+</p>
+<p>More information on Daikon can be found in the Daikon Developer Manual
+(see <a href="..//index.html#Top">(./developer)Top</a> section `Top' in <cite>Daikon Developer Manual</cite>).
+For instance, the Daikon Developer Manual indicates how to extend
+Daikon with new invariants, new derived variables, and front ends for
+new languages.  It also contains information about the implementation
+and about debugging flags.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC147">10.1 History</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                     
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC148">10.2 License</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                     
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC149">10.3 Mailing lists reminder</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC150">10.4 Credits</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                     
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC151">10.5 Citing Daikon</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="History"></a>
+<a name="SEC147"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC146" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC148" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 10.1 History </h2>
+
+<p>This manual describes Daikon version 4.6.3, released December 18, 2009.
+A more detailed list of revisions since mid-2001 can be found in file
+<tt>`daikon/doc/CHANGES'</tt> in the distribution; this section gives a
+high-level view of the package's history.
+</p>
+<p>There have been four major releases of Daikon, with different features
+and capabilities.  User experiences and technical papers should be
+judged based on the version of Daikon current at the time of use.
+</p>
+<a name="IDX124"></a>
+<a name="IDX125"></a>
+<a name="IDX126"></a>
+<a name="IDX127"></a>
+
+<p>Daikon 1 was written in the Python programming language in 1998.  It included
+front ends for C, Java, and Lisp.  The C front end was extremely limited
+and failed to operate correctly on all C programs:  sometimes it
+suffered a segmentation fault while instrumenting a target program, and even
+when that did not happen, sometimes the instrumented program
+segmentation-faulted while running.  The Lisp front end operated
+correctly on all Lisp programs, but only instrumented certain common
+constructs, leaving other language features uninstrumented.  The Java front
+end was reasonably reliable.  The Lisp front end instrumented procedure
+entries, exits, and loop heads; the C front ends instrumented only
+procedure entries and exits; and the Java front end instrumented program
+points for object invariants as well as procedure entries and exits.
+</p>
+<p>Daikon 2 was a complete rewrite in the Java programming language and was
+the first version to contain a substantive manual.  Daikon 2 uses the
+same source-based Java front end as did Daikon 1, though with certain
+enhancements.  Its C front end was rewritten from scratch; it
+instruments only procedure entries and exits.  A front end also exists
+for the IOA programming language, but is not included in the Daikon
+distribution.
+</p>
+<p>Daikon 3 is a redesign of the invariant detection engine to work
+incrementally -- that is, to examine each sample (execution of a
+program point) once, then discard it.  By contrast, Daikon 1 and
+Daikon 2 made multiple passes over the data.  This simplified their
+algorithms but required storing all the data in memory at once, which
+was prohibitive, particularly since data trace files may be gigabytes
+in size.  Daikon 3 also introduces the idea of a <em>dataflow
+hierarchy</em>, a way to relate and connect program points based on their
+variables.
+</p>
+<p>Daikon 4 includes new binary front ends for Java and for C.  These front
+ends make Daikon much easier to use.  Daikon 4 makes <tt>`.decls'</tt> files
+optional; program point declarations are permitted to appear in
+<tt>`.dtrace'</tt> files.  Daikon 4 is released under more liberal licensing
+conditions that place no restrictions on use.
+</p>
+
+<hr size="6">
+<a name="License"></a>
+<a name="SEC148"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC147" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC149" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 10.2 License </h2>
+
+
+<p>Copyright &copy; 1998-2008 Massachusetts Institute of Technology
+</p>
+<p>Copyright &copy; 2008-2009 University of Washington
+</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+&quot;Software&quot;), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+</p>
+<p>The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+</p>
+<p>The names and trademarks of copyright holders may not be used in
+advertising or publicity pertaining to the software without specific prior
+permission. Title to copyright in this software and any associated
+documentation will at all times remain with the copyright holders.
+</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+
+
+<br>
+
+<p>Daikon uses the Java port of the GNU getopt library, which is
+copyright 1998 Aaron M. Renn.  The getopt library is free software, and
+may be redistributed or modified under the terms of the GNU Library
+General Public License version 2.  A copy of this license is included
+with the Daikon distribution as the file
+<tt>`java/gnu/getopt/COPYING.LIB'</tt>.
+</p>
+<p>Daikon's unit tests use the JUnit testing framework, which is governed
+by the Common Public License, version 1.0.  JUnit is provided on an
+&quot;as is&quot; basis, without warranties or conditions of any kind, either
+express or implied including, without limitation, any warranties or
+conditions of title, non-infringement, merchantability or fitness for
+a particular purpose.  Neither the Daikon developers nor the authors of
+the JUnit framework shall have any liability for any direct, indirect,
+incidental, special, exemplary, or consequential damages (including
+without limitation lost profits), however caused and on any theory of
+liability, whether in contract, strict liability, or tort (including
+negligence or otherwise) arising in any way out of the use or
+distribution of JUnit or the exercise of any rights granted in
+the Common Public License, even if advised of the possibility of such
+damages.  Those portions of JUnit that appear in the Daikon
+distribution may be redistributed under the same terms as Daikon
+itself; this offer is made by the Daikon developers exclusively and
+not by any other party.  The Common Public License is included with the
+Daikon distribution as the file <tt>`java/junit/cpl-v10.html'</tt>.
+</p>
+<p>Note that the front ends discussed in this manual are separate
+programs, and some are made available under different licenses.
+Because the front ends are separate
+programs not derived from the Daikon invariant detection tool, you are
+neither required nor entitled to use the Daikon invariant detector
+itself under these other licenses.
+</p>
+<p>The Daikon Perl front end dfepl may be used and distributed under the
+regular Daikon license or, at your option, either the GNU General
+Public License or the Perl Artistic License (that is, under the same
+terms as Perl itself).
+</p>
+<p>The Daikon C/C++ front end Kvasir is based in part on the Valgrind
+dynamic program supervision framework, copyright 2000-2004 Julian
+Seward, the Sparrow Valgrind tool, copyright 2002 Nicholas Nethercote,
+the MemCheck Valgrind tool, copyright 2000-2004 Julian Seward, the
+readelf program of the GNU Binutils, copyright 1998-2003 the Free
+Software Foundation, Inc., the GNU C Library, copyright 1995, 1996,
+1997, 2000  the Free Software Foundation, Inc., and the Diet libc,
+copyright Felix von Leitner et al.  Kvasir is free software; you can
+redistribute it and/or modify it under the terms of the GNU General
+Public License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+Kvasir is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+for more details.  You should have received a copy of the GNU General
+Public License along with Kvasir, in a file kvasir/COPYING;
+if not, write to the Free
+Software Foundation, Inc., 51 Franklin St., Fifth Floor, Boston, MA
+02110-1301, USA.
+</p>
+<p>The Windows version of the Mangel-Wurzel C/C++ front end incorporates
+the regular expression library written by Henry Spencer, which bears
+this copyright notice:
+</p>
+<blockquote><p>Copyright 1992, 1993, 1994, 1997 Henry Spencer.  All rights reserved.
+This software is not subject to any license of the American Telephone
+and Telegraph Company or of the Regents of the University of California.
+</p>
+<p>Permission is granted to anyone to use this software for any purpose on
+any computer system, and to alter it and redistribute it, subject
+to the following restrictions:
+</p>
+<ol>
+<li> The author is not responsible for the consequences of use of this
+   software, no matter how awful, even if they arise from flaws in it.
+
+</li><li> The origin of this software must not be misrepresented, either by
+   explicit claim or by omission.  Since few users ever read sources,
+   credits must appear in the documentation.
+
+</li><li> Altered versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.  Since few users
+   ever read sources, credits must appear in the documentation.
+
+</li><li> This notice may not be removed or altered.
+</li></ol>
+</blockquote>
+
+
+<hr size="6">
+<a name="Mailing-lists-reminder"></a>
+<a name="SEC149"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC148" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC150" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 10.3 Mailing lists reminder </h2>
+
+<p>If you use Daikon, please subscribe to the daikon-announce and
+daikon-discuss mailing lists (see section <a href="daikon_1.html#SEC2">Mailing lists</a>).  The
+daikon-announce list will inform you of new versions, enhancements,
+and bug fixes.  On the daikon-discuss mailing list, you can obtain
+help from, and offer help to, other users.  We would also appreciate a
+brief description of how you are using Daikon, sent to
+<a href="mailto:daikon-developers@lists.csail.mit.edu">daikon-developers@lists.csail.mit.edu</a>.  We are curious about how
+users exploit Daikon, and we are eager for anecdotes about its
+successes and failures, so that we can make Daikon more effective for
+its users.
+</p>
+
+<hr size="6">
+<a name="Credits"></a>
+<a name="SEC150"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC149" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC151" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 10.4 Credits </h2>
+
+
+<p>The following individuals have contributed to Daikon:
+Yuriy Brun,
+Jake Cockrell,
+David Cok,
+Adam Czeisler,
+Brian Demsky,
+Alan Donovan,
+Nii Dodoo,
+Alan Dunn,
+Michael Ernst,
+Eric Fellheimer,
+William Griswold,
+Philip Guo,
+Melissa Hao,
+Michael Harder,
+Dieter von Holten,
+Greg Jay,
+Josh Kataoka,
+Lee Lin,
+Sandra Loosemore,
+Vikash Mansinghka,
+Stephen McCamant,
+Samir Meghani,
+Benjamin Morse,
+Jelani Nelson,
+Ryan Newton,
+Jeremy Nimmer,
+Toh Ne Win,
+David Notkin,
+Carlos Pacheco,
+Jeff Perkins,
+Jaime Quinonez,
+Robert Rudd,
+Alexandru Salcianu,
+Kathryn Shih,
+Matthew Tschantz,
+Iuliu Vasilescu,
+Chen Xiao,
+Tao Xie,
+Jeff Yuan.
+</p>
+<p>Craig Kaplan carved the Daikon logo.
+</p>
+<p>The feedback of Daikon users has been very valuable.  We are
+particularly grateful to
+B. Thomas Adler,
+Rich Angros,
+Tadashi Araragi,
+Seung Mo Cho,
+Christoph Csallner,
+Dorothy Curtis,
+Diego Garbervetsky,
+Mangala Gowri,
+Madeline Hardojo,
+Engelbert Hubbers,
+Nadya Kuzmina,
+Scott McMaster,
+Charles O'Donnell,
+Alex Orso,
+Rodric Rabbah,
+Manos Renieris,
+Rosie Wacha.
+Many others have also been generous with their feedback, for which we
+are also grateful.
+</p>
+<p>If your name has been inadvertently omitted from this section, please
+let us know so we can correct the oversight.
+</p>
+<p>Financial support has been provided by:
+National Science Foundation (NSF),
+Defense Advanced Research Projects Agency (DARPA),
+ABB,
+Edison Design Group,
+IBM,
+NTT,
+MIT Oxygen Project,
+Raytheon,
+Toshiba.
+</p>
+
+<hr size="6">
+<a name="Citing-Daikon"></a>
+<a name="SEC151"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC150" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC146" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 10.5 Citing Daikon </h2>
+
+<p>If you wish to cite Daikon in a publication, we recommend that you
+reference one of the scholarly papers listed at
+<a href="http://pag.csail.mit.edu/daikon/pubs/#invariant-detection">http://pag.csail.mit.edu/daikon/pubs/#invariant-detection</a> in lieu
+of, or in addition to, referencing this manual and the Daikon website
+(<a href="http://pag.csail.mit.edu/daikon/">http://pag.csail.mit.edu/daikon/</a>).
+</p>
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC146" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daikon User</em> on <em>December, 19 2009</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

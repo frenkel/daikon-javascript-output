@@ -1,0 +1,2641 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on December, 19 2009 by texi2html 1.76 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>The Daikon Invariant Detector User Manual: 5. Daikon output</title>
+
+<meta name="description" content="The Daikon Invariant Detector User Manual: 5. Daikon output">
+<meta name="keywords" content="The Daikon Invariant Detector User Manual: 5. Daikon output">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.76">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Daikon-output"></a>
+<a name="SEC34"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="daikon_4.html#SEC33" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC35" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon_4.html#SEC28" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 5. Daikon output </h1>
+
+<p>Daikon outputs the invariants that it discovers in textual form to your
+terminal.  This chapter describes how to interpret those invariants --
+in other words, what do they mean?
+</p>
+<p>Daikon also creates a <tt>`.inv'</tt> file that contains the invariants in
+serialized (binary) form.  You can use the <tt>`.inv'</tt> file to print the
+invariants (see section <a href="daikon_8.html#SEC113">Printing invariants</a>) in a variety of formats, to
+insert the invariants in your source code (see section <a href="daikon_8.html#SEC116">Annotate</a>), to perform
+run-time checking of the invariants (see <a href="daikon_8.html#SEC118">Runtime-check instrumenter (runtimechecker)</a>,
+and <a href="daikon_8.html#SEC120">InvariantChecker</a>), and to do various other operations.  See
+<a href="daikon_8.html#SEC111">Tools for use with Daikon</a>, for descriptions of such tools.
+</p>
+<p>If you wish to write your own tools for processing invariants, you have
+two general options.  You can parse Daikon's textual output, or you can
+write Java code that processes the <tt>`.inv'</tt> file.  The <tt>`.inv'</tt>
+file is simply a serialized
+<a href="http://groups.csail.mit.edu/pag/daikon/download/jdoc/daikon/PptMap.html"><code>PptMap</code></a>
+object.  In addition to reading the Javadoc, you can examine how the
+other tools use this data structure.
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC35">5.1 Invariant syntax</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC36">5.2 Program points</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC37">5.3 Variable names</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC39">5.4 Interpreting Daikon output</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC43">5.5 Invariant list</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC44">5.6 Invariant filters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Invariant-syntax"></a>
+<a name="SEC35"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC34" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC36" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.1 Invariant syntax </h2>
+
+<p>Daikon can produce output in a variety of formats.  Each of the format
+names can be specified as an argument to the <samp>`--format'</samp> argument
+of Daikon (see section <a href="daikon_4.html#SEC29">Options to control Daikon output</a>), PrintInvariants
+(see section <a href="daikon_8.html#SEC113">Printing invariants</a>), and Annotate (see section <a href="daikon_8.html#SEC116">Annotate</a>).
+When passed on the command line, the format names are case-insensitive:
+<samp>`--format JML'</samp> and <samp>`--format jml'</samp> have the same effect.
+</p>
+<p>You can enhance Daikon to produce output in other formats.  See
+<a href="..//New-formatting-for-invariants.html#New-formatting-for-invariants">(./developer)New formatting for invariants</a> section `New formatting for invariants' in <cite>Daikon Developer Manual</cite>
+</p>
+<a name="IDX16"></a>
+<a name="IDX17"></a>
+
+<dl compact="compact">
+<dd>
+<a name="IDX18"></a>
+<a name="IDX19"></a>
+</dd>
+<dt> Daikon format</dt>
+<dd>
+<p>Daikon's default format is a mix of Java, mathematical logic, and some
+additional extensions.  It is intended to concisely convey meaning to
+programmers.
+</p>
+<a name="IDX20"></a>
+<a name="IDX21"></a>
+<a name="IDX22"></a>
+<a name="IDX23"></a>
+</dd>
+<dt> DBC format</dt>
+<dd><p>This format produces output in the design-by-contract (DBC) format
+expected by Parasoft's Jtest tool (<a href="http://www.parasoft.com">http://www.parasoft.com</a>).
+</p>
+
+<a name="IDX24"></a>
+<a name="IDX25"></a>
+</dd>
+<dt> ESC/Java format</dt>
+<dt> ESC format</dt>
+<dd><p>The Extended Static Checker for Java (ESC/Java) is a programming tool
+for finding errors in Java programs by checking annotations that are
+inserted in source code; for more details, see
+<a href="http://www.hpl.hp.com/downloads/crl/jtk/">http://www.hpl.hp.com/downloads/crl/jtk/</a>.  Daikon's ESC/Java format
+(which can also be specified as ESC format) is intended for use with the
+original ESC/Java tool.  Use Daikon's JML format for use with the
+<a href="http://kind.ucd.ie/products/opensource/ESCJava2/">ESC/Java2</a>
+tool.
+</p>
+
+<a name="IDX26"></a>
+<a name="IDX27"></a>
+</dd>
+<dt> Java format</dt>
+<dd><p>Write output as Java expressions.  This means that each invariant
+would be a valid Java expression, if inserted at the correct program
+point: right after method entry, for method entry invariants;
+right before method exit, for method exit invariants;, or anywhere in
+the code, for object invariants.
+</p>
+<p>There are two exceptions.  Method exit invariants that refer to
+prestate, such as <samp>`x == old(x) + 1'</samp>, are output with the tag
+<samp>`\old'</samp> surrounding the prestate expression (e.g. <samp>`x ==
+\old(x) + 1'</samp>.  Method exit invariants that refer to the return value of
+the method, such as <samp>`return == x + y'</samp>, are output with the tag
+<samp>`\result'</samp> in place of the return value (e.g. <samp>`\result == x + y'</samp>).
+These expression are obviously not valid Java code.
+</p>
+
+<a name="IDX28"></a>
+<a name="IDX29"></a>
+</dd>
+<dt> JML format</dt>
+<dd><p>Produces output in JML (Java Modeling Language,
+<a href="http://www.jmlspecs.org">http://www.jmlspecs.org</a>); for details, see the
+<a href="http://www.cs.ucf.edu/~leavens/JML/">JML Manual</a>.  JML
+format lets you use the various JML tools on Daikon invariants,
+including runtime assertion checking and the
+<a href="http://kind.ucd.ie/products/opensource/ESCJava2/">ESC/Java2</a>
+tool.
+</p>
+
+<a name="IDX30"></a>
+<a name="IDX31"></a>
+</dd>
+<dt> Simplify format</dt>
+<dd><p>Produces output in the format expected by the Simplify automated theorem
+prover; for details, see the 
+<a href="http://www.hpl.hp.com/downloads/crl/jtk/">Simplify distribution</a>.
+</p>
+</dd>
+</dl>
+
+
+<hr size="6">
+<a name="Program-points"></a>
+<a name="SEC36"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC35" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC37" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.2 Program points </h2>
+
+<p>A program point is a specific place in the source code, such as
+immediately before a particular line of code.  Daikon's output is
+organized by program points.
+</p>
+<a name="IDX32"></a>
+<a name="IDX33"></a>
+<a name="IDX34"></a>
+
+<p>For example, <code>foo():::ENTER</code> is the point at the entry to procedure
+<code>foo()</code>; the invariants at that point are the preconditions for the
+<code>foo()</code> method, properties that are always true when the procedure
+is invoked.
+</p>
+<a name="IDX35"></a>
+<a name="IDX36"></a>
+<a name="IDX37"></a>
+<a name="IDX38"></a>
+<a name="IDX39"></a>
+
+<p>Likewise, <code>foo():::EXIT</code> is the program point at the procedure
+exit, and invariants there are postconditions.  When there are multiple
+exit points from a procedure (for instance, because of multiple
+<code>return</code> statements), the different exits are differentiated by
+suffixing them with their line numbers; for instance,
+<code>StackAr.top():::EXIT79</code>.  The exit point lacking a line number (in
+this example, <code>StackAr.top():::EXIT</code>) collects the postconditions
+that are true at every numbered exit point.  This is an example of a
+program point that represents a collection of locations in the program
+source rather than a single location.  This concept is represented in
+Daikon by the dataflow hierarchy, see
+<a href="..//Dataflow-hierarchy.html#Dataflow-hierarchy">(./developer)Dataflow hierarchy</a> section `Dataflow hierarchy' in <cite>Daikon Developer Manual</cite>.
+</p>
+<a name="IDX40"></a>
+<a name="IDX41"></a>
+<a name="IDX42"></a>
+<a name="IDX43"></a>
+<a name="IDX44"></a>
+<a name="IDX45"></a>
+<a name="IDX46"></a>
+
+<p>Two other program point tags that have special meaning to Daikon's hierarchy
+organization are <code>:::OBJECT</code> and <code>:::CLASS</code>.
+The <code>:::OBJECT</code> tag indicates object invariants (sometimes called
+representation invariants or class invariants) over all the instance
+(member) fields and static fields of the class.  These properties always hold
+for any object of the given class, from the point of view of a client or
+user.  These properties hold at entry to and exit from every public
+method of the class (except not the entry to constructors, when fields
+are not yet initialized).
+</p>
+<p>The <code>:::CLASS</code> tag is just like <code>:::OBJECT</code>, but only for
+static variables, which have only one value for all objects.  Static
+fields and instance fields are often used for different purposes.
+Daikon's separation of the two types of fields permits programmers to
+see the properties over the static fields without knowing which are the
+static fields and pick them out of the <code>:::OBJECT</code> program point.
+</p>
+<a name="IDX47"></a>
+
+<p>(By contrast, ESC/Java and JML make class invariants hold even at the
+entry and exit of private methods.  Their designers believe that most
+private methods preserve the class invariant and are called only when
+the class invariant holds.  ESC/Java and JML require an explicit
+&quot;helper&quot; annotation to indicate a private method for which the class
+invariant does not hold.)
+</p>
+<p>The Java instrumenter Chicory selects names for program
+points that include an indication of the argument and return types for
+each method.  These signatures are presented in the JVML format: one
+character for each primitive type (<samp>`B'</samp> for byte, <samp>`C'</samp> for
+character, <samp>`Z'</samp> for boolean (so as not to clash with byte), etc.);
+<samp>`L<var>classname</var>;'</samp> for object types; and a <samp>`['</samp>
+prefix for each level of array nesting.
+</p>
+
+<hr size="6">
+<a name="Variable-names"></a>
+<a name="SEC37"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC36" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC38" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.3 Variable names </h2>
+
+<p>A front end produces a trace file that associates trace variable names
+with values.  Trace variable names need not be exactly the same as the
+variables in the program.  The trace may contain values that are not
+held in any program variables; in this case, the front end must make up
+a name to express that value (see below for examples).
+</p>
+<p>Daikon ignores variable names when inferring invariants; it uses the
+names only when performing output.  (Thus, the only practical
+restriction on trace names is that the VarInfoName <code>parse</code> method
+must be able to parse the name.)
+</p>
+<p>By convention, trace variables are similar to program variables and
+field accesses.  For example, <code>w</code> and <code>x.y.z</code> are legal trace
+variables.  (So are <samp>`a[i]'</samp>, and
+<samp>`a[0].next'</samp>, but these are usually handled as derived variables
+instead; see below.)  As in languages such as
+Java and C, a period character represents field access and square
+brackets represent selecting an element of a sequence.
+</p>
+<a name="IDX48"></a>
+
+<p>In addition to variables that appear in the trace file, Daikon creates
+additional variables, called &quot;derived variables&quot;, by combining trace
+variables.  For example, for any array <code>a</code> and integer <code>i</code>,
+Daikon creates a derived variable <code>a[i]</code>.  This is not a variable
+in the program (and this expression might not even appear in the source
+code), but it may still be useful to compute invariants over this
+expression.  For a list of derived variables and how to control Daikon's
+use of them, see <a href="daikon_6.html#SEC51">Options to enable/disable derived variables</a>.
+</p>
+<a name="IDX49"></a>
+
+<p>Some trace variables and derived variables may represent meaningless
+expressions; in such a circumstance, the value is said to be nonsensical
+(see <a href="..//Nonsensical-values.html#Nonsensical-values">(./developer)Nonsensical values</a> section `Nonsensical values' in <cite>Daikon Developer Manual</cite>).
+</p>
+<p>The remainder of this section describes conventions for naming
+expressions.  Those that cannot be named by simple C/Java expressions
+are primarily related to arrays and sequences.  (In part, these special
+expressions are necessary because Daikon can only handle variables of
+scalar (integer, floating-point, boolean, String) and array-of-scalar
+types.  Daikon cannot handle structs, classes, or multi-dimensional
+arrays or structures, but such data structures can be represented as
+scalars and arrays by choosing variable names that indicate their
+relationship.)
+</p>
+
+<ul>
+<li>
+<code>a[i]</code> array access.
+<code>a</code> and <code>i</code> are themselves
+arbitrary variable names, of array and integral type, respectively.
+
+</li><li>
+<a name="IDX50"></a>
+<a name="IDX51"></a>
+<code>a[-1]</code> from-end array access.
+<code>a[-1]</code> denotes the last element of array <code>a</code>;
+it is syntactic sugar for <code>a[a.length-1]</code>.
+
+</li><li>
+<a name="IDX52"></a>
+<code>a[]</code> array contents.
+For array-valued expression <code>a</code>, all of its elements, as a
+sequence.  Simply using the expression <code>a</code> means the identity
+(address or hashcode) of the array, not a list of its elements.  For two
+arrays <code>a</code> and <code>b</code>, <samp>`a=b'</samp> implies <samp>`a[]=b[]'</samp>, but
+<samp>`a[]=b[]'</samp> does not imply <samp>`a=b'</samp>.
+
+</li><li> <code>x.y</code>, <code>x-&gt;y</code> field access.
+When field access is applied to a structure/class, it has the usual
+meaning of selecting one field from the structure/class.
+
+<p>When field access is applied to an array, it means to map the field
+access across the elements of the array.  For example, if <code>a</code> is an
+array, then <code>a[].foo</code> is the sequence consisting of the <code>foo</code>
+fields of each of the elements of <code>a</code>.  Likewise,
+<code>a[].foo.bar</code> contains the <code>bar</code> fields of <code>a[].foo</code>.  By
+contrast, <code>a.foo</code> does not make sense, because one cannot ask for
+the <code>foo</code> field of an address, and <code>a[].foo[]</code> would be a
+two-dimensional array.
+</p>
+
+</li><li>
+<a name="IDX53"></a>
+As in Java, <code>x.getClass()</code> is the runtime type of <code>x</code>, which may
+differ from its declared type.
+
+</li><li>
+<a name="IDX54"></a>
+<code>a.length</code> is the length (number of elements) of array <code>a</code>;
+this is not necessarily the number of initialized or used elements.
+
+</li><li>
+<a name="IDX55"></a>
+<code>s.toString</code> is the string value of String <code>s</code>, namely a
+sequence of characters.
+
+</li><li>
+<code>Classname.varname</code> static class variable.
+Static variables of a class have names of the form
+<samp>`<var>classname</var>.<var>varname</var>'</samp>
+
+</li><li>
+<a name="IDX56"></a>
+<a name="IDX57"></a>
+<code>orig(x)</code> refers to the value of variable <code>x</code> upon
+entry to a procedure (because the procedure body might modify the value
+of <code>x</code>).  These variables appear only at <code>:::EXIT</code> program
+points.  Typically, <code>orig()</code> variables do not appear in the trace,
+but are automatically created by Daikon when it matches up
+<code>:::ENTER<var>[nn]</var></code> and <code>:::EXIT</code> program points.
+See section <a href="#SEC38">orig variable example</a>.
+
+<p>This variable prints as <code>orig</code> when using Daikon output format
+(see section <a href="#SEC35">Invariant syntax</a>), but may print differently in other formats
+(such as <code>\old</code>).
+</p>
+</li><li>
+<a name="IDX58"></a>
+<a name="IDX59"></a>
+<code>post(x)</code> refers to the value of variable <code>x</code> upon exit from a
+procedure.  Such a value is usually written simply <code>x</code>; the
+<code>post</code> prefix is needed only within an <code>orig</code> expression, when
+the post-state value needs to be referenced.  Just as <code>orig</code> may
+be used only in a post-state context and specifies an expression to be
+evaluated in the pre-state, <code>post</code> may be may be used only in a
+pre-state context and specifies an expression to be evaluated in the
+post-state.  See section <a href="#SEC38">orig variable example</a>.
+
+
+
+</li><li>
+<a name="IDX60"></a>
+<code>/globalVar</code> C global variable.  In C output, global variables with
+external linkage are
+prefixed with a slash.  For instance, global <code>/x</code> is distinct from
+procedure parameter <code>/x</code>.  (In Java programs, variables can be
+distinguished by prefixing them with <code>this.</code> or, for class-static
+variables, a class name.)
+
+</li><li>
+<code>myfile_c/staticVar</code> C static variable.  In C output, file-static
+variables have names of the form <samp>`<var>filename</var>/<var>varname</var>'</samp>,
+where periods (<samp>`.'</samp>) in the filename are converted into underscores
+(<samp>`_'</samp>).  For example, <samp>`Global_c/x'</samp> is the name for a
+file-static variable <code>x</code> declared in the file <tt>`Global.c'</tt>).
+
+</li><li>
+<a name="IDX61"></a>
+<code>myfile_c@funcname/funcStaticVar</code> C function-scoped static variable.
+In C output, for static variables which are
+declared within functions, an at-sign <samp>`@'</samp> separates the filename
+and the function name and then a slash separates the function name and
+variable name (e.g., <samp>`Global_c@main/funcStaticVar'</samp> for a static
+variable <code>funcStaticVar</code> declared within the function <code>main</code>
+in the file <tt>`Global.c'</tt>).
+
+</li></ul>
+
+<a name="IDX62"></a>
+<a name="IDX63"></a>
+<a name="IDX64"></a>
+<a name="IDX65"></a>
+<p>Daikon's current front ends do not produce output for local variables,
+only for variables visible from outside a procedure.  (Also see the
+<samp>`--std-visibility'</samp> option to Chicory, <a href="daikon_7.html#SEC70">Chicory options</a>.)
+More generally, Daikon's front ends produce output at procedure exit and
+entry, not within the procedure.  Thus,
+Daikon's output forms a specification from the view of a client of a
+procedure.  If you wish to compute invariants over local variables, you
+can extend one of Daikon's front ends (or request us to do so).
+An alternative that permits computing invariants at arbitrary locations
+is to call a dummy procedure, passing all the variables of interest.
+The dummy procedure's pre- and post-conditions will be identical and will
+represent the invariants at the point of call.
+</p>
+
+<p>The array introduction operator <code>[]</code> can made Daikon variables look
+slightly odd, but it is intended to assist in interpreting the variables
+and to provide an indication that the variable name cannot be
+substituted directly in a program as an expression.
+</p>
+<p>Each array introduction operator <code>[]</code> increases the dimensionality
+of the variable, and each array indexing operation <code>[i]</code> decreases
+it.  Since all Daikon variables are scalars or one-dimensional arrays,
+these operators must be matched up, or have at most one more <code>[]</code>
+than <code>[i]</code>.  (There is one exception:  according to a strict
+interpretation of the rules, the C/Java expression <code>a[i]</code> would
+turn into the Daikon variable <code>a[][i]</code>, since it does not change
+the dimensionality of any expression it appears in.  However, that would
+be even more confusing, and the point is to avoid confusion, so by
+convention Daikon front ends use just <code>a[i]</code>, not <code>a[][i]</code>.
+Strictly speaking, none of the <code>[]</code> operators is necessary, since a
+user with a perfect knowledge of the type of each program variable and
+field could use that to infer the type of any Daikon expression.)
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC38">5.3.1 orig variable example</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="orig-variable-example"></a>
+<a name="SEC38"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC37" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC39" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC37" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 5.3.1 orig variable example </h3>
+
+
+<p>This section gives an example of use of <code>orig()</code> and <code>post()</code>
+variables and arrays.
+</p>
+<p>Suppose you have initially that (in Java syntax)
+</p><table><tr><td>&nbsp;</td><td><pre class="example">int i = 0;
+int[] a = new int[] { 22, 23 };
+int[] b = new int[] { 46, 47 };
+</pre></td></tr></table>
+
+<p>and then you run the following:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">// pre-state values at this point
+a[0] = 24;
+a[1] = 25
+a = b;
+a[0] = 48;
+a[1] = 49;
+i = 1;
+// post-state values at this point
+</pre></td></tr></table>
+<p>The values of various variables are as follows:
+</p>
+<dl compact="compact">
+<dt> <code>orig(a[i]) = 22</code></dt>
+<dd><p>The value of <code>a[i]</code> in the pre-state: {22, 23}[0]
+</p>
+</dd>
+<dt> <code>orig(a[])[orig(i)] = 22</code></dt>
+<dd><p>This is the same as orig(a[i]):   {22, 23}[0].
+</p>
+</dd>
+<dt> <code>orig(a[])[i] = 23</code></dt>
+<dd><p>The value of <code>a[]</code> in the pre-state (which is an array object, not
+a reference), indexed by the post-state value of i:  {22, 23}[1]
+</p>
+</dd>
+<dt> <code>orig(a)[orig(i)] = 24</code></dt>
+<dd><p><code>orig(a)</code> is the original value of the reference <code>a</code>, not
+<code>a</code>'s original elements: {24, 25}[0]
+</p>
+</dd>
+<dt> <code>orig(a)[i] = 25</code></dt>
+<dd><p>The original pointer value of a, indexed by the post-state value
+of i:  {24, 25}[1]
+</p>
+</dd>
+<dt> <code>a[orig(i)] = 48</code></dt>
+<dd><p>In the post-state, <code>a</code> indexed by the original value of
+<code>i</code>: {48, 49}[0]
+</p>
+</dd>
+<dt> <code>a[i] = 49</code></dt>
+<dd><p>The value of <code>a[i]</code> in the post-state.
+</p>
+</dd>
+<dt> <code>b = orig(b) = <var>some hashcode</var></code></dt>
+<dd><p>The identity of the array <code>b</code> has not changed.
+</p>
+</dd>
+<dt> <code>b[] = [48, 49]</code></dt>
+<dt> <code>orig(b[]) = [46, 47]</code></dt>
+<dd><p>For an array <code>b</code>, <samp>`b=orig(b)'</samp> does not imply <samp>`b[]=orig(b[])'</samp>.
+</p>
+</dd>
+<dt> <code>orig(a[post(i)]) = 23</code></dt>
+<dd><p>The pre-state value of <code>a[1]</code> (because the post-state value of
+<code>i</code> is 1):  {22, 23}[1]
+</p>
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Interpreting-output"></a>
+<a name="SEC39"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC38" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC40" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.4 Interpreting Daikon output </h2>
+
+
+<p>If nothing gets printed before the <samp>`Exiting'</samp> line, then Daikon
+found no invariants.  You can get a little bit more information by using
+the <samp>`--output_num_samples'</samp> flag to Daikon
+(see section <a href="daikon_4.html#SEC29">Options to control Daikon output</a>).
+</p>
+<p>Daikon's output is predicated on the assumption that all expressions
+that get evaluated are sensible.  For instance, if Daikon prints
+<samp>`a.b == 0'</samp>, then that means that if <samp>`a.b'</samp> is sensible (that
+is, <samp>`a'</samp> is non-null), then its value is zero.  If you would like
+the assumptions to be printed explicitly, then set the
+<samp>`daikon.Daikon.guardNulls'</samp> configuration option (see section <a href="daikon_6.html#SEC53">General configuration options</a>).
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC40">5.4.1 Redundant</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC41">5.4.2 Equal variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC42">5.4.3 Has only one value variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  
+</td></tr>
+</table>
+
+<hr size="6">
+<a name="Redundant-invariants"></a>
+<a name="SEC40"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC39" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC41" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC39" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 5.4.1 Redundant </h3>
+
+<p>By default, Daikon does not display redundant invariants -- those
+that are implied by other invariants in the output -- because such
+results would merely clutter the output without adding any valuable
+information.  For instance, if Daikon reports <samp>`x==y'</samp>, then it never
+also reports <samp>`x-1==y-1'</samp>.  You can control this behavior to some extent by
+disabling invariant filters; See section <a href="#SEC44">Invariant filters</a>.
+(You can also print all invariants, even
+redundant ones, by saving the invariants to a <tt>`.inv'</tt> file and
+then using the PrintInvariants (see section <a href="daikon_8.html#SEC113">Printing invariants</a>) or Diff
+(see section <a href="daikon_8.html#SEC115">Invariant Diff</a>) programs to print the results.)
+</p>
+
+<hr size="6">
+<a name="Equal-variables"></a>
+<a name="SEC41"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC40" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC42" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC39" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 5.4.2 Equal variables </h3>
+
+<p>When two or more variables are always equal, any invariant that
+is true over one variable is true over all of the variables.  Daikon
+prints invariants only over one variable (the leader) from the equal
+set.
+</p>
+<p>An equality invariant is printed for each non-leader in the equal set.
+For example, if the variables <code>a</code>, <code>b</code>, and <code>c</code> are all
+equal and <code>a</code> is chosen as the leader, the printed invariants will
+include any invariants over <code>a</code> and the equality invariants <samp>`a=b'</samp>
+and <samp>`a=c'</samp>.
+</p>
+<p>You can control which variables are in an equality set; <a href="..//Variable-comparability.html#Variable-comparability">(./developer)Variable comparability</a> section `Variable comparability' in <cite>Daikon Developer Manual</cite>.
+</p>
+
+<hr size="6">
+<a name="Has-only-one-value-variables"></a>
+<a name="SEC42"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC41" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC43" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC39" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 5.4.3 Has only one value variables </h3>
+
+
+<p>The output <samp>`<var>var</var> has only one value'</samp> in Daikon's output means
+that every time that variable <var>var</var> was encountered, it had the same
+value.  Daikon ordinarily reports the actual value, as in
+<samp>`<var>var</var> == 22'</samp>.  Typically this means that the variable is a
+hashcode or address -- that is, its declared type is <samp>`hashcode'</samp>
+(see <a href="..//Variable-declarations.html#Variable-declarations">(./developer)Variable declarations</a> section `Variable declarations' in <cite>Daikon Developer Manual</cite>).  For example, <samp>`<var>var</var> ==
+0x38E8A'</samp> is not very illuminating, but it is still interesting that
+<var>var</var> was never rebound to a different object.
+</p>
+<p>Note that <samp>`<var>var</var> has only one value'</samp> is different from
+saying that <var>var</var> is unmodified.
+</p>
+<p>A variable might have only one value but <em>not</em> be reported as unmodified
+because the variable is not a parameter to a procedure -- for instance,
+if a routine always returns the same object, or in a class invariant.  A
+variable can be reported as unmodified but <em>not</em> have only one value
+because the variable is never modified during any execution of the
+procedure, but has different values on different invocations of the
+procedure.
+</p>
+
+
+
+<hr size="6">
+<a name="Invariant-list"></a>
+<a name="SEC43"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC42" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC44" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.5 Invariant list </h2>
+
+<p>The following is a list of all of the invariants that Daikon detects.
+Each invariant has a configuration enable switch.  By default most invariants
+are enabled.  Any that are not enabled by default are indicated below.
+Some invariants also have additional configuration switches that control
+their behavior.  These are indicated below as well.
+See section <a href="daikon_6.html#SEC49">Options to enable/disable specific invariants</a>.
+</p>
+<dl compact="compact">
+<dt> AndJoiner</dt>
+<dd><p>This is a special invariant used internally by Daikon to represent
+an antecedent invariant in an implication where that antecedent
+consists of two invariants anded together.
+</p>
+</dd>
+<dt> CommonFloatSequence</dt>
+<dd><p>Represents sequences of double values that contain a common subset.
+Prints as <samp>`{e1, e2, e3, ...} subset of x[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.CommonFloatSequence.enabled'</samp>.
+</p>
+<p>See also the following configuration option:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.CommonFloatSequence.hashcode_seqs'</samp>
+    </li></ul>
+
+</dd>
+<dt> CommonSequence</dt>
+<dd><p>Represents sequences of long values that contain a common subset.
+Prints as <samp>`{e1, e2, e3, ...} subset of x[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.CommonSequence.enabled'</samp>.
+</p>
+<p>See also the following configuration option:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.CommonSequence.hashcode_seqs'</samp>
+    </li></ul>
+
+</dd>
+<dt> CommonStringSequence</dt>
+<dd><p>Represents string sequences that contain a common subset.  Prints as
+&quot;{s1, s2, s3, ...} subset of x[]&quot;.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.stringsequence.CommonStringSequence.enabled'</samp>.
+</p>
+</dd>
+<dt> DummyInvariant</dt>
+<dd><p>This is a special invariant used internally by Daikon to represent
+invariants whose meaning Daikon doesn't understand. The only
+operation that can be performed on a DummyInvariant is to print it.
+For instance, dummy invariants can be created to correspond to
+splitting conditions, when no other invariant in Daikon's grammar
+is equivalent to the condition.
+</p>
+<p>To use dummy invariants for splitting conditions, the configuration
+option <samp>`daikon.PptTopLevel.dummy_invariant_level'</samp> must be set,
+and formatting information must be supplied in the splitter info file.
+</p>
+</dd>
+<dt> EltLowerBound</dt>
+<dd><p>Represents the invariant that each element of a sequence of long
+values is greater than or equal to a constant. Prints as
+<samp>`x[] elements &gt;= c'</samp>.
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.EltLowerBound.minimal_interesting'</samp>
+    </li><li> <samp>`daikon.inv.unary.sequence.EltLowerBound.maximal_interesting'</samp>
+    </li></ul>
+
+</dd>
+<dt> EltLowerBoundFloat</dt>
+<dd><p>Represents the invariant that each element of a sequence of double
+values is greater than or equal to a constant. Prints as
+<samp>`x[] elements &gt;= c'</samp>.
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.EltLowerBoundFloat.minimal_interesting'</samp>
+    </li><li> <samp>`daikon.inv.unary.sequence.EltLowerBoundFloat.maximal_interesting'</samp>
+    </li></ul>
+
+</dd>
+<dt> EltNonZero</dt>
+<dd><p>Represents the invariant &quot;x != 0&quot; where x represents all of the elements
+of a sequence of long.  Prints as <samp>`x[] elements != 0'</samp>.
+</p>
+</dd>
+<dt> EltNonZeroFloat</dt>
+<dd><p>Represents the invariant &quot;x != 0&quot; where x represents all of the elements
+of a sequence of double.  Prints as <samp>`x[] elements != 0'</samp>.
+</p>
+</dd>
+<dt> EltOneOf</dt>
+<dd><p>Represents sequences of long values where the elements of the sequence
+take on only a few distinct values.  Prints as either
+<samp>`x[] == c'</samp> (when there is only one value), or as
+<samp>`x[] one of {c1, c2, c3}'</samp> (when there are multiple values).
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.EltOneOf.size'</samp>
+    </li><li> <samp>`daikon.inv.unary.sequence.EltOneOf.omit_hashcode_values_Simplify'</samp>
+    </li></ul>
+
+</dd>
+<dt> EltOneOfFloat</dt>
+<dd><p>Represents sequences of double values where the elements of the sequence
+take on only a few distinct values.  Prints as either
+<samp>`x[] == c'</samp> (when there is only one value), or as
+<samp>`x[] one of {c1, c2, c3}'</samp> (when there are multiple values).
+</p>
+<p>See also the following configuration option:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.EltOneOfFloat.size'</samp>
+    </li></ul>
+
+</dd>
+<dt> EltOneOfString</dt>
+<dd><p>Represents sequences of String values where the elements of the sequence
+take on only a few distinct values.  Prints as either
+<samp>`x[] == c'</samp> (when there is only one value), or as
+<samp>`x[] one of {c1, c2, c3}'</samp> (when there are multiple values).
+</p>
+<p>See also the following configuration option:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.stringsequence.EltOneOfString.size'</samp>
+    </li></ul>
+
+</dd>
+<dt> EltRangeFloat.EqualMinusOne</dt>
+<dd><p>Internal invariant representing double scalars that are equal
+to minus one.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing
+</p>
+</dd>
+<dt> EltRangeFloat.EqualOne</dt>
+<dd><p>Internal invariant representing double scalars that are equal
+to one.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing
+</p>
+</dd>
+<dt> EltRangeFloat.EqualZero</dt>
+<dd><p>Internal invariant representing double scalars that are equal
+to zero.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing.
+</p>
+</dd>
+<dt> EltRangeFloat.GreaterEqual64</dt>
+<dd><p>Internal invariant representing double scalars that are greater
+than or equal to 64.  Used for non-instantiating suppressions.  Will never
+print since Bound accomplishes the same thing
+</p>
+</dd>
+<dt> EltRangeFloat.GreaterEqualZero</dt>
+<dd><p>Internal invariant representing double scalars that are greater
+than or equal to 0.  Used for non-instantiating suppressions.  Will never
+print since Bound accomplishes the same thing
+</p>
+</dd>
+<dt> EltRangeInt.BooleanVal</dt>
+<dd><p>Internal invariant representing longs whose values are always 0
+or 1.  Used for non-instantiating suppressions.  Will never print
+since OneOf accomplishes the same thing.
+</p>
+</dd>
+<dt> EltRangeInt.Bound0_63</dt>
+<dd><p>Internal invariant representing longs whose values are between 0
+and 63.  Used for non-instantiating suppressions.  Will never print
+since Bound accomplishes the same thing.
+</p>
+</dd>
+<dt> EltRangeInt.EqualMinusOne</dt>
+<dd><p>Internal invariant representing long scalars that are equal
+to minus one.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing
+</p>
+</dd>
+<dt> EltRangeInt.EqualOne</dt>
+<dd><p>Internal invariant representing long scalars that are equal
+to one.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing
+</p>
+</dd>
+<dt> EltRangeInt.EqualZero</dt>
+<dd><p>Internal invariant representing long scalars that are equal
+to zero.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing.
+</p>
+</dd>
+<dt> EltRangeInt.Even</dt>
+<dd><p>Invariant representing longs whose values are always even.
+Used for non-instantiating suppressions.  Since this is not
+covered by the Bound or OneOf invariants it is printed.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.EltRangeInt.Even.enabled'</samp>.
+</p>
+</dd>
+<dt> EltRangeInt.GreaterEqual64</dt>
+<dd><p>Internal invariant representing long scalars that are greater
+than or equal to 64.  Used for non-instantiating suppressions.  Will never
+print since Bound accomplishes the same thing
+</p>
+</dd>
+<dt> EltRangeInt.GreaterEqualZero</dt>
+<dd><p>Internal invariant representing long scalars that are greater
+than or equal to 0.  Used for non-instantiating suppressions.  Will never
+print since Bound accomplishes the same thing
+</p>
+</dd>
+<dt> EltRangeInt.PowerOfTwo</dt>
+<dd><p>Invariant representing longs whose values are always a power of 2
+(exactly one bit is set).  Used for non-instantiating
+suppressions.  Since this is not covered by the Bound or OneOf
+invariants it is printed.
+</p>
+</dd>
+<dt> EltUpperBound</dt>
+<dd><p>Represents the invariant that each element of a sequence of long
+values is less than or equal to a constant. Prints as
+<samp>`x[] elements &lt;= c'</samp>.
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.EltUpperBound.minimal_interesting'</samp>
+    </li><li> <samp>`daikon.inv.unary.sequence.EltUpperBound.maximal_interesting'</samp>
+    </li></ul>
+
+</dd>
+<dt> EltUpperBoundFloat</dt>
+<dd><p>Represents the invariant that each element of a sequence of double
+values is less than or equal to a constant. Prints as
+<samp>`x[] elements &lt;= c'</samp>.
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.EltUpperBoundFloat.minimal_interesting'</samp>
+    </li><li> <samp>`daikon.inv.unary.sequence.EltUpperBoundFloat.maximal_interesting'</samp>
+    </li></ul>
+
+</dd>
+<dt> EltwiseFloatEqual</dt>
+<dd><p>Represents equality between adjacent elements (x[i], x[i+1]) of a
+double sequence.  Prints as <samp>`x[] elements are equal'</samp>.
+</p>
+</dd>
+<dt> EltwiseFloatGreaterEqual</dt>
+<dd><p>Represents the invariant &quot;&gt;=&quot; between adjacent elements
+(x[i], x[i+1]) of a double sequence.  Prints as
+<samp>`x[] sorted by &quot;&gt;=&quot;'</samp>.
+</p>
+</dd>
+<dt> EltwiseFloatGreaterThan</dt>
+<dd><p>Represents the invariant &quot;&gt;&quot; between adjacent elements
+(x[i], x[i+1]) of a double sequence.  Prints as
+<samp>`x[] sorted by &quot;&gt;&quot;'</samp>.
+</p>
+</dd>
+<dt> EltwiseFloatLessEqual</dt>
+<dd><p>Represents the invariant &quot;&lt;=&quot; between adjacent elements
+(x[i], x[i+1]) of a double sequence.  Prints as
+<samp>`x[] sorted by &quot;&lt;=&quot;'</samp>.
+</p>
+</dd>
+<dt> EltwiseFloatLessThan</dt>
+<dd><p>Represents the invariant &quot;&lt;&quot; between adjacent elements
+(x[i], x[i+1]) of a double sequence.  Prints as
+<samp>`x[] sorted by &quot;&lt;&quot;'</samp>.
+</p>
+</dd>
+<dt> EltwiseIntEqual</dt>
+<dd><p>Represents equality between adjacent elements (x[i], x[i+1]) of a
+long sequence.  Prints as <samp>`x[] elements are equal'</samp>.
+</p>
+</dd>
+<dt> EltwiseIntGreaterEqual</dt>
+<dd><p>Represents the invariant &quot;&gt;=&quot; between adjacent elements
+(x[i], x[i+1]) of a long sequence.  Prints as
+<samp>`x[] sorted by &quot;&gt;=&quot;'</samp>.
+</p>
+</dd>
+<dt> EltwiseIntGreaterThan</dt>
+<dd><p>Represents the invariant &quot;&gt;&quot; between adjacent elements
+(x[i], x[i+1]) of a long sequence.  Prints as
+<samp>`x[] sorted by &quot;&gt;&quot;'</samp>.
+</p>
+</dd>
+<dt> EltwiseIntLessEqual</dt>
+<dd><p>Represents the invariant &quot;&lt;=&quot; between adjacent elements
+(x[i], x[i+1]) of a long sequence.  Prints as
+<samp>`x[] sorted by &quot;&lt;=&quot;'</samp>.
+</p>
+</dd>
+<dt> EltwiseIntLessThan</dt>
+<dd><p>Represents the invariant &quot;&lt;&quot; between adjacent elements
+(x[i], x[i+1]) of a long sequence.  Prints as
+<samp>`x[] sorted by &quot;&lt;&quot;'</samp>.
+</p>
+</dd>
+<dt> Equality</dt>
+<dd><p>Keeps track of sets of variables that are equal.  Other invariants are
+instantiated for only one member of the Equality set, the leader.  If
+variables <samp>`x'</samp>, <samp>`y'</samp>, and <samp>`z'</samp> are members
+of the Equality set and <samp>`x'</samp> is chosen as the leader, then
+the Equality will internally convert into binary comparison invariants
+that print as <samp>`x == y'</samp> and <samp>`x == z'</samp>.
+</p>
+</dd>
+<dt> FloatEqual</dt>
+<dd><p>Represents an invariant of &quot;==&quot; between two
+double scalars.
+</p>
+</dd>
+<dt> FloatGreaterEqual</dt>
+<dd><p>Represents an invariant of &quot;&gt;=&quot; between two
+double scalars.
+</p>
+</dd>
+<dt> FloatGreaterThan</dt>
+<dd><p>Represents an invariant of &quot;&gt;&quot; between two
+double scalars.
+</p>
+</dd>
+<dt> FloatLessEqual</dt>
+<dd><p>Represents an invariant of &quot;&lt;=&quot; between two
+double scalars.
+</p>
+</dd>
+<dt> FloatLessThan</dt>
+<dd><p>Represents an invariant of &quot;&lt;&quot; between two
+double scalars.
+</p>
+</dd>
+<dt> FloatNonEqual</dt>
+<dd><p>Represents an invariant of &quot;!=&quot; between two
+double scalars.
+</p>
+</dd>
+<dt> FunctionBinary.BitwiseAndLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = BitwiseAnd (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.BitwiseOrLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = BitwiseOr (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.BitwiseXorLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = BitwiseXor (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.DivisionLong_{xyz, xzy, yxz, yzx, zxy, zyx}</dt>
+<dd><p>Represents the invariant <samp>`x = Division (y, z)'</samp>
+over three long scalars.
+Since the function is non-symmetric, all six permutations of the variables are checked.
+</p>
+</dd>
+<dt> FunctionBinary.GcdLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = Gcd (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.LogicalAndLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = LogicalAnd (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.LogicalOrLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = LogicalOr (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.LogicalXorLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = LogicalXor (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.LshiftLong_{xyz, xzy, yxz, yzx, zxy, zyx}</dt>
+<dd><p>Represents the invariant <samp>`x = Lshift (y, z)'</samp>
+over three long scalars.
+Since the function is non-symmetric, all six permutations of the variables are checked.
+</p>
+</dd>
+<dt> FunctionBinary.MaximumLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = Maximum (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.MinimumLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = Minimum (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.ModLong_{xyz, xzy, yxz, yzx, zxy, zyx}</dt>
+<dd><p>Represents the invariant <samp>`x = Mod (y, z)'</samp>
+over three long scalars.
+Since the function is non-symmetric, all six permutations of the variables are checked.
+</p>
+</dd>
+<dt> FunctionBinary.MultiplyLong_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = Multiply (y, z)'</samp>
+over three long scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinary.PowerLong_{xyz, xzy, yxz, yzx, zxy, zyx}</dt>
+<dd><p>Represents the invariant <samp>`x = Power (y, z)'</samp>
+over three long scalars.
+Since the function is non-symmetric, all six permutations of the variables are checked.
+</p>
+</dd>
+<dt> FunctionBinary.RshiftSignedLong_{xyz, xzy, yxz, yzx, zxy, zyx}</dt>
+<dd><p>Represents the invariant <samp>`x = RshiftSigned (y, z)'</samp>
+over three long scalars.
+Since the function is non-symmetric, all six permutations of the variables are checked.
+</p>
+</dd>
+<dt> FunctionBinary.RshiftUnsignedLong_{xyz, xzy, yxz, yzx, zxy, zyx}</dt>
+<dd><p>Represents the invariant <samp>`x = RshiftUnsigned (y, z)'</samp>
+over three long scalars.
+Since the function is non-symmetric, all six permutations of the variables are checked.
+</p>
+</dd>
+<dt> FunctionBinaryFloat.DivisionDouble_{xyz, xzy, yxz, yzx, zxy, zyx}</dt>
+<dd><p>Represents the invariant <samp>`x = Division (y, z)'</samp>
+over three double scalars.
+Since the function is non-symmetric, all six permutations of the variables are checked.
+</p>
+</dd>
+<dt> FunctionBinaryFloat.MaximumDouble_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = Maximum (y, z)'</samp>
+over three double scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinaryFloat.MinimumDouble_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = Minimum (y, z)'</samp>
+over three double scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> FunctionBinaryFloat.MultiplyDouble_{xyz, yxz, zxy}</dt>
+<dd><p>Represents the invariant <samp>`x = Multiply (y, z)'</samp>
+over three double scalars.
+Since the function is symmetric, only the permutations xyz, yxz, and zxy are checked.
+</p>
+</dd>
+<dt> GuardingImplication</dt>
+<dd><p>This is a special implication invariant that guards any invariants that
+ are over variables that are sometimes missing.  For example, if the
+ invariant <samp>`a.x = 0'</samp> is true, the guarded implication is
+ <samp>`a != null =&gt; a.x = 0'</samp>.
+</p>
+</dd>
+<dt> Implication</dt>
+<dd><p>The Implication invariant class is used internally within Daikon to
+handle invariants that are only true when certain other conditions are
+also true (splitting).
+</p>
+</dd>
+<dt> IntEqual</dt>
+<dd><p>Represents an invariant of &quot;==&quot; between two
+long scalars.
+</p>
+</dd>
+<dt> IntGreaterEqual</dt>
+<dd><p>Represents an invariant of &quot;&gt;=&quot; between two
+long scalars.
+</p>
+</dd>
+<dt> IntGreaterThan</dt>
+<dd><p>Represents an invariant of &quot;&gt;&quot; between two
+long scalars.
+</p>
+</dd>
+<dt> IntLessEqual</dt>
+<dd><p>Represents an invariant of &quot;&lt;=&quot; between two
+long scalars.
+</p>
+</dd>
+<dt> IntLessThan</dt>
+<dd><p>Represents an invariant of &quot;&lt;&quot; between two
+long scalars.
+</p>
+</dd>
+<dt> IntNonEqual</dt>
+<dd><p>Represents an invariant of &quot;!=&quot; between two
+long scalars.
+</p>
+<p>See also the following configuration option:
+    </p><ul>
+<li> <samp>`daikon.inv.binary.twoScalar.IntNonEqual.integral_only'</samp>
+    </li></ul>
+
+</dd>
+<dt> IsPointer</dt>
+<dd><p>IsPointer is an invariant that heuristically determines whether
+an integer represents a pointer (a 32-bit memory address).
+Since both a 32-bit integer and an address have the same representation,
+sometimes a a pointer can be mistaken for an integer. When this happens,
+several scalar invariants are computed for integer variables. Most of them
+would not make any sense for pointers. Determining whether a 32-bit variable
+is a pointer can thus spare the computation of many irrelevant invariants.
+</p>
+<p>The basic approach is to discard the invariant if any values that are
+not valid pointers are encountered.  By default values between -100,000
+and 100,00 (except 0) are considered to be invalid pointers.  This
+approach has been experimentally confirmed on Windows x86 executables.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.scalar.IsPointer.enabled'</samp>.
+</p>
+</dd>
+<dt> LinearBinary</dt>
+<dd><p>Represents a Linear invariant between two long
+scalars <samp>`x'</samp> and <samp>`y'</samp>, of the form
+<samp>`ax + by + c = 0'</samp>.
+The constants <samp>`a'</samp>, <samp>`b'</samp> and <samp>`c'</samp> are
+mutually relatively prime,
+and the constant <samp>`a'</samp> is always positive.
+</p>
+</dd>
+<dt> LinearBinaryFloat</dt>
+<dd><p>Represents a Linear invariant between two double
+scalars <samp>`x'</samp> and <samp>`y'</samp>, of the form
+<samp>`ax + by + c = 0'</samp>.
+The constants <samp>`a'</samp>, <samp>`b'</samp> and <samp>`c'</samp> are
+mutually relatively prime,
+and the constant <samp>`a'</samp> is always positive.
+</p>
+</dd>
+<dt> LinearTernary</dt>
+<dd><p>Represents a Linear invariant over three long scalars <samp>`x'</samp>,
+<samp>`y'</samp>, and <samp>`z'</samp>, of the form
+<samp>`ax + by + cz + d = 0'</samp>.
+The constants <samp>`a'</samp>, <samp>`b'</samp>, <samp>`c'</samp>, and
+<samp>`d'</samp> are mutually relatively prime, and the constant
+<samp>`a'</samp> is always positive.
+</p>
+</dd>
+<dt> LinearTernaryFloat</dt>
+<dd><p>Represents a Linear invariant over three double scalars <samp>`x'</samp>,
+<samp>`y'</samp>, and <samp>`z'</samp>, of the form
+<samp>`ax + by + cz + d = 0'</samp>.
+The constants <samp>`a'</samp>, <samp>`b'</samp>, <samp>`c'</samp>, and
+<samp>`d'</samp> are mutually relatively prime, and the constant
+<samp>`a'</samp> is always positive.
+</p>
+</dd>
+<dt> LowerBound</dt>
+<dd><p>Represents the invariant <samp>`x &gt;= c'</samp>, where <samp>`c'</samp>
+is a constant and <samp>`x'</samp> is a long scalar.
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.scalar.LowerBound.minimal_interesting'</samp>
+    </li><li> <samp>`daikon.inv.unary.scalar.LowerBound.maximal_interesting'</samp>
+    </li></ul>
+
+</dd>
+<dt> LowerBoundFloat</dt>
+<dd><p>Represents the invariant <samp>`x &gt;= c'</samp>, where <samp>`c'</samp>
+is a constant and <samp>`x'</samp> is a double scalar.
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.scalar.LowerBoundFloat.minimal_interesting'</samp>
+    </li><li> <samp>`daikon.inv.unary.scalar.LowerBoundFloat.maximal_interesting'</samp>
+    </li></ul>
+
+</dd>
+<dt> Member</dt>
+<dd><p>Represents long scalars that are always members of a sequence of long
+values.
+Prints as <samp>`x in y[]'</samp> where <samp>`x'</samp> is a long scalar
+and <samp>`y[]'</samp> is a sequence of long.
+</p>
+</dd>
+<dt> MemberFloat</dt>
+<dd><p>Represents double scalars that are always members of a sequence of double
+values.
+Prints as <samp>`x in y[]'</samp> where <samp>`x'</samp> is a double scalar
+and <samp>`y[]'</samp> is a sequence of double.
+</p>
+</dd>
+<dt> MemberString</dt>
+<dd><p>Represents String scalars that are always members of a sequence of String
+values.
+Prints as <samp>`x in y[]'</samp> where <samp>`x'</samp> is a String scalar
+and <samp>`y[]'</samp> is a sequence of String.
+</p>
+</dd>
+<dt> Modulus</dt>
+<dd><p>Represents the invariant <samp>`x == r (mod m)'</samp> where <samp>`x'</samp>
+is a long scalar variable, <samp>`r'</samp> is the (constant) remainder,
+and <samp>`m'</samp> is the (constant) modulus.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.scalar.Modulus.enabled'</samp>.
+</p>
+</dd>
+<dt> NoDuplicates</dt>
+<dd><p>Represents sequences of long that contain no duplicate elements.
+Prints as <samp>`x[] contains no duplicates'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.NoDuplicates.enabled'</samp>.
+</p>
+</dd>
+<dt> NoDuplicatesFloat</dt>
+<dd><p>Represents sequences of double that contain no duplicate elements.
+Prints as <samp>`x[] contains no duplicates'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.NoDuplicatesFloat.enabled'</samp>.
+</p>
+</dd>
+<dt> NonModulus</dt>
+<dd><p>Represents long scalars that are never equal to <code>r (mod m)</code>
+where all other numbers in the same range (i.e., all the values that
+<code>x</code> doesn't take from <code>min(x)</code> to
+<code>max(x)</code>) are equal to <code>r (mod m)</code>.
+Prints as <samp>`x != r (mod m)'</samp>, where <samp>`r'</samp>
+is the remainder and <samp>`m'</samp> is the modulus.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.scalar.NonModulus.enabled'</samp>.
+</p>
+</dd>
+<dt> NonZero</dt>
+<dd><p>Represents long scalars that are non-zero.  Prints as <samp>`x != 0'</samp>,
+or as <samp>`x != null'</samp> for pointer types.
+</p>
+</dd>
+<dt> NonZeroFloat</dt>
+<dd><p>Represents double scalars that are non-zero.  Prints as <samp>`x != 0'</samp>.
+</p>
+</dd>
+<dt> NumericFloat.Divides</dt>
+<dd><p>Represents the divides without remainder invariant between
+two double scalars.  Prints as <samp>`x % y == 0'</samp>.
+</p>
+</dd>
+<dt> NumericFloat.Square</dt>
+<dd><p>Represents the square invariant between
+two double scalars.  Prints as <samp>`x = y**2'</samp>.
+</p>
+</dd>
+<dt> NumericFloat.ZeroTrack</dt>
+<dd><p>Represents the zero tracks invariant between
+two double scalars; that is, when <samp>`x'</samp> is zero,
+<samp>`y'</samp> is also zero.
+Prints as <samp>`x = 0 ==&gt; y = 0'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoScalar.NumericFloat.ZeroTrack.enabled'</samp>.
+</p>
+</dd>
+<dt> NumericInt.BitwiseAndZero</dt>
+<dd><p>Represents the BitwiseAnd == 0 invariant between
+two long scalars; that is, <samp>`x'</samp> and <samp>`y'</samp> have no
+bits in common.  Prints as <samp>`x &amp; y == 0'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoScalar.NumericInt.BitwiseAndZero.enabled'</samp>.
+</p>
+</dd>
+<dt> NumericInt.BitwiseComplement</dt>
+<dd><p>Represents the bitwise complement invariant between
+two long scalars.  Prints as <samp>`x = ~y'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoScalar.NumericInt.BitwiseComplement.enabled'</samp>.
+</p>
+</dd>
+<dt> NumericInt.BitwiseSubset</dt>
+<dd><p>Represents the bitwise subset invariant between
+two long scalars; that is, the bits of <samp>`y'</samp> are a subset of the
+bits of <samp>`x'</samp>.  Prints as <samp>`x = y | x'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoScalar.NumericInt.BitwiseSubset.enabled'</samp>.
+</p>
+</dd>
+<dt> NumericInt.Divides</dt>
+<dd><p>Represents the divides without remainder invariant between
+two long scalars.  Prints as <samp>`x % y == 0'</samp>.
+</p>
+</dd>
+<dt> NumericInt.ShiftZero</dt>
+<dd><p>Represents the ShiftZero invariant between
+two long scalars;
+that is, <samp>`x'</samp> right-shifted by <samp>`y'</samp>
+is always zero.  Prints as <samp>`x &gt;&gt; y = 0'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoScalar.NumericInt.ShiftZero.enabled'</samp>.
+</p>
+</dd>
+<dt> NumericInt.Square</dt>
+<dd><p>Represents the square invariant between
+two long scalars.  Prints as <samp>`x = y**2'</samp>.
+</p>
+</dd>
+<dt> NumericInt.ZeroTrack</dt>
+<dd><p>Represents the zero tracks invariant between
+two long scalars; that is, when <samp>`x'</samp> is zero,
+<samp>`y'</samp> is also zero.
+Prints as <samp>`x = 0 ==&gt; y = 0'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoScalar.NumericInt.ZeroTrack.enabled'</samp>.
+</p>
+</dd>
+<dt> OneOfFloat</dt>
+<dd><p>Represents double variables that take on only a few distinct
+values. Prints as either
+<samp>`x == c'</samp> (when there is only one value)
+or as <samp>`x one of {c1, c2, c3}'</samp> (when there are multiple values).
+</p>
+<p>See also the following configuration option:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.scalar.OneOfFloat.size'</samp>
+    </li></ul>
+
+</dd>
+<dt> OneOfFloatSequence</dt>
+<dd><p>Represents double[] variables that take on only a few distinct
+values. Prints as either
+<samp>`x == c'</samp> (when there is only one value)
+or as <samp>`x one of {c1, c2, c3}'</samp> (when there are multiple values).
+</p>
+<p>See also the following configuration option:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.OneOfFloatSequence.size'</samp>
+    </li></ul>
+
+</dd>
+<dt> OneOfScalar</dt>
+<dd><p>Represents long scalars that take on only a few distinct values.  Prints
+as either <samp>`x == c'</samp> (when there is only one value),
+<samp>`x one of {c1, c2, c3}'</samp> (when there are multiple values),
+or <samp>`x has only one value'</samp> (when <samp>`x'</samp> is
+a hashcode (pointer) - this is because the numerical value of the
+hashcode (pointer) is uninteresting).
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.scalar.OneOfScalar.size'</samp>
+    </li><li> <samp>`daikon.inv.unary.scalar.OneOfScalar.omit_hashcode_values_Simplify'</samp>
+    </li></ul>
+
+</dd>
+<dt> OneOfSequence</dt>
+<dd><p>Represents long[] variables that take on only a few distinct
+values. Prints as either
+<samp>`x == c'</samp> (when there is only one value)
+or as <samp>`x one of {c1, c2, c3}'</samp> (when there are multiple values).
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.sequence.OneOfSequence.size'</samp>
+    </li><li> <samp>`daikon.inv.unary.sequence.OneOfSequence.omit_hashcode_values_Simplify'</samp>
+    </li></ul>
+
+</dd>
+<dt> OneOfString</dt>
+<dd><p>Represents String variables that take on only a few distinct
+values. Prints as either
+<samp>`x == c'</samp> (when there is only one value)
+or as <samp>`x one of {c1, c2, c3}'</samp> (when there are multiple values).
+</p>
+<p>See also the following configuration option:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.string.OneOfString.size'</samp>
+    </li></ul>
+
+</dd>
+<dt> OneOfStringSequence</dt>
+<dd><p>Represents String[] variables that take on only a few distinct
+values. Prints as either
+<samp>`x == c'</samp> (when there is only one value)
+or as <samp>`x one of {c1, c2, c3}'</samp> (when there are multiple values).
+</p>
+<p>See also the following configuration option:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.stringsequence.OneOfStringSequence.size'</samp>
+    </li></ul>
+
+</dd>
+<dt> PairwiseFloatEqual</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of double values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] == y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseFloatGreaterEqual</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of double values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &gt;= y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseFloatGreaterThan</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of double values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &gt; y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseFloatLessEqual</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of double values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &lt;= y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseFloatLessThan</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of double values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &lt; y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseIntEqual</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of long values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] == y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseIntGreaterEqual</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of long values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &gt;= y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseIntGreaterThan</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of long values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &gt; y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseIntLessEqual</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of long values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &lt;= y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseIntLessThan</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of long values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &lt; y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseLinearBinary</dt>
+<dd><p>Represents a linear invariant (i.e., <samp>`y = ax + b'</samp>) between
+the corresponding elements of two sequences of long values.
+Each <samp>`(x[i], y[i])'</samp> pair is examined.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp> and so forth.
+Prints as <samp>`y[] = a * x[] + b'</samp>.
+</p>
+</dd>
+<dt> PairwiseLinearBinaryFloat</dt>
+<dd><p>Represents a linear invariant (i.e., <samp>`y = ax + b'</samp>) between
+the corresponding elements of two sequences of double values.
+Each <samp>`(x[i], y[i])'</samp> pair is examined.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp> and so forth.
+Prints as <samp>`y[] = a * x[] + b'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericFloat.Divides</dt>
+<dd><p>Represents the divides without remainder invariant between
+corresponding elements of two sequences of double.  Prints as <samp>`x[] % y[] == 0'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericFloat.Square</dt>
+<dd><p>Represents the square invariant between
+corresponding elements of two sequences of double.  Prints as <samp>`x[] = y[]**2'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericFloat.ZeroTrack</dt>
+<dd><p>Represents the zero tracks invariant between
+corresponding elements of two sequences of double; that is, when <samp>`x[]'</samp> is zero,
+<samp>`y[]'</samp> is also zero.
+Prints as <samp>`x[] = 0 ==&gt; y[] = 0'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.PairwiseNumericFloat.ZeroTrack.enabled'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericInt.BitwiseAndZero</dt>
+<dd><p>Represents the BitwiseAnd == 0 invariant between
+corresponding elements of two sequences of long; that is, <samp>`x[]'</samp> and <samp>`y[]'</samp> have no
+bits in common.  Prints as <samp>`x[] &amp; y[] == 0'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.BitwiseAndZero.enabled'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericInt.BitwiseComplement</dt>
+<dd><p>Represents the bitwise complement invariant between
+corresponding elements of two sequences of long.  Prints as <samp>`x[] = ~y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.BitwiseComplement.enabled'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericInt.BitwiseSubset</dt>
+<dd><p>Represents the bitwise subset invariant between
+corresponding elements of two sequences of long; that is, the bits of <samp>`y[]'</samp> are a subset of the
+bits of <samp>`x[]'</samp>.  Prints as <samp>`x[] = y[] | x[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.BitwiseSubset.enabled'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericInt.Divides</dt>
+<dd><p>Represents the divides without remainder invariant between
+corresponding elements of two sequences of long.  Prints as <samp>`x[] % y[] == 0'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericInt.ShiftZero</dt>
+<dd><p>Represents the ShiftZero invariant between
+corresponding elements of two sequences of long;
+that is, <samp>`x[]'</samp> right-shifted by <samp>`y[]'</samp>
+is always zero.  Prints as <samp>`x[] &gt;&gt; y[] = 0'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.ShiftZero.enabled'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericInt.Square</dt>
+<dd><p>Represents the square invariant between
+corresponding elements of two sequences of long.  Prints as <samp>`x[] = y[]**2'</samp>.
+</p>
+</dd>
+<dt> PairwiseNumericInt.ZeroTrack</dt>
+<dd><p>Represents the zero tracks invariant between
+corresponding elements of two sequences of long; that is, when <samp>`x[]'</samp> is zero,
+<samp>`y[]'</samp> is also zero.
+Prints as <samp>`x[] = 0 ==&gt; y[] = 0'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.PairwiseNumericInt.ZeroTrack.enabled'</samp>.
+</p>
+</dd>
+<dt> PairwiseString.SubString</dt>
+<dd><p>Represents the substring invariant between
+corresponding elements of two sequences of String.  Prints as <samp>`x[] is a substring of y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.PairwiseString.SubString.enabled'</samp>.
+</p>
+</dd>
+<dt> PairwiseStringEqual</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of String values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] == y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseStringGreaterEqual</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of String values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &gt;= y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseStringGreaterThan</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of String values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &gt; y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseStringLessEqual</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of String values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &lt;= y[]'</samp>.
+</p>
+</dd>
+<dt> PairwiseStringLessThan</dt>
+<dd><p>Represents an invariant between corresponding elements of two
+sequences of String values.  The length of the sequences must match for
+the invariant to hold.  A comparison is made over each
+<samp>`(x[i], y[i])'</samp> pair.
+Thus, <samp>`x[0]'</samp> is compared to <samp>`y[0]'</samp>,
+<samp>`x[1]'</samp> to <samp>`y[1]'</samp>, and so forth.
+Prints as <samp>`x[] &lt; y[]'</samp>.
+</p>
+</dd>
+<dt> Positive</dt>
+<dd><p>Represents the invariant <samp>`x &amp;gt; 0'</samp> where <samp>`x'</samp>
+is a long scalar.  This exists
+only as an example for the purposes of the manual.  It isn't actually
+used (it is replaced by the more general invariant LowerBound).
+</p>
+</dd>
+<dt> PrintableString</dt>
+<dd><p>Represents a string that contains only printable ascii characters
+(values 32 through 126 plus 9 (tab)
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.string.PrintableString.enabled'</samp>.
+</p>
+</dd>
+<dt> RangeFloat.EqualMinusOne</dt>
+<dd><p>Internal invariant representing double scalars that are equal
+to minus one.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing
+</p>
+</dd>
+<dt> RangeFloat.EqualOne</dt>
+<dd><p>Internal invariant representing double scalars that are equal
+to one.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing
+</p>
+</dd>
+<dt> RangeFloat.EqualZero</dt>
+<dd><p>Internal invariant representing double scalars that are equal
+to zero.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing.
+</p>
+</dd>
+<dt> RangeFloat.GreaterEqual64</dt>
+<dd><p>Internal invariant representing double scalars that are greater
+than or equal to 64.  Used for non-instantiating suppressions.  Will never
+print since Bound accomplishes the same thing
+</p>
+</dd>
+<dt> RangeFloat.GreaterEqualZero</dt>
+<dd><p>Internal invariant representing double scalars that are greater
+than or equal to 0.  Used for non-instantiating suppressions.  Will never
+print since Bound accomplishes the same thing
+</p>
+</dd>
+<dt> RangeInt.BooleanVal</dt>
+<dd><p>Internal invariant representing longs whose values are always 0
+or 1.  Used for non-instantiating suppressions.  Will never print
+since OneOf accomplishes the same thing.
+</p>
+</dd>
+<dt> RangeInt.Bound0_63</dt>
+<dd><p>Internal invariant representing longs whose values are between 0
+and 63.  Used for non-instantiating suppressions.  Will never print
+since Bound accomplishes the same thing.
+</p>
+</dd>
+<dt> RangeInt.EqualMinusOne</dt>
+<dd><p>Internal invariant representing long scalars that are equal
+to minus one.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing
+</p>
+</dd>
+<dt> RangeInt.EqualOne</dt>
+<dd><p>Internal invariant representing long scalars that are equal
+to one.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing
+</p>
+</dd>
+<dt> RangeInt.EqualZero</dt>
+<dd><p>Internal invariant representing long scalars that are equal
+to zero.  Used for non-instantiating suppressions.  Will never
+print since OneOf accomplishes the same thing.
+</p>
+</dd>
+<dt> RangeInt.Even</dt>
+<dd><p>Invariant representing longs whose values are always even.
+Used for non-instantiating suppressions.  Since this is not
+covered by the Bound or OneOf invariants it is printed.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.scalar.RangeInt.Even.enabled'</samp>.
+</p>
+</dd>
+<dt> RangeInt.GreaterEqual64</dt>
+<dd><p>Internal invariant representing long scalars that are greater
+than or equal to 64.  Used for non-instantiating suppressions.  Will never
+print since Bound accomplishes the same thing
+</p>
+</dd>
+<dt> RangeInt.GreaterEqualZero</dt>
+<dd><p>Internal invariant representing long scalars that are greater
+than or equal to 0.  Used for non-instantiating suppressions.  Will never
+print since Bound accomplishes the same thing
+</p>
+</dd>
+<dt> RangeInt.PowerOfTwo</dt>
+<dd><p>Invariant representing longs whose values are always a power of 2
+(exactly one bit is set).  Used for non-instantiating
+suppressions.  Since this is not covered by the Bound or OneOf
+invariants it is printed.
+</p>
+</dd>
+<dt> Reverse</dt>
+<dd><p>Represents two sequences of long where one is in the reverse order
+of the other.  Prints as <samp>`x[] is the reverse of y[]'</samp>.
+</p>
+</dd>
+<dt> ReverseFloat</dt>
+<dd><p>Represents two sequences of double where one is in the reverse order
+of the other.  Prints as <samp>`x[] is the reverse of y[]'</samp>.
+</p>
+</dd>
+<dt> SeqFloatEqual</dt>
+<dd><p>Represents an invariant between a double scalar and a
+a sequence of double values.
+Prints as <samp>`x[] elements == y'</samp> where <samp>`x'</samp> is a
+double sequence and <samp>`y'</samp> is a double scalar.
+</p>
+</dd>
+<dt> SeqFloatGreaterEqual</dt>
+<dd><p>Represents an invariant between a double scalar and a
+a sequence of double values.
+Prints as <samp>`x[] elements &gt;= y'</samp> where <samp>`x'</samp> is a
+double sequence and <samp>`y'</samp> is a double scalar.
+</p>
+</dd>
+<dt> SeqFloatGreaterThan</dt>
+<dd><p>Represents an invariant between a double scalar and a
+a sequence of double values.
+Prints as <samp>`x[] elements &gt; y'</samp> where <samp>`x'</samp> is a
+double sequence and <samp>`y'</samp> is a double scalar.
+</p>
+</dd>
+<dt> SeqFloatLessEqual</dt>
+<dd><p>Represents an invariant between a double scalar and a
+a sequence of double values.
+Prints as <samp>`x[] elements &lt;= y'</samp> where <samp>`x'</samp> is a
+double sequence and <samp>`y'</samp> is a double scalar.
+</p>
+</dd>
+<dt> SeqFloatLessThan</dt>
+<dd><p>Represents an invariant between a double scalar and a
+a sequence of double values.
+Prints as <samp>`x[] elements &lt; y'</samp> where <samp>`x'</samp> is a
+double sequence and <samp>`y'</samp> is a double scalar.
+</p>
+</dd>
+<dt> SeqIndexFloatEqual</dt>
+<dd><p>Represents an invariant over sequences of double values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] == i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexFloatEqual.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexFloatGreaterEqual</dt>
+<dd><p>Represents an invariant over sequences of double values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] &gt;= i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexFloatGreaterEqual.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexFloatGreaterThan</dt>
+<dd><p>Represents an invariant over sequences of double values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] &gt; i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexFloatGreaterThan.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexFloatLessEqual</dt>
+<dd><p>Represents an invariant over sequences of double values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] &lt;= i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexFloatLessEqual.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexFloatLessThan</dt>
+<dd><p>Represents an invariant over sequences of double values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] &lt; i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexFloatLessThan.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexFloatNonEqual</dt>
+<dd><p>Represents an invariant over sequences of double values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] != i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexFloatNonEqual.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexIntEqual</dt>
+<dd><p>Represents an invariant over sequences of long values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] == i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexIntEqual.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexIntGreaterEqual</dt>
+<dd><p>Represents an invariant over sequences of long values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] &gt;= i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexIntGreaterEqual.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexIntGreaterThan</dt>
+<dd><p>Represents an invariant over sequences of long values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] &gt; i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexIntGreaterThan.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexIntLessEqual</dt>
+<dd><p>Represents an invariant over sequences of long values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] &lt;= i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexIntLessEqual.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexIntLessThan</dt>
+<dd><p>Represents an invariant over sequences of long values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] &lt; i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexIntLessThan.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIndexIntNonEqual</dt>
+<dd><p>Represents an invariant over sequences of long values between the
+index of an element of the sequence and the element itself.
+Prints as <samp>`x[i] != i'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.unary.sequence.SeqIndexIntNonEqual.enabled'</samp>.
+</p>
+</dd>
+<dt> SeqIntEqual</dt>
+<dd><p>Represents an invariant between a long scalar and a
+a sequence of long values.
+Prints as <samp>`x[] elements == y'</samp> where <samp>`x'</samp> is a
+long sequence and <samp>`y'</samp> is a long scalar.
+</p>
+</dd>
+<dt> SeqIntGreaterEqual</dt>
+<dd><p>Represents an invariant between a long scalar and a
+a sequence of long values.
+Prints as <samp>`x[] elements &gt;= y'</samp> where <samp>`x'</samp> is a
+long sequence and <samp>`y'</samp> is a long scalar.
+</p>
+</dd>
+<dt> SeqIntGreaterThan</dt>
+<dd><p>Represents an invariant between a long scalar and a
+a sequence of long values.
+Prints as <samp>`x[] elements &gt; y'</samp> where <samp>`x'</samp> is a
+long sequence and <samp>`y'</samp> is a long scalar.
+</p>
+</dd>
+<dt> SeqIntLessEqual</dt>
+<dd><p>Represents an invariant between a long scalar and a
+a sequence of long values.
+Prints as <samp>`x[] elements &lt;= y'</samp> where <samp>`x'</samp> is a
+long sequence and <samp>`y'</samp> is a long scalar.
+</p>
+</dd>
+<dt> SeqIntLessThan</dt>
+<dd><p>Represents an invariant between a long scalar and a
+a sequence of long values.
+Prints as <samp>`x[] elements &lt; y'</samp> where <samp>`x'</samp> is a
+long sequence and <samp>`y'</samp> is a long scalar.
+</p>
+</dd>
+<dt> SeqSeqFloatEqual</dt>
+<dd><p>Represents invariants between two sequences of double values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] == y[] lexically'</samp>.
+</p>
+
+<p>If order doesn't matter for each variable, then the sequences
+are compared to see if they are set equivalent.  Prints as
+<samp>`x[] == y[]'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqFloatGreaterEqual</dt>
+<dd><p>Represents invariants between two sequences of double values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &gt;= y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqFloatGreaterThan</dt>
+<dd><p>Represents invariants between two sequences of double values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &gt; y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqFloatLessEqual</dt>
+<dd><p>Represents invariants between two sequences of double values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &lt;= y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqFloatLessThan</dt>
+<dd><p>Represents invariants between two sequences of double values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &lt; y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqIntEqual</dt>
+<dd><p>Represents invariants between two sequences of long values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] == y[] lexically'</samp>.
+</p>
+
+<p>If order doesn't matter for each variable, then the sequences
+are compared to see if they are set equivalent.  Prints as
+<samp>`x[] == y[]'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqIntGreaterEqual</dt>
+<dd><p>Represents invariants between two sequences of long values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &gt;= y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqIntGreaterThan</dt>
+<dd><p>Represents invariants between two sequences of long values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &gt; y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqIntLessEqual</dt>
+<dd><p>Represents invariants between two sequences of long values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &lt;= y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqIntLessThan</dt>
+<dd><p>Represents invariants between two sequences of long values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &lt; y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqStringEqual</dt>
+<dd><p>Represents invariants between two sequences of String values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] == y[] lexically'</samp>.
+</p>
+
+<p>If order doesn't matter for each variable, then the sequences
+are compared to see if they are set equivalent.  Prints as
+<samp>`x[] == y[]'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqStringGreaterEqual</dt>
+<dd><p>Represents invariants between two sequences of String values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &gt;= y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqStringGreaterThan</dt>
+<dd><p>Represents invariants between two sequences of String values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &gt; y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqStringLessEqual</dt>
+<dd><p>Represents invariants between two sequences of String values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &lt;= y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> SeqSeqStringLessThan</dt>
+<dd><p>Represents invariants between two sequences of String values.  If order
+matters for each variable (which it does by default), then the
+sequences are compared lexically.
+Prints as <samp>`x[] &lt; y[] lexically'</samp>.
+</p>
+
+<p>If the auxiliary information (e.g., order matters)
+doesn't match between two variables, then this invariant cannot
+apply to those variables.
+</p>
+</dd>
+<dt> StdString.SubString</dt>
+<dd><p>Represents the substring invariant between
+two String scalars.  Prints as <samp>`x is a substring of y'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoString.StdString.SubString.enabled'</samp>.
+</p>
+</dd>
+<dt> StringEqual</dt>
+<dd><p>Represents an invariant of &quot;==&quot; between two
+String scalars.
+</p>
+</dd>
+<dt> StringGreaterEqual</dt>
+<dd><p>Represents an invariant of &quot;&gt;=&quot; between two
+String scalars.
+</p>
+</dd>
+<dt> StringGreaterThan</dt>
+<dd><p>Represents an invariant of &quot;&gt;&quot; between two
+String scalars.
+</p>
+</dd>
+<dt> StringLessEqual</dt>
+<dd><p>Represents an invariant of &quot;&lt;=&quot; between two
+String scalars.
+</p>
+</dd>
+<dt> StringLessThan</dt>
+<dd><p>Represents an invariant of &quot;&lt;&quot; between two
+String scalars.
+</p>
+</dd>
+<dt> StringNonEqual</dt>
+<dd><p>Represents an invariant of &quot;!=&quot; between two
+String scalars.
+</p>
+</dd>
+<dt> SubSequence</dt>
+<dd><p>Represents two sequences of long values where one sequence is a
+subsequence of the other.  Prints as
+<samp>`x[] is a subsequence of y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.SubSequence.enabled'</samp>.
+</p>
+</dd>
+<dt> SubSequenceFloat</dt>
+<dd><p>Represents two sequences of double values where one sequence is a
+subsequence of the other.  Prints as
+<samp>`x[] is a subsequence of y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.SubSequenceFloat.enabled'</samp>.
+</p>
+</dd>
+<dt> SubSet</dt>
+<dd><p>Represents two sequences of long values where one of the sequences is a
+subset of the other; that is each element of one sequence appears in the
+other.
+Prints as either <samp>`x[] is a subset of y[]'</samp> or as
+<samp>`x[] is a superset of y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.SubSet.enabled'</samp>.
+</p>
+</dd>
+<dt> SubSetFloat</dt>
+<dd><p>Represents two sequences of double values where one of the sequences is a
+subset of the other; that is each element of one sequence appears in the
+other.
+Prints as either <samp>`x[] is a subset of y[]'</samp> or as
+<samp>`x[] is a superset of y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.SubSetFloat.enabled'</samp>.
+</p>
+</dd>
+<dt> SuperSequence</dt>
+<dd><p>Represents two sequences of long values where one sequence is a
+subsequence of the other.  Prints as
+<samp>`x[] is a subsequence of y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.SuperSequence.enabled'</samp>.
+</p>
+</dd>
+<dt> SuperSequenceFloat</dt>
+<dd><p>Represents two sequences of double values where one sequence is a
+subsequence of the other.  Prints as
+<samp>`x[] is a subsequence of y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.SuperSequenceFloat.enabled'</samp>.
+</p>
+</dd>
+<dt> SuperSet</dt>
+<dd><p>Represents two sequences of long values where one of the sequences is a
+subset of the other; that is each element of one sequence appears in the
+other.
+Prints as either <samp>`x[] is a subset of y[]'</samp> or as
+<samp>`x[] is a superset of y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.SuperSet.enabled'</samp>.
+</p>
+</dd>
+<dt> SuperSetFloat</dt>
+<dd><p>Represents two sequences of double values where one of the sequences is a
+subset of the other; that is each element of one sequence appears in the
+other.
+Prints as either <samp>`x[] is a subset of y[]'</samp> or as
+<samp>`x[] is a superset of y[]'</samp>.
+</p>
+<p>This invariant is not enabled by default.  See the configuration option
+<samp>`daikon.inv.binary.twoSequence.SuperSetFloat.enabled'</samp>.
+</p>
+</dd>
+<dt> UpperBound</dt>
+<dd><p>Represents the invariant <samp>`x &lt;= c'</samp>, where <samp>`c'</samp>
+is a constant and <samp>`x'</samp> is a long scalar.
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.scalar.UpperBound.minimal_interesting'</samp>
+    </li><li> <samp>`daikon.inv.unary.scalar.UpperBound.maximal_interesting'</samp>
+    </li></ul>
+
+</dd>
+<dt> UpperBoundFloat</dt>
+<dd><p>Represents the invariant <samp>`x &lt;= c'</samp>, where <samp>`c'</samp>
+is a constant and <samp>`x'</samp> is a double scalar.
+</p>
+<p>See also the following configuration options:
+    </p><ul>
+<li> <samp>`daikon.inv.unary.scalar.UpperBoundFloat.minimal_interesting'</samp>
+    </li><li> <samp>`daikon.inv.unary.scalar.UpperBoundFloat.maximal_interesting'</samp>
+    </li></ul>
+
+</dd>
+</dl>
+
+<hr size="6">
+<a name="Invariant-filters"></a>
+<a name="SEC44"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC43" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC34" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.6 Invariant filters </h2>
+
+
+<p>Invariant filters are used to suppress the printing of invariants that
+are true, but not considered &quot;interesting&quot; -- usually
+because the invariants are considered obvious or redundant in a given
+context.
+</p>
+<p>The following is a list of the invariant filters that Daikon supports.
+Each of these filters has a corresponding configuration enable switch;
+by default, all filters are enabled.  See section <a href="daikon_6.html#SEC48">Options to enable/disable filters</a>,
+for details.
+</p>
+<ul>
+<li>
+<a name="IDX66"></a>
+</li><li> DerivedParameterFilter:  suppress parameter-derived postcondition invariants
+
+<p>This filter suppresses invariants at procedure exit points that are
+uninteresting because they refer to prestate variables derived from
+pass-by-value parameters.  For example, suppose that <code>param</code> is a
+parameter to a
+Java method.  If <code>param</code> itself is modified, that change won't be
+visible to a caller, so it's uninteresting to print.  If <code>param</code> points
+to an object, and that object is changed, that is visible, but
+only if <code>param</code> hasn't changed; otherwise, the invariant would report a
+change in some object other than the one that was passed in.
+</p>
+
+<a name="IDX67"></a>
+</li><li> ObviousFilter:  suppress obvious invariants
+
+<p>This filter suppresses invariants because they are obvious from looking
+at other invariants.  Some examples are:
+</p>
+<ul>
+<li> If <samp>`size(args[])==0'</samp> is shown, then <samp>`size(args[])-1==-1'</samp> is
+obvious and will not be displayed by default.
+</li><li> If <samp>`this.topOfStack &lt; size(this.theArray[])-1'</samp> is shown, then
+<samp>`this.topOfStack &lt; size(this.theArray[])'</samp> is obvious and will not be
+displayed by default.
+
+</li></ul>
+
+
+
+<a name="IDX68"></a>
+</li><li> OnlyConstantVariablesFilter:  suppress invariants containing only constants
+
+<p>This filter suppresses comparison invariants in which all of the
+variables being compared were observed to be constant.  In the current
+version of Daikon, most such invariants are not even created in the
+first place, because constants are detected on an early pass over the
+data.  However, Daikon will note that all of the invariants that had
+any particular constant value were also equal to each other: such
+invariants will be suppressed by this filter.
+</p>
+
+<a name="IDX69"></a>
+</li><li> ParentFilter:  filter invariants that match a parent program point invariant
+
+<p>A controlled invariant is an invariant that is &quot;controlled&quot; -- or
+implied -- by a parent program point in the dataflow hierarchy.
+For example, for Java instrumented
+code each class is associated with an object program point, which
+contain invariants that are found at the entry and exit of all public
+methods.  So in addition to the usual program points such as
+<code>StackAr.StackAr(int):::ENTER</code> and
+<code>StackAr.isEmpty():::EXIT48</code>, daikon outputs invariants for the
+artificial program point <code>StackAr:::OBJECT</code>.  The invariants for
+<code>StackAr:::OBJECT</code> control the invariants for
+<code>StackAr.StackAr(int):::ENTER</code> and
+<code>StackAr.isEmpty():::EXIT48</code>, because the former imply the latter.
+Because of this redundancy, controlled invariants are not displayed by
+default.  Note that if for some reason, the controlling invariant is not
+displayed (for example, because it's unjustified), then the controlled
+invariant <em>will</em> be displayed.
+</p>
+<a name="IDX70"></a>
+</li><li> SimplifyFilter:  eliminate redundant invariants using Simplify
+
+<p>Daikon contains built-in test that remove most redundant (logically
+implied) invariants from its output; see 
+</p>
+<p>Daikon can use the Simplify theorem-prover to eliminate even more
+implied invariants than Daikon's built-in tests are able to eliminate.
+Simplify must be separately obtained (from
+<a href="http://www.hpl.hp.com/downloads/crl/jtk/">http://www.hpl.hp.com/downloads/crl/jtk/</a>) and installed in
+order to take advantage of this filter.
+</p>
+<p>If you don't also specify the <samp>`--suppress_redundant'</samp> command-line
+option (see section <a href="daikon_4.html#SEC30">Options to control invariant detection</a>) to enable
+Simplify processing, this filter doesn't do anything.
+</p>
+<a name="IDX71"></a>
+</li><li> UnjustifiedFilter:  suppress unjustified invariants
+
+<p>For every invariant, Daikon estimates the probability of that invariant
+happening by chance.  If that probability is less than the limit, then
+the invariant is deemed to be an actual invariant, not just a chance
+occurrence.  Currently the limit is .01%.  So by default, only invariants
+with probabilities of less than .01% are shown.  See the <samp>`--conf_limit'</samp>
+option (see section <a href="daikon_4.html#SEC30">Options to control invariant detection</a>).
+</p>
+
+<a name="IDX72"></a>
+</li><li> UnmodifiedVariableEqualityFilter:  suppress invariants that merely indicate that a variable was unmodified
+
+<p>This filter is only useful for ESC output.
+</p>
+</li></ul>
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC34" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="daikon_6.html#SEC45" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="daikon.html#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_11.html#SEC152" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="daikon_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daikon User</em> on <em>December, 19 2009</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.76</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>
