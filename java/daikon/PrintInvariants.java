@@ -947,6 +947,7 @@ public final class PrintInvariants {
 
     } else if (Daikon.output_format == OutputFormat.JAVA
                || Daikon.output_format == OutputFormat.JML
+               || Daikon.output_format == OutputFormat.JAVASCRIPT
                || Daikon.output_format == OutputFormat.DBCJAVA) {
 
       inv_rep = inv.format_using(Daikon.output_format);
