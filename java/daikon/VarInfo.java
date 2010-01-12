@@ -2762,6 +2762,7 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
     if (format == OutputFormat.ESCJAVA) return esc_name();
     if (format == OutputFormat.JAVA) return java_name();
     if (format == OutputFormat.JML) return jml_name();
+    if (format == OutputFormat.JAVASCRIPT) return javascript_name();
     if (format == OutputFormat.DBCJAVA) return dbc_name();
     throw new UnsupportedOperationException
       ("Unknown format requested: " + format);
@@ -2771,6 +2772,15 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
   public String java_name() {
     if (!FileIO.new_decl_format)
       return var_info_name.java_name (this); // vin ok
+
+    return jml_name();
+  }
+  
+  /** Returns the name in JavaScript format.  This is the same as JML **/
+  public String javascript_name() {
+    if (!FileIO.new_decl_format)
+    	throw new UnsupportedOperationException
+        ("Old decl format is not supported for JavaScript");
 
     return jml_name();
   }
