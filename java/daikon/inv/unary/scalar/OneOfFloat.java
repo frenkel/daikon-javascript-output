@@ -223,6 +223,8 @@ public final class OneOfFloat
 
     if (format == OutputFormat.DAIKON) {
       return format_daikon();
+    } else if (format == OutputFormat.JAVASCRIPT) {
+      return format_javascript();
     } else if (format == OutputFormat.SIMPLIFY) {
       return format_simplify();
     } else if (format == OutputFormat.ESCJAVA) {
@@ -259,6 +261,24 @@ public final class OneOfFloat
     } else {
       return varname + " one of " + subarray_rep();
     }
+  }
+  
+  public String format_javascript() {
+    sort_rep();
+
+    String varname = var().esc_name();
+
+    String result;
+
+    {
+      result = "";
+      for (int i=0; i<num_elts; i++) {
+        if (i != 0) { result += " || "; }
+        result += varname + " == " + (Double.isNaN(elts[i]) ? "Double.NaN" : String.valueOf(elts[i]));
+      }
+    }
+
+    return result;
   }
 
   public String format_esc() {
