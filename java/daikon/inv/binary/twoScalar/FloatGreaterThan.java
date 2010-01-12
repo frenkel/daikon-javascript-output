@@ -125,7 +125,8 @@ public final class FloatGreaterThan
     String var2name = var2().name_using(format);
 
     if ((format == OutputFormat.DAIKON)
-        || (format == OutputFormat.ESCJAVA)) {
+        || (format == OutputFormat.ESCJAVA)
+        || (format == OutputFormat.JAVASCRIPT)) {
       String comparator = ">";
       return var1name + " " + comparator + " " + var2name;
     }
