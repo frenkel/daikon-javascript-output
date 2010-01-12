@@ -123,6 +123,7 @@ public class LowerBoundFloat
 
     if ((format == OutputFormat.DAIKON)
         || (format == OutputFormat.ESCJAVA)
+        || (format == OutputFormat.JAVASCRIPT)
         || (format.isJavaFamily()))
     {
 

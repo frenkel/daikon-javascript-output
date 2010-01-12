@@ -112,7 +112,8 @@ public class NonZero
     }
 
     if ((format == OutputFormat.DAIKON)
-        || (format == OutputFormat.ESCJAVA))
+        || (format == OutputFormat.ESCJAVA)
+        || (format == OutputFormat.JAVASCRIPT))
     {
       return name + " != " + zero(format);
     }
