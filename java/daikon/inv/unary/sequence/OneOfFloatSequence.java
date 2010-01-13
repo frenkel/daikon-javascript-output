@@ -212,10 +212,32 @@ public final class OneOfFloatSequence
     } else if (format == OutputFormat.SIMPLIFY) {
       return format_simplify();
     } else if (format == OutputFormat.ESCJAVA) {
-      return format_esc();
+    	return format_esc();
+    } else if (format == OutputFormat.JAVASCRIPT) { 
+      return format_javascript();
     } else {
       return format_unimplemented(format);
     }
+  }
+  
+  public String format_javascript() {
+	  String varname = var().name().substring(0, var().name().length() - "[..]".length());
+	  String result = "";
+	  
+	  for(int i = 0; i < num_elts; i++) {
+		  if(i != 0) {
+			  result += " || ";
+		  }
+		  result += "areEqualArrays(" + varname + ", [";
+		  for(int j = 0; j < elts[i].length; j++) {
+			  if(j != 0) {
+				  result += ", ";
+			  }
+			  result += elts[i][j]; 
+		  }
+		  result += "])";
+	  }
+	  return result;
   }
 
   public String format_daikon() {
