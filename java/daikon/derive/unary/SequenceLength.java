@@ -119,6 +119,11 @@ public final class SequenceLength
       return String.format ("%s.length%s", base.enclosing_var.esc_name(),
                             shift_str (shift));
   }
+  
+  public String javascript_name (String index) {
+    Quantify.Length ql = new Quantify.Length (base, shift);
+    return ql.javascript_name();
+  }
 
   /** Returns the JML name **/
   public String jml_name (String index) {

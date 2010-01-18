@@ -2782,7 +2782,66 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
     	throw new UnsupportedOperationException
         ("Old decl format is not supported for JavaScript");
 
-    return jml_name();
+    return javascript_name(null);
+  }
+  
+  public String javascript_name (String index) {
+    if (index != null)
+      assert file_rep_type.isArray();
+
+    // If this is an orig variable, use the post version to generate the name
+    if (postState != null)
+      return "\\old(" + postState.jml_name(index) + ")";
+
+    // If this is a derived variable, the derivations builds the name
+    if (derived != null)
+      return derived.javascript_name (index);
+
+    // If this is an array of fields, collect the fields into a collection
+    if ((arr_dims > 0) && (var_kind != VarKind.ARRAY)
+        && !var_flags.contains (VarFlags.CLASSNAME)) {
+      String field_name = relative_name;;
+      VarInfo vi = this.enclosing_var;
+      for (; vi.var_kind != VarKind.ARRAY; vi = vi.enclosing_var) {
+        field_name = vi.relative_name + "." + field_name;
+      }
+      return String.format ("daikon.Quant.collectObject(%s, \"%s\")",
+                            vi.javascript_name(), field_name);
+    }
+
+    // Build the name by processing back through all of the enclosing variables
+    switch (var_kind) {
+    case FIELD:
+      assert relative_name != null : this;
+      if (enclosing_var != null)
+        return enclosing_var.javascript_name (index) + "." + relative_name;
+      return str_name;
+    case FUNCTION:
+      assert function_args == null : "function args not implemented";
+      if (var_flags.contains (VarFlags.CLASSNAME)) {
+        if (arr_dims > 0)
+          return String.format ("daikon.Quant.typeArray(%s)",
+                                enclosing_var.jml_name(index));
+        else
+          return enclosing_var.javascript_name(index) + ".getClass()";
+      }
+      if (var_flags.contains (VarFlags.TO_STRING))
+        return enclosing_var.javascript_name(index) + ".toString()";
+      if (enclosing_var != null)
+        return enclosing_var.javascript_name(index) + "." + relative_name + "()";
+      return str_name;
+    case ARRAY:
+      if (index == null)
+        return enclosing_var.javascript_name(null);
+      return enclosing_var.javascript_name(null) + "[" + index + "]";
+    case VARIABLE:
+      assert enclosing_var == null;
+      return str_name;
+    case RETURN:
+      return ("\\result");
+    default:
+      throw new Error("can't drop through switch statement");
+    }
   }
 
   /** Returns the name in DBC format.  This is the same as JML **/

@@ -273,4 +273,10 @@ public abstract class Derivation
       return vi.jml_name() + shift_str(shift);
   }
 
+  /** Returns the name of this variable in JavaScript format **/
+  public String javascript_name (String index) {
+    throw new RuntimeException ("javascript_name not implemented for "
+                                + this.getClass() + " (" + this + ")");
+  }
+
 }

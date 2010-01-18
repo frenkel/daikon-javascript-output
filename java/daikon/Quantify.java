@@ -175,6 +175,16 @@ public class Quantify {
          + " in program point %s", output_format, sequence.name(),
                        sequence.ppt.name()));
     }
+	public String javascript_name() {
+      VarInfo arr_var = get_check_array_var ("JAVASCRIPT");
+      if (arr_var.isPrestate()) {
+        assert arr_var.postState != null; // because isPrestate() = true
+        return String.format ("\\old(%s)",
+         name_with_offset (arr_var.postState.javascript_name() + ".length", offset));
+      } else { // array is not orig
+        return name_with_offset (arr_var.javascript_name() + ".length", offset);
+      }
+	}
   }
 
   /**
