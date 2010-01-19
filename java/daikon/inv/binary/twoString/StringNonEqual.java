@@ -119,6 +119,7 @@ public final class StringNonEqual
     String var2name = var2().name_using(format);
 
     if ((format == OutputFormat.DAIKON)
+    	|| (format == OutputFormat.JAVASCRIPT)
         || (format == OutputFormat.ESCJAVA)) {
       String comparator = "!=";
       return var1name + " " + comparator + " " + var2name;
