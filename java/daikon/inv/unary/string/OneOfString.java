@@ -210,11 +210,11 @@ public final class OneOfString
 
     if (format.isJavaFamily()) return format_java_family(format);
 
-    if (format == OutputFormat.DAIKON || format == OutputFormat.JAVASCRIPT) {
+    if (format == OutputFormat.DAIKON) {
       return format_daikon();
     } else if (format == OutputFormat.SIMPLIFY) {
       return format_simplify();
-    } else if (format == OutputFormat.ESCJAVA) {
+    } else if (format == OutputFormat.ESCJAVA || format == OutputFormat.JAVASCRIPT) {
       return format_esc();
     } else {
       return format_unimplemented(format);
