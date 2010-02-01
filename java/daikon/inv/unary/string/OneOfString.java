@@ -214,8 +214,10 @@ public final class OneOfString
       return format_daikon();
     } else if (format == OutputFormat.SIMPLIFY) {
       return format_simplify();
-    } else if (format == OutputFormat.ESCJAVA || format == OutputFormat.JAVASCRIPT) {
+    } else if (format == OutputFormat.ESCJAVA) {
       return format_esc();
+    } else if (format == OutputFormat.JAVASCRIPT) {
+      return format_javascript();
     } else {
       return format_unimplemented(format);
     }
@@ -314,6 +316,24 @@ public final class OneOfString
       }
     }
 
+    return result;
+  }
+  
+  public String format_javascript() {
+    String result;
+
+    // Setting up the name of the unary variable
+    String varname = var().name_using(OutputFormat.JAVASCRIPT);
+
+    result = "";
+    
+    for (int i=0; i<num_elts; i++) {
+      if (i != 0) { result += " || "; }
+      
+      String str = elts[i];
+      
+      result += varname + " == " + ((str==null) ? "null" : "\"" + UtilMDE.escapeNonASCII(str) + "\"");
+    }
     return result;
   }
 
