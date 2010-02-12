@@ -1112,7 +1112,8 @@ public final class LinearTernaryCoreFloat
       }
 
     if ((format == OutputFormat.DAIKON)
-        || (format == OutputFormat.ESCJAVA))
+        || (format == OutputFormat.ESCJAVA)
+        || (format == OutputFormat.JAVASCRIPT))
       {
         String eq = " == ";
         return formatTerm(a, vix, true)
