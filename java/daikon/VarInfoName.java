@@ -257,6 +257,32 @@ public abstract /*@Interned*/ class VarInfoName
   protected abstract String simplify_name_impl(boolean prestate);
 
   /**
+   * Return the String representation of this name in the javascript style
+   * output format.
+   *
+   * @return the string representation (interned) of this name, in the
+   * java style output format
+   **/
+  public /*@Interned*/ String javascript_name() {
+    if (javascript_name_cached == null) {
+      try {
+    	  javascript_name_cached = javascript_name_impl().intern();
+      } catch (RuntimeException e) {
+        System.err.println("repr = " + repr());
+        throw e;
+      }
+    }
+    return javascript_name_cached;
+  }
+  private /*@Interned*/ String javascript_name_cached = null; // interned
+
+  /**
+   * Return the String representation of this name in java format.
+   * Cached and interned by javascript_name()
+   */
+  protected abstract String javascript_name_impl();
+  
+  /**
    * Return the String representation of this name in the java style
    * output format.
    *
@@ -672,6 +698,9 @@ public abstract /*@Interned*/ class VarInfoName
     protected String java_name_impl(VarInfo v) {
       return "return".equals(name) ? "\\result" : name;
     }
+    protected String javascript_name_impl() {
+        return "return".equals(name) ? "\\result" : name;
+      }
     protected String jml_name_impl(VarInfo v) {
       return "return".equals(name) ? "\\result" : name;
     }
@@ -843,6 +872,11 @@ public abstract /*@Interned*/ class VarInfoName
     protected String esc_name_impl() {
       return get_term().esc_name() + ".length";
     }
+    
+    protected String javascript_name_impl() {
+        return get_term().javascript_name() + ".length";
+      }
+    
     protected String simplify_name_impl(boolean prestate) {
       return "(arrayLength " + get_term().simplify_name(prestate) + ")";
     }
@@ -944,6 +978,10 @@ public abstract /*@Interned*/ class VarInfoName
       return "(warning: format_esc() needs to be implemented: " +
         function + " on " + argument.repr() + ")";
     }
+    protected String javascript_name_impl() {
+        return "(warning: format_esc() needs to be implemented: " +
+          function + " on " + argument.repr() + ")";
+    }
     protected String simplify_name_impl(boolean prestate) {
       return "(warning: format_simplify() needs to be implemented: " +
         function + " on " + argument.repr() + ")";
@@ -1021,6 +1059,10 @@ public abstract /*@Interned*/ class VarInfoName
     protected String esc_name_impl() {
       return "(warning: format_esc() needs to be implemented: " +
         function + " on " + elts_repr_commas() + ")";
+    }
+    protected String javascript_name_impl() {
+        return "(warning: format_esc() needs to be implemented: " +
+          function + " on " + elts_repr_commas() + ")";
     }
     protected String simplify_name_impl(boolean prestate) {
       return "(warning: format_simplify() needs to be implemented: " +
@@ -1162,6 +1204,9 @@ public abstract /*@Interned*/ class VarInfoName
     }
     protected String esc_name_impl() {
       return term.esc_name() + "." + field;
+    }
+    protected String javascript_name_impl() {
+        return term.javascript_name() + "." + field;
     }
     protected String simplify_name_impl(boolean prestate) {
       return "(select " + Simple.simplify_name_impl(field, false) + " "
@@ -1354,6 +1399,11 @@ public abstract /*@Interned*/ class VarInfoName
       }
     }
 
+    protected String javascript_name_impl() {
+        if (testCall) { return "no format when testCall."; }
+        return "typeof " + term.javascript_name();
+    }
+    
     protected String java_name_impl(VarInfo v) {
       if (testCall) { return "no format when testCall."; }
       return javaFamilyFormat(term.java_name(v), v.type.isArray());
@@ -1411,6 +1461,9 @@ public abstract /*@Interned*/ class VarInfoName
     }
     protected String esc_name_impl() {
       return "\\old(" + term.esc_name() + ")";
+    }
+    protected String javascript_name_impl() {
+        return "\\old(" + term.javascript_name() + ")";
     }
     protected String simplify_name_impl(boolean prestate) {
       return term.simplify_name(true);
@@ -1497,6 +1550,9 @@ public abstract /*@Interned*/ class VarInfoName
     protected String esc_name_impl() {
       return "\\new(" + term.esc_name() + ")";
     }
+    protected String javascript_name_impl() {
+        throw new UnsupportedOperationException("Not implemented for JavaScript");
+    }
     protected String simplify_name_impl(boolean prestate) {
       return term.simplify_name(false);
     }
@@ -1557,6 +1613,9 @@ public abstract /*@Interned*/ class VarInfoName
     }
     protected String esc_name_impl() {
       return term.esc_name() + amount();
+    }
+    protected String javascript_name_impl() {
+        return term.javascript_name() + amount();
     }
     protected String simplify_name_impl(boolean prestate) {
       return (amount < 0) ?
@@ -1630,6 +1689,9 @@ public abstract /*@Interned*/ class VarInfoName
     protected String esc_name_impl() {
       throw new UnsupportedOperationException("ESC cannot format an unquantified sequence of elements" +
                                               " [repr=" + repr() + "]");
+    }
+    protected String javascript_name_impl() {
+        throw new UnsupportedOperationException("Not implemented for JavaScript");
     }
     protected String esc_name_impl(String index) {
       return term.esc_name() + "[" + index + "]";
@@ -1787,6 +1849,9 @@ public abstract /*@Interned*/ class VarInfoName
       return "(select " + sequence.simplify_name(prestate) + " " +
         indexExplicit(sequence, index).simplify_name(prestate) + ")";
     }
+    protected String javascript_name_impl() {
+        throw new UnsupportedOperationException("Not implemented for JavaScript");
+    }
     protected String java_name_impl(VarInfo v) {
       return java_family_impl(OutputFormat.JAVA, v);
     }
@@ -1886,6 +1951,9 @@ public abstract /*@Interned*/ class VarInfoName
     protected String simplify_name_impl(boolean prestate) {
       System.out.println(" seq: " + sequence + " " + i + " " + j);
       throw new UnsupportedOperationException("Simplify cannot format an unquantified slice of elements");
+    }
+    protected String javascript_name_impl() {
+        throw new UnsupportedOperationException("Not implemented for JavaScript");
     }
     protected String java_name_impl(VarInfo v) {
       return slice_helper(OutputFormat.JAVA, v);
